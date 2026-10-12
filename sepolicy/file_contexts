@@ -10,3 +10,11 @@
 /system/bin/ef67-wifi-init        u:object_r:ef67_wifi_init_exec:s0
 
 /system/bin/btnvtool             u:object_r:rild_exec:s0
+
+/dev/mhi_pipe_[0-9]+              u:object_r:radio_device:s0
+/dev/mdm                         u:object_r:radio_device:s0
+/dev/subsys_esoc.*               u:object_r:radio_device:s0
+/dev/socket/qmux_[^/]+(/.*)?      u:object_r:qmux_socket:s0
+/data/radio(/.*)?                u:object_r:radio_data_file:s0
+/data/misc/mdmhelperdata(/.*)?    u:object_r:radio_data_file:s0
+/system/bin/(mdm_helper|mdm_helper_proxy|qmuxd|netmgrd|rmt_storage|ks) u:object_r:rild_exec:s0

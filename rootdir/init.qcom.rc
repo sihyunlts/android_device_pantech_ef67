@@ -29,6 +29,7 @@ import /init.qcom.usb.rc
 import /init.ef67.hardware.rc
 
 on init
+    symlink /dev/block/platform/msm_sdcc.1 /dev/block/bootdevice
     mkdir /persist 0771 system system
     mkdir /firmware 0771 system system
     mkdir /mnt/shell/emulated 0700 shell shell

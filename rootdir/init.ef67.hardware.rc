@@ -150,3 +150,64 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     class late_start
     disabled
     oneshot
+
+on post-fs-data
+    mkdir /data/misc/mdmhelperdata 0770 radio radio
+    mkdir /data/radio 0770 radio radio
+    restorecon_recursive /data/radio
+
+on boot
+    insmod /system/lib/modules/mhi.ko
+    mkdir /dev/socket/qmux_radio 0770 radio radio
+    chmod 2770 /dev/socket/qmux_radio
+    mkdir /dev/socket/qmux_audio 0770 media audio
+    chmod 2770 /dev/socket/qmux_audio
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    chmod 2770 /dev/socket/qmux_bluetooth
+    mkdir /dev/socket/qmux_gps 0770 gps gps
+    chmod 2770 /dev/socket/qmux_gps
+
+on property:ro.baseband=mdm2
+    start mdm_helper
+    start qmuxd
+    start netmgrd
+
+on property:ro.boot.emmc=true
+    start rmt_storage
+
+on property:sys.shutdown.requested=*
+    stop mdm_helper_proxy
+
+on property:ro.radio.noril=yes
+    stop mdm_helper_proxy
+
+on property:persist.airplane.mode.pwr.svg=enabled
+    setprop ro.mdm_helper_proxy_req false
+
+on property:init.svc.ril-daemon=running
+    setprop ro.mdm_helper_proxy_req true
+
+on property:ro.mdm_helper_proxy_req=true
+    start mdm_helper_proxy
+
+service mdm_helper /system/bin/mdm_helper
+    class core
+    disabled
+
+service mdm_helper_proxy /system/bin/mdm_helper_proxy
+    class core
+    disabled
+
+service rmt_storage /system/bin/rmt_storage
+    class core
+    disabled
+
+service qmuxd /system/bin/qmuxd
+    class main
+    user radio
+    group radio audio bluetooth gps qcom_diag
+    disabled
+
+service netmgrd /system/bin/netmgrd
+    class main
+    disabled
