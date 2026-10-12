@@ -88,3 +88,16 @@ on boot
     chown system system /sys/class/leds/lp5523:channel6/brightness
     chown system system /sys/class/leds/lp5523:channel7/brightness
     chown system system /sys/class/leds/lp5523:channel8/brightness
+
+on post-fs-data
+    mkdir /data/misc/audio 0770 audio audio
+    restorecon_recursive /data/misc/audio
+
+on boot
+    write /sys/kernel/boot_adsp/boot 1
+
+service audiod /system/bin/audiod
+    class late_start
+    user system
+    group system
+    seclabel u:r:mediaserver:s0

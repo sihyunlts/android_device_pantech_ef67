@@ -16,6 +16,14 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_EXECUTABLE)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := libef67_audio_compat
+LOCAL_SRC_FILES := audio/audio_compat.c
+LOCAL_C_INCLUDES := external/tinyalsa/include
+LOCAL_SHARED_LIBRARIES := libtinyalsa
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := dtbToolEF67
 LOCAL_SRC_FILES := dtbtool/dtbtool.c
 LOCAL_MODULE_TAGS := optional

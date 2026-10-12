@@ -41,4 +41,15 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += wifi.interface=wlan0
 
+PRODUCT_PACKAGES += \
+    audio_policy.apq8084 \
+    audiod \
+    libtinyalsa \
+    libtinycompress \
+    libaudioroute \
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    libef67_audio_compat
+
 $(call inherit-product, vendor/pantech/ef67/ef67-vendor.mk)

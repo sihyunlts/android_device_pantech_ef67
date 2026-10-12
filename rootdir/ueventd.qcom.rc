@@ -49,3 +49,4 @@
 /dev/mdm                  0660   system     radio
 /dev/nfc-nci              0660    nfc         nfc
 /dev/subsys_esoc*         0640   system     radio
+/dev/msm_acdb             0660   system     audio
