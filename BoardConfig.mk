@@ -12,6 +12,7 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_USES_QCOM_BSP := true
 TARGET_QCOM_DISPLAY_VARIANT := caf
 USE_OPENGL_RENDERER := true
+BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/pantech/ef67/vibrator/vibrator.c
 TARGET_INIT_VENDOR_LIB := libinit_ef67
 
 TARGET_KERNEL_SOURCE := kernel/pantech/apq8084
