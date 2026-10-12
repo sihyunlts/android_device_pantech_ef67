@@ -7,4 +7,10 @@ LOCAL_SRC_FILES := init/init_ef67.c
 LOCAL_C_INCLUDES := system/core/init
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := dtbToolEF67
+LOCAL_SRC_FILES := dtbtool/dtbtool.c
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_HOST_EXECUTABLE)
 endif
