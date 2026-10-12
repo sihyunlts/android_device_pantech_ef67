@@ -6,6 +6,7 @@ $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk
 DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 
 PRODUCT_COPY_FILES += \
+    device/pantech/ef67/media/media_codecs.xml:system/etc/media_codecs.xml \
     device/pantech/ef67/rootdir/fstab.qcom:root/fstab.qcom \
     device/pantech/ef67/rootdir/init.qcom.rc:root/init.qcom.rc \
     device/pantech/ef67/rootdir/init.qcom.usb.rc:root/init.qcom.usb.rc \
