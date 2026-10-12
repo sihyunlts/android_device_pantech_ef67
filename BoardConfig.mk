@@ -15,6 +15,7 @@ USE_OPENGL_RENDERER := true
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/pantech/ef67/vibrator/vibrator.c
 TARGET_QCOM_AUDIO_VARIANT := caf
 BOARD_USES_ALSA_AUDIO := true
+BOARD_HAVE_BLUETOOTH := true
 TARGET_INIT_VENDOR_LIB := libinit_ef67
 
 TARGET_KERNEL_SOURCE := kernel/pantech/apq8084

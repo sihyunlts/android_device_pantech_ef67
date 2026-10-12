@@ -50,3 +50,4 @@
 /dev/nfc-nci              0660    nfc         nfc
 /dev/subsys_esoc*         0640   system     radio
 /dev/msm_acdb             0660   system     audio
+/dev/ttyHS0               0660   bluetooth  bluetooth

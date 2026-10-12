@@ -52,4 +52,12 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     libef67_audio_compat
 
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.bluetooth.soc=rome \
+    ro.bluetooth.hfp.ver=1.6
+
 $(call inherit-product, vendor/pantech/ef67/ef67-vendor.mk)
