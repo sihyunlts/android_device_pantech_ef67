@@ -212,6 +212,15 @@ service netmgrd /system/bin/netmgrd
     class main
     disabled
 
+on post-fs-data
+    mkdir /data/misc/camera 0770 camera camera
+    restorecon_recursive /data/misc/camera
+
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class late_start
+    user camera
+    group camera system inet input graphics
+
 service sensors /system/bin/sensors.qcom
     class main
     user root

@@ -71,4 +71,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so \
     ro.telephony.default_network=9
 
+PRODUCT_PACKAGES += libef67_camera_compat
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml
+
 $(call inherit-product, vendor/pantech/ef67/ef67-vendor.mk)

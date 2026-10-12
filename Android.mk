@@ -24,6 +24,12 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := libef67_camera_compat
+LOCAL_SRC_FILES := camera/camera_parameters_compat.c
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := dtbToolEF67
 LOCAL_SRC_FILES := dtbtool/dtbtool.c
 LOCAL_MODULE_TAGS := optional
