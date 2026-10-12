@@ -2,4 +2,7 @@
 <resources>
     <!-- Home (1), back (2), and app switch (16). -->
     <integer name="config_deviceHardwareKeys">19</integer>
+    <bool name="config_intrusiveNotificationLed">true</bool>
+    <bool name="config_intrusiveBatteryLed">true</bool>
+    <bool name="config_multiColorBatteryLed">true</bool>
 </resources>

@@ -57,4 +57,6 @@ BOARD_SEPOLICY_UNION += \
     ueventd.te \
     vold.te
 
+TARGET_PROVIDES_LIBLIGHT := true
+
 include vendor/pantech/ef67/BoardConfigVendor.mk

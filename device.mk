@@ -20,6 +20,7 @@ PRODUCT_PACKAGES += \
     hwcomposer.apq8084 \
     copybit.apq8084 \
     memtrack.apq8084 \
+    lights.apq8084 \
     liboverlay \
     libqdutils \
     libqservice

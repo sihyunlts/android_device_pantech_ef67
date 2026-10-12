@@ -30,6 +30,13 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := lights.apq8084
+LOCAL_SRC_FILES := lights/lights.c
+LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := dtbToolEF67
 LOCAL_SRC_FILES := dtbtool/dtbtool.c
 LOCAL_MODULE_TAGS := optional
