@@ -22,3 +22,7 @@
 /system/bin/mm-qcamera-daemon     u:object_r:mediaserver_exec:s0
 /system/bin/sensors.qcom         u:object_r:mediaserver_exec:s0
 /system/bin/irsc_util            u:object_r:ef67_irsc_exec:s0
+
+/system/bin/thermal-engine       u:object_r:ef67_thermal_exec:s0
+/dev/msm_thermal_query           u:object_r:ef67_thermal_device:s0
+/dev/socket/thermal-.*           u:object_r:ef67_thermal_socket:s0

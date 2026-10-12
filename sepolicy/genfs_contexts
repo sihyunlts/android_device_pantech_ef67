@@ -1,1 +1,3 @@
 genfscon functionfs / u:object_r:adb_device:s0
+genfscon sysfs /devices/virtual/thermal u:object_r:ef67_thermal_sysfs:s0
+genfscon sysfs /module/msm_thermal u:object_r:ef67_thermal_sysfs:s0

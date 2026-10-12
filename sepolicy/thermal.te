@@ -1,0 +1,27 @@
+type ef67_thermal, domain;
+type ef67_thermal_exec, exec_type, file_type;
+type ef67_thermal_device, dev_type;
+type ef67_thermal_socket, file_type;
+type ef67_thermal_sysfs, fs_type, sysfs_type;
+
+init_daemon_domain(ef67_thermal)
+# Stock service owns its client sockets and can shut down on critical heat.
+allow ef67_thermal self:capability { chown sys_boot };
+allow ef67_thermal sysfs:dir r_dir_perms;
+allow ef67_thermal sysfs:file r_file_perms;
+allow ef67_thermal sysfs:lnk_file read;
+allow ef67_thermal ef67_thermal_sysfs:dir r_dir_perms;
+allow ef67_thermal ef67_thermal_sysfs:file rw_file_perms;
+allow ef67_thermal sysfs_devices_system_cpu:dir r_dir_perms;
+allow ef67_thermal sysfs_devices_system_cpu:file rw_file_perms;
+allow ef67_thermal ef67_thermal_device:chr_file rw_file_perms;
+allow ef67_thermal self:socket create_socket_perms;
+allow ef67_thermal self:netlink_kobject_uevent_socket create_socket_perms;
+allow ef67_thermal self:unix_stream_socket { create_socket_perms listen accept };
+type_transition ef67_thermal socket_device:sock_file ef67_thermal_socket;
+allow ef67_thermal socket_device:dir { search write add_name remove_name };
+allow ef67_thermal ef67_thermal_socket:sock_file create_file_perms;
+allow ef67_thermal qmux_socket:sock_file write;
+allow ef67_thermal rild:unix_stream_socket connectto;
+allow mediaserver ef67_thermal_socket:sock_file write;
+allow mediaserver ef67_thermal:unix_stream_socket connectto;
