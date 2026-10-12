@@ -10,6 +10,7 @@ public final class BootReceiver extends BroadcastReceiver {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
             SecretKey.initializeDefaults(context);
             context.startService(new Intent(context, PenService.class));
+            context.startService(new Intent(context, ChargeLimitService.class));
         }
     }
 }

@@ -17,4 +17,9 @@
             android:entries="@array/secret_key_actions" android:entryValues="@array/secret_key_values"
             android:persistent="false" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/charging">
+        <ListPreference android:key="charging_limit" android:title="@string/charging_limit"
+            android:entries="@array/charging_limit_entries" android:entryValues="@array/charging_limit_values"
+            android:summary="%s" android:defaultValue="0" />
+    </PreferenceCategory>
 </PreferenceScreen>

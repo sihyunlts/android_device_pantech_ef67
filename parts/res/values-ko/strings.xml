@@ -21,4 +21,9 @@
     <string name="pen_detached">V 펜</string>
     <string name="pen_notification_text">펜이 분리 되었습니다.</string>
     <string name="secret_key_failed">시크릿 키 동작을 변경하지 못했습니다.</string>
+    <string name="charging">충전</string>
+    <string name="charging_limit">충전 제한</string>
+    <string name="charging_no_limit">제한 없음</string>
+    <string name="charging_unavailable">충전을 제어할 수 없습니다.</string>
+    <string name="charging_limit_failed">충전 제한을 변경하지 못했습니다.</string>
 </resources>

@@ -13,10 +13,12 @@ import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
 import android.widget.Toast;
 import android.view.MenuItem;
+import java.io.IOException;
 
 public final class VegaSettings extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
     private ListPreference mTouchMode;
+    private ListPreference mChargingLimit;
     private ListPreference mSecretPress;
     private ListPreference mSecretLongPress;
 
@@ -30,6 +32,7 @@ public final class VegaSettings extends PreferenceActivity
         getPreferenceManager().setSharedPreferencesName("vega_features");
         SecretKey.initializeDefaults(this);
         startService(new Intent(this, PenService.class));
+        startService(new Intent(this, ChargeLimitService.class));
         addPreferencesFromResource(R.xml.vega_settings);
         mTouchMode = (ListPreference) findPreference(TouchMode.KEY);
         String[] names = getResources().getStringArray(R.array.touch_mode_entries);
@@ -45,6 +48,8 @@ public final class VegaSettings extends PreferenceActivity
         mTouchMode.setOnPreferenceChangeListener(this);
         mSecretPress = (ListPreference) findPreference(Settings.System.KEY_ASSIST_ACTION);
         mSecretLongPress = (ListPreference) findPreference(Settings.System.KEY_ASSIST_LONG_PRESS_ACTION);
+        mChargingLimit = (ListPreference) findPreference(ChargingControl.LIMIT);
+        mChargingLimit.setOnPreferenceChangeListener(this);
         mSecretPress.setOnPreferenceChangeListener(this);
         mSecretLongPress.setOnPreferenceChangeListener(this);
     }
@@ -64,6 +69,10 @@ public final class VegaSettings extends PreferenceActivity
         updateMode();
         updateKeyAction(mSecretPress, SecretKey.DEFAULT_PRESS);
         updateKeyAction(mSecretLongPress, SecretKey.DEFAULT_LONG_PRESS);
+        boolean chargingAvailable = ChargingControl.available();
+        mChargingLimit.setEnabled(chargingAvailable);
+        mChargingLimit.setSummary(chargingAvailable ? "%s"
+                : getString(R.string.charging_unavailable));
     }
 
     private void updateKeyAction(ListPreference preference, int defaultAction) {
@@ -86,6 +95,15 @@ public final class VegaSettings extends PreferenceActivity
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
+        if (preference == mChargingLimit) {
+            try {
+                ChargingControl.applySelection(this, Integer.parseInt((String) value));
+                return true;
+            } catch (IOException e) {
+                Toast.makeText(this, R.string.charging_limit_failed, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
         if (preference == mSecretPress || preference == mSecretLongPress) {
             ListPreference key = (ListPreference) preference;
             int action = Integer.parseInt((String) value);

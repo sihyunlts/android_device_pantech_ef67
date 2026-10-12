@@ -28,4 +28,9 @@
     <string name="pen_detached">V Pen</string>
     <string name="pen_notification_text">Pen is detached.</string>
     <string name="secret_key_failed">Couldn\'t change the secret key action.</string>
+    <string name="charging">Charging</string>
+    <string name="charging_limit">Charging limit</string>
+    <string name="charging_no_limit">No limit</string>
+    <string name="charging_unavailable">Charging control is unavailable.</string>
+    <string name="charging_limit_failed">Couldn\'t change the charging limit.</string>
 </resources>
