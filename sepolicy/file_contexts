@@ -1,0 +1,8 @@
+/persist(/.*)?                    u:object_r:persist_file:s0
+/firmware(/.*)?                   u:object_r:firmware_file:s0
+/dev/kgsl(-3d0|-2d[01])?           u:object_r:graphics_device:s0
+/dev/genlock                      u:object_r:graphics_device:s0
+/dev/msm_rotator                  u:object_r:graphics_device:s0
+/dev/media[0-9]+                  u:object_r:camera_device:s0
+/dev/v4l-subdev[0-9]+              u:object_r:camera_device:s0
+/dev/msm_camera(/.*)?             u:object_r:camera_device:s0

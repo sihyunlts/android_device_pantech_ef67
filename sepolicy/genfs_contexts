@@ -1,0 +1,1 @@
+genfscon functionfs / u:object_r:adb_device:s0

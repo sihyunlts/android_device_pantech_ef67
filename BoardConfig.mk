@@ -26,5 +26,15 @@ BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 \
     --tags_offset 0x00000100
 
 TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
+
+BOARD_SEPOLICY_DIRS += device/pantech/ef67/sepolicy
+BOARD_SEPOLICY_UNION += \
+    file.te \
+    file_contexts \
+    genfs_contexts \
+    ueventd.te \
+    vold.te
 
 include vendor/pantech/ef67/BoardConfigVendor.mk
