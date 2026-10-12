@@ -94,6 +94,9 @@ on post-fs-data
     restorecon_recursive /data/misc/audio
 
 on boot
+    write /dev/fpc_btp stop_navi
+
+on boot
     write /sys/kernel/boot_adsp/boot 1
 
 service audiod /system/bin/audiod
