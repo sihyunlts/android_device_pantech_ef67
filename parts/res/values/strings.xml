@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vega_features">VEGA features</string>
+    <string name="v_pen">V pen</string>
+    <string name="touch_mode">Touch Mode</string>
+    <string name="mode_finger">Normal touch mode</string>
+    <string name="mode_glove">Glove touch mode</string>
+    <string name="mode_stylus">Pen touch mode</string>
+    <string name="touch_mode_unavailable">Touch mode control is unavailable.</string>
+    <string name="touch_mode_failed">Could not change touch mode.</string>
+    <string-array name="touch_mode_entries">
+        <item>@string/mode_finger</item><item>@string/mode_glove</item>
+        <item>@string/mode_stylus</item>
+    </string-array>
+    <string-array name="touch_mode_values" translatable="false">
+        <item>0</item><item>1</item><item>2</item>
+    </string-array>
+    <string name="touch_mode_summary">"Select touch mode for normal, glove, Pen"</string>
+    <string-array name="touch_mode_summaries">
+        <item>optimized touch mode for using commonly</item>
+        <item>optimized touch mode for using a glove</item>
+        <item>optimized touch mode for using a pen</item>
+    </string-array>
+</resources>

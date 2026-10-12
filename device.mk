@@ -79,3 +79,5 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml
 
 $(call inherit-product, vendor/pantech/ef67/ef67-vendor.mk)
+
+PRODUCT_PACKAGES += VegaSettings libvega_settings

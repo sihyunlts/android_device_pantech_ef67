@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vega_features">VEGA 기능</string>
+    <string name="v_pen">V 펜</string>
+    <string name="touch_mode">터치 모드</string>
+    <string name="mode_finger">기본 터치 모드</string>
+    <string name="mode_glove">글러브 터치 모드</string>
+    <string name="mode_stylus">펜 터치 모드</string>
+    <string name="touch_mode_unavailable">터치 모드를 제어할 수 없습니다.</string>
+    <string name="touch_mode_failed">터치 모드를 변경하지 못했습니다.</string>
+    <string name="touch_mode_summary">"기본, 글러브, 펜 사용에 따른 터치 최적화 모드 선택 "</string>
+    <string-array name="touch_mode_summaries">
+        <item>기본 사용에 최적화된 터치 모드</item>
+        <item>장갑 사용에 최적화된 터치 모드</item>
+        <item>펜 사용에 최적화된 터치 모드</item>
+    </string-array>
+</resources>

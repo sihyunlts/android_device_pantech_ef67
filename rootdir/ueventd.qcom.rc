@@ -51,3 +51,5 @@
 /dev/subsys_esoc*         0640   system     radio
 /dev/msm_acdb             0660   system     audio
 /dev/ttyHS0               0660   bluetooth  bluetooth
+
+/dev/touch_fops           0660   system     radio

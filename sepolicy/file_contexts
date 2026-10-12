@@ -26,3 +26,5 @@
 /system/bin/thermal-engine       u:object_r:ef67_thermal_exec:s0
 /dev/msm_thermal_query           u:object_r:ef67_thermal_device:s0
 /dev/socket/thermal-.*           u:object_r:ef67_thermal_socket:s0
+
+/dev/touch_fops                  u:object_r:input_device:s0

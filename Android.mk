@@ -41,4 +41,5 @@ LOCAL_MODULE := dtbToolEF67
 LOCAL_SRC_FILES := dtbtool/dtbtool.c
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_HOST_EXECUTABLE)
+include $(LOCAL_PATH)/parts/Android.mk
 endif
