@@ -15,7 +15,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     e2fsck \
-    lights.apq8084 \
     gralloc.apq8084 \
     hwcomposer.apq8084 \
     copybit.apq8084 \
