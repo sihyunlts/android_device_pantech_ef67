@@ -6,8 +6,8 @@
     <string name="mode_finger">Normal touch mode</string>
     <string name="mode_glove">Glove touch mode</string>
     <string name="mode_stylus">Pen touch mode</string>
-    <string name="touch_mode_unavailable">Touch mode control is unavailable.</string>
-    <string name="touch_mode_failed">Could not change touch mode.</string>
+    <string name="touch_mode_unavailable">Touch mode is unavailable.</string>
+    <string name="touch_mode_failed">Couldn\'t change touch mode.</string>
     <string-array name="touch_mode_entries">
         <item>@string/mode_finger</item><item>@string/mode_glove</item>
         <item>@string/mode_stylus</item>
@@ -21,4 +21,11 @@
         <item>optimized touch mode for using a glove</item>
         <item>optimized touch mode for using a pen</item>
     </string-array>
+    <string name="secret_key">Secret key</string>
+    <string name="pen_notification">Show pen status</string>
+    <string name="pen_notification_summary">Show a status bar notification while the pen is detached</string>
+    <string name="pen_auto_mode">Auto change pen mode when pen is detached</string>
+    <string name="pen_detached">V Pen</string>
+    <string name="pen_notification_text">Pen is detached.</string>
+    <string name="secret_key_failed">Couldn\'t change the secret key action.</string>
 </resources>

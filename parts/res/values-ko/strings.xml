@@ -14,4 +14,11 @@
         <item>장갑 사용에 최적화된 터치 모드</item>
         <item>펜 사용에 최적화된 터치 모드</item>
     </string-array>
+    <string name="secret_key">시크릿 키</string>
+    <string name="pen_notification">펜 상태 표시</string>
+    <string name="pen_notification_summary">펜이 분리되어 있는 동안 상태 표시줄에 알림 표시</string>
+    <string name="pen_auto_mode">펜 분리 시 펜 터치 모드 자동 전환</string>
+    <string name="pen_detached">V 펜</string>
+    <string name="pen_notification_text">펜이 분리 되었습니다.</string>
+    <string name="secret_key_failed">시크릿 키 동작을 변경하지 못했습니다.</string>
 </resources>

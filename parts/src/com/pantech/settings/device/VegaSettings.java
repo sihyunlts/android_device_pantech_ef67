@@ -3,6 +3,8 @@ package com.pantech.settings.device;
 import android.app.ActionBar;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.content.Intent;
+import android.provider.Settings;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -15,6 +17,8 @@ import android.view.MenuItem;
 public final class VegaSettings extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
     private ListPreference mTouchMode;
+    private ListPreference mSecretPress;
+    private ListPreference mSecretLongPress;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,9 @@ public final class VegaSettings extends PreferenceActivity
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        getPreferenceManager().setSharedPreferencesName("vega_features");
+        SecretKey.initializeDefaults(this);
+        startService(new Intent(this, PenService.class));
         addPreferencesFromResource(R.xml.vega_settings);
         mTouchMode = (ListPreference) findPreference(TouchMode.KEY);
         String[] names = getResources().getStringArray(R.array.touch_mode_entries);
@@ -36,6 +43,10 @@ public final class VegaSettings extends PreferenceActivity
         }
         mTouchMode.setEntries(entries);
         mTouchMode.setOnPreferenceChangeListener(this);
+        mSecretPress = (ListPreference) findPreference(Settings.System.KEY_ASSIST_ACTION);
+        mSecretLongPress = (ListPreference) findPreference(Settings.System.KEY_ASSIST_LONG_PRESS_ACTION);
+        mSecretPress.setOnPreferenceChangeListener(this);
+        mSecretLongPress.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -51,6 +62,14 @@ public final class VegaSettings extends PreferenceActivity
     public void onResume() {
         super.onResume();
         updateMode();
+        updateKeyAction(mSecretPress, SecretKey.DEFAULT_PRESS);
+        updateKeyAction(mSecretLongPress, SecretKey.DEFAULT_LONG_PRESS);
+    }
+
+    private void updateKeyAction(ListPreference preference, int defaultAction) {
+        int action = Settings.System.getInt(getContentResolver(), preference.getKey(), defaultAction);
+        preference.setValue(Integer.toString(action));
+        preference.setSummary(preference.getEntry());
     }
 
     private void updateMode() {
@@ -67,6 +86,17 @@ public final class VegaSettings extends PreferenceActivity
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
+        if (preference == mSecretPress || preference == mSecretLongPress) {
+            ListPreference key = (ListPreference) preference;
+            int action = Integer.parseInt((String) value);
+            if (Settings.System.putInt(getContentResolver(), key.getKey(), action)) {
+                key.setValue((String) value);
+                key.setSummary(key.getEntry());
+            } else {
+                Toast.makeText(this, R.string.secret_key_failed, Toast.LENGTH_SHORT).show();
+            }
+            return false;
+        }
         final int mode = Integer.parseInt((String) value);
         mTouchMode.setEnabled(false);
         new AsyncTask<Void, Void, Integer>() {

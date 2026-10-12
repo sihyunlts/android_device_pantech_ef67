@@ -6,6 +6,7 @@ $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk
 DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 
 PRODUCT_COPY_FILES += \
+    device/pantech/ef67/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     device/pantech/ef67/keylayout/atmel_mxt_641t.kl:system/usr/keylayout/atmel_mxt_641t.kl \
     device/pantech/ef67/media/media_codecs.xml:system/etc/media_codecs.xml \
     device/pantech/ef67/rootdir/fstab.qcom:root/fstab.qcom \

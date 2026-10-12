@@ -10,7 +10,8 @@ ef67_settings_icon_dir := $(call intermediates-dir-for,APPS,VegaSettings,,COMMON
 include $(CLEAR_VARS)
 LOCAL_PACKAGE_NAME := VegaSettings
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
-LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res $(ef67_settings_icon_dir)
+LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res $(ef67_settings_icon_dir) \
+    vendor/pantech/ef67/proprietary/vega-settings/res
 LOCAL_AAPT_FLAGS := --auto-add-overlay
 LOCAL_CERTIFICATE := platform
 LOCAL_PRIVILEGED_MODULE := true
