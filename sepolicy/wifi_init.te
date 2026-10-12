@@ -1,0 +1,8 @@
+type ef67_wifi_init, domain;
+type ef67_wifi_init_exec, exec_type, file_type;
+
+init_daemon_domain(ef67_wifi_init)
+allow ef67_wifi_init self:capability { chown fowner };
+allow ef67_wifi_init wifi_data_file:dir rw_dir_perms;
+allow ef67_wifi_init wifi_data_file:file create_file_perms;
+allow ef67_wifi_init ef67_rawdata_device:blk_file r_file_perms;

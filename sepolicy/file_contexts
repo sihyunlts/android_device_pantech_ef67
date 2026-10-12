@@ -6,3 +6,5 @@
 /dev/media[0-9]+                  u:object_r:camera_device:s0
 /dev/v4l-subdev[0-9]+              u:object_r:camera_device:s0
 /dev/msm_camera(/.*)?             u:object_r:camera_device:s0
+/dev/block/mmcblk0p15             u:object_r:ef67_rawdata_device:s0
+/system/bin/ef67-wifi-init        u:object_r:ef67_wifi_init_exec:s0

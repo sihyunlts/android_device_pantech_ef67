@@ -26,6 +26,7 @@
 #
 
 import /init.qcom.usb.rc
+import /init.ef67.hardware.rc
 
 on init
     mkdir /persist 0771 system system

@@ -9,6 +9,7 @@ PRODUCT_COPY_FILES += \
     device/pantech/ef67/media/media_codecs.xml:system/etc/media_codecs.xml \
     device/pantech/ef67/rootdir/fstab.qcom:root/fstab.qcom \
     device/pantech/ef67/rootdir/init.qcom.rc:root/init.qcom.rc \
+    device/pantech/ef67/rootdir/init.ef67.hardware.rc:root/init.ef67.hardware.rc \
     device/pantech/ef67/rootdir/init.qcom.usb.rc:root/init.qcom.usb.rc \
     device/pantech/ef67/rootdir/ueventd.qcom.rc:root/ueventd.qcom.rc
 
@@ -30,5 +31,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196608 \
     ro.sf.lcd_density=640 \
     persist.hwc.mdpcomp.enable=true
+
+PRODUCT_PACKAGES += ef67-wifi-init
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+    device/pantech/ef67/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    device/pantech/ef67/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+
+PRODUCT_PROPERTY_OVERRIDES += wifi.interface=wlan0
 
 $(call inherit-product, vendor/pantech/ef67/ef67-vendor.mk)
