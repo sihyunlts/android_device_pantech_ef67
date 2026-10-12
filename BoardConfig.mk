@@ -52,6 +52,7 @@ BOARD_SEPOLICY_UNION += \
     file_contexts \
     genfs_contexts \
     wifi_init.te \
+    irsc.te \
     ueventd.te \
     vold.te
 

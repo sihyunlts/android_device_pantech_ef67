@@ -211,3 +211,13 @@ service qmuxd /system/bin/qmuxd
 service netmgrd /system/bin/netmgrd
     class main
     disabled
+
+service sensors /system/bin/sensors.qcom
+    class main
+    user root
+    group root
+
+service irsc_util /system/bin/irsc_util /system/etc/sec_config
+    class main
+    user root
+    oneshot
