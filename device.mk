@@ -2,6 +2,7 @@ PRODUCT_CHARACTERISTICS := phone
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxxhdpi
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 
 PRODUCT_COPY_FILES += \
