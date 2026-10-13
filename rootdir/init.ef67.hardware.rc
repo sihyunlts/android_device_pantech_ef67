@@ -243,6 +243,10 @@ service thermal-engine /system/bin/thermal-engine
     user root
     group root
 
+service mpdecision /system/bin/mpdecision --avg_comp
+    class main
+    user root
+
 on post-fs-data
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc

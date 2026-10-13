@@ -31,3 +31,7 @@
 
 /dev/pn547                      u:object_r:nfc_device:s0
 /data/nfc(/.*)?                 u:object_r:nfc_data_file:s0
+
+/system/bin/mpdecision           u:object_r:ef67_mpdecision_exec:s0
+/dev/cpu_dma_latency            u:object_r:ef67_cpu_latency_device:s0
+/dev/socket/mpctl               u:object_r:ef67_mpdecision_socket:s0

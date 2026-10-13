@@ -57,6 +57,7 @@ BOARD_SEPOLICY_UNION += \
     wifi_init.te \
     irsc.te \
     thermal.te \
+    mpdecision.te \
     ueventd.te \
     vold.te
 
