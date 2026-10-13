@@ -19,6 +19,7 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_PROVIDES_LIBRIL := true
 USE_CAMERA_STUB := false
 TARGET_INIT_VENDOR_LIB := libinit_ef67
+BOARD_HARDWARE_CLASS := device/pantech/ef67/cmhw
 
 TARGET_KERNEL_SOURCE := kernel/pantech/apq8084
 TARGET_KERNEL_CONFIG := ef67_defconfig
@@ -49,6 +50,7 @@ BOARD_CUSTOM_BOOTIMG_MK := device/pantech/ef67/bootimage.mk
 
 BOARD_SEPOLICY_DIRS += device/pantech/ef67/sepolicy
 BOARD_SEPOLICY_UNION += \
+    display_color.te \
     file.te \
     file_contexts \
     genfs_contexts \
