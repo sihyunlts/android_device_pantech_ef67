@@ -41,5 +41,21 @@ LOCAL_MODULE := dtbToolEF67
 LOCAL_SRC_FILES := dtbtool/dtbtool.c
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_HOST_EXECUTABLE)
+include $(CLEAR_VARS)
+LOCAL_MODULE := libpn547_fw_platform
+LOCAL_SRC_FILES := nfc/firmware_compat.c
+LOCAL_SHARED_LIBRARIES := libpn547_fw_platform_stock
+LOCAL_MODULE_PATH := $(TARGET_OUT)/vendor/firmware
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libpn547_fw_pku
+LOCAL_SRC_FILES := nfc/firmware_compat.c
+LOCAL_SHARED_LIBRARIES := libpn547_pku_stock
+LOCAL_MODULE_PATH := $(TARGET_OUT)/vendor/firmware
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
 include $(LOCAL_PATH)/parts/Android.mk
 endif

@@ -82,3 +82,13 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, vendor/pantech/ef67/ef67-vendor.mk)
 
 PRODUCT_PACKAGES += VegaSettings libvega_settings
+
+PRODUCT_PACKAGES += \
+    NfcNci \
+    nfc_nci.apq8084 \
+    libpn547_fw_platform \
+    libpn547_fw_pku
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml

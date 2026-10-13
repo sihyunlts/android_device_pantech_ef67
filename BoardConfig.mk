@@ -59,5 +59,7 @@ BOARD_SEPOLICY_UNION += \
     vold.te
 
 TARGET_PROVIDES_LIBLIGHT := true
+BOARD_NFC_CHIPSET := pn547
+BOARD_NFC_HAL_SUFFIX := $(TARGET_BOARD_PLATFORM)
 
 include vendor/pantech/ef67/BoardConfigVendor.mk

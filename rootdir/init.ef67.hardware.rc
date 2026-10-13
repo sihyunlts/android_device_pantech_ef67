@@ -240,3 +240,12 @@ service thermal-engine /system/bin/thermal-engine
     class main
     user root
     group root
+
+on post-fs-data
+    mkdir /data/nfc 0770 nfc nfc
+    mkdir /data/nfc/param 0770 nfc nfc
+    restorecon_recursive /data/nfc
+
+on init
+    # The CM11 PN547 HAL uses this name for the stock NFC device.
+    symlink /dev/pn547 /dev/pn544
