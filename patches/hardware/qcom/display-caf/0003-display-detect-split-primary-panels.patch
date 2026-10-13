@@ -1,0 +1,88 @@
+From c06ea461884b4a1bbb6a17573ba7a84bbc097e65 Mon Sep 17 00:00:00 2001
+From: Sihyun Baek <62822977+sihyunlts@users.noreply.github.com>
+Date: Wed, 14 Oct 2026 01:50:07 +0900
+Subject: [PATCH 3/6] display: detect split primary panels
+
+Select the existing two-mixer paths for equal left and right panel widths reported by msm_fb_split. Preserve width-based selection for large displays.
+
+Based on CM12 commit 2e474227e216ee37ab84a3c9a22ea1f650626231.
+Keep the existing CM11 equal-split composition paths; do not import uneven-split support.
+---
+ libhwcomposer/hwc_fbupdate.cpp |  2 +-
+ libhwcomposer/hwc_mdpcomp.cpp  |  2 +-
+ libhwcomposer/hwc_utils.cpp    | 19 +++++++++++++++++++
+ libhwcomposer/hwc_utils.h      |  2 ++
+ 4 files changed, 23 insertions(+), 2 deletions(-)
+
+diff --git a/libhwcomposer/hwc_fbupdate.cpp b/libhwcomposer/hwc_fbupdate.cpp
+index c263c3f..7daa2f3 100644
+--- a/libhwcomposer/hwc_fbupdate.cpp
++++ b/libhwcomposer/hwc_fbupdate.cpp
+@@ -34,7 +34,7 @@ namespace qhwc {
+ namespace ovutils = overlay::utils;
+ 
+ IFBUpdate* IFBUpdate::getObject(hwc_context_t *ctx, const int& width, const int& dpy) {
+-    if(width > MAX_DISPLAY_DIM) {
++    if(isSplitDisplay(width, dpy)) {
+         return new FBUpdateHighRes(ctx, dpy);
+     }
+     return new FBUpdateLowRes(ctx, dpy);
+diff --git a/libhwcomposer/hwc_mdpcomp.cpp b/libhwcomposer/hwc_mdpcomp.cpp
+index 4d64fa2..13333ef 100644
+--- a/libhwcomposer/hwc_mdpcomp.cpp
++++ b/libhwcomposer/hwc_mdpcomp.cpp
+@@ -42,7 +42,7 @@ bool MDPComp::sEnableMixedMode = true;
+ int MDPComp::sMaxPipesPerMixer = MAX_PIPES_PER_MIXER;
+ 
+ MDPComp* MDPComp::getObject(const int& width, int dpy) {
+-    if(width <= MAX_DISPLAY_DIM) {
++    if(!isSplitDisplay(width, dpy)) {
+         return new MDPCompLowRes(dpy);
+     } else {
+         return new MDPCompHighRes(dpy);
+diff --git a/libhwcomposer/hwc_utils.cpp b/libhwcomposer/hwc_utils.cpp
+index 413bedb..5579e85 100644
+--- a/libhwcomposer/hwc_utils.cpp
++++ b/libhwcomposer/hwc_utils.cpp
+@@ -46,6 +46,25 @@ namespace ovutils = overlay::utils;
+ 
+ namespace qhwc {
+ 
++bool isSplitDisplay(const int width, const int dpy) {
++    if (width > MAX_DISPLAY_DIM) {
++        return true;
++    }
++    if (dpy != HWC_DISPLAY_PRIMARY) {
++        return false;
++    }
++
++    FILE *split = fopen("/sys/class/graphics/fb0/msm_fb_split", "r");
++    if (!split) {
++        return false;
++    }
++    int left = 0, right = 0;
++    const int fields = fscanf(split, "%d %d", &left, &right);
++    fclose(split);
++    // The existing two-mixer composition paths split the frame in half.
++    return fields == 2 && left > 0 && left == right && left + right == width;
++}
++
+ static int openFramebufferDevice(hwc_context_t *ctx)
+ {
+     struct fb_fix_screeninfo finfo;
+diff --git a/libhwcomposer/hwc_utils.h b/libhwcomposer/hwc_utils.h
+index a9eb06f..bd389d3 100644
+--- a/libhwcomposer/hwc_utils.h
++++ b/libhwcomposer/hwc_utils.h
+@@ -52,6 +52,8 @@ class RotMgr;
+ }
+ 
+ namespace qhwc {
++
++bool isSplitDisplay(const int width, const int dpy);
+ //fwrd decl
+ class QueuedBufferStore;
+ class ExternalDisplay;
+-- 
+2.53.0
+

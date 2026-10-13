@@ -1,0 +1,67 @@
+From 924698a24450a274a1b60ad456c40861c93ab473 Mon Sep 17 00:00:00 2001
+From: Naseer Ahmed <naseer@codeaurora.org>
+Date: Thu, 6 Jun 2013 21:00:15 +0000
+Subject: [PATCH 5/6] hwc: poll for vsync event
+
+poll on the vsync file descriptor. This prepares the ground for
+multiple vsync updates without adding additional threads.
+
+Change-Id: I30ef0fb34816d438501475cd3e4967775fcb1d19
+
+Backport from b7773dcdb863ea975a43cbaab045aef3984e96f6.
+Retain the CM11 single-display loop and read error handling. Clear the initial sysfs notification and skip empty reads and non-vsync poll events.
+---
+ libhwcomposer/hwc_vsync.cpp | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/libhwcomposer/hwc_vsync.cpp b/libhwcomposer/hwc_vsync.cpp
+index a68da92..6c03f8a 100644
+--- a/libhwcomposer/hwc_vsync.cpp
++++ b/libhwcomposer/hwc_vsync.cpp
+@@ -21,6 +21,7 @@
+ #include <cutils/properties.h>
+ #include <utils/Log.h>
+ #include <fcntl.h>
++#include <poll.h>
+ #include <sys/ioctl.h>
+ #include <linux/msm_mdp.h>
+ #include <sys/resource.h>
+@@ -94,8 +95,25 @@ static void *vsync_loop(void *param)
+         ctx->vstate.fakevsync = true;
+     }
+ 
++    struct pollfd vsyncPoll = {fd_timestamp, POLLPRI | POLLERR, 0};
++    if (!ctx->vstate.fakevsync) {
++        // Clear the initial sysfs notification before waiting for new frames.
++        pread(fd_timestamp, vdata, MAX_DATA, 0);
++    }
++
+     do {
+         if (LIKELY(!ctx->vstate.fakevsync)) {
++            const int events = poll(&vsyncPoll, 1, -1);
++            if (events < 0) {
++                if (errno != EINTR) {
++                    ALOGE("%s: vsync poll failed: %s", __FUNCTION__,
++                            strerror(errno));
++                }
++                continue;
++            }
++            if (!(vsyncPoll.revents & POLLPRI)) {
++                continue;
++            }
+             len = pread(fd_timestamp, vdata, MAX_DATA, 0);
+             if (len < 0) {
+                 // If the read was just interrupted - it is not a fatal error
+@@ -109,6 +127,9 @@ static void *vsync_loop(void *param)
+                 }
+                 continue;
+             }
++            if (len == 0) {
++                continue;
++            }
+             // extract timestamp
+             const char *str = vdata;
+             if (!strncmp(str, "VSYNC=", strlen("VSYNC="))) {
+-- 
+2.53.0
+

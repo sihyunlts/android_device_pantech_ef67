@@ -1,0 +1,32 @@
+From bd0ae1d28a0c4e2044562727142fd091b8d79109 Mon Sep 17 00:00:00 2001
+From: Saurabh Shah <saurshah@codeaurora.org>
+Date: Tue, 2 Jul 2013 00:15:10 +0000
+Subject: [PATCH 1/6] hwc: Add 8084 to the list of mdss targets.
+
+Add 8084 to the list of mdss taregts in make file,
+so that the compile time flags are enabled.
+
+Change-Id: Icba9686a5c51b463c5f2c07d3c1781fe23312469
+
+Backport from 55582b5a7ba3842fcf34edd3ecb542a640f6df73.
+Retain the CM11 platform-list expression and add APQ8084.
+---
+ common.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/common.mk b/common.mk
+index 7290e4d..73c43b8 100644
+--- a/common.mk
++++ b/common.mk
+@@ -26,7 +26,7 @@ ifeq ($(ARCH_ARM_HAVE_NEON),true)
+     common_flags += -D__ARM_HAVE_NEON
+ endif
+ 
+-ifneq ($(filter msm8974 msm8x74 msm8226 msm8x26,$(TARGET_BOARD_PLATFORM)),)
++ifneq ($(filter msm8974 msm8x74 msm8226 msm8x26 apq8084,$(TARGET_BOARD_PLATFORM)),)
+     common_flags += -DVENUS_COLOR_FORMAT
+     common_flags += -DMDSS_TARGET
+ endif
+-- 
+2.53.0
+
