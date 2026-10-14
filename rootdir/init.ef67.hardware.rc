@@ -262,6 +262,8 @@ on boot
     write /sys/module/msm_pm/modes/cpu3/retention/idle_enabled 1
 
 on boot
+    # S0226114 uses measured bandwidth to scale the CPU memory bus.
+    write /sys/class/devfreq/qcom,cpubw.28/governor cpubw_hwmon
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
     write /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor interactive
