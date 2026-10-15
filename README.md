@@ -20,8 +20,9 @@
 
 ## Patches
 
-From the Android source root, apply once to an unmodified CM11 display-caf checkout:
+From the Android source root, apply once to unmodified CM11 checkouts:
 
 ```sh
 git -C hardware/qcom/display-caf am "$PWD"/device/pantech/ef67/patches/hardware/qcom/display-caf/*.patch
+git -C hardware/qcom/media am "$PWD"/device/pantech/ef67/patches/hardware/qcom/media/*.patch
 ```

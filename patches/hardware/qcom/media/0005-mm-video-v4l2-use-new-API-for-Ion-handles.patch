@@ -1,0 +1,95 @@
+From 97343aee66a23dc0d46aaef85f5f962a509418ea Mon Sep 17 00:00:00 2001
+From: Mitchel Humpherys <mitchelh@codeaurora.org>
+Date: Tue, 10 Dec 2013 12:14:04 -0800
+Subject: [PATCH 5/5] mm-video-v4l2: use new API for Ion handles
+
+The userspace API for Ion handles has changed slightly. Update to match
+the new API.
+
+Change-Id: I8d2fa854caf1eda51ab253903b5bca276f2da90a
+
+Backport b351ae7c7b448deb681d3f8bd70a8c3942f5df35 to CM11.
+Omit the software HEVC variant absent from CM11.
+---
+ mm-video-v4l2/vidc/vdec/inc/omx_vdec.h           | 4 ++--
+ mm-video-v4l2/vidc/vdec/inc/omx_vdec_hevc.h      | 4 ++--
+ mm-video-v4l2/vidc/vdec/src/omx_vdec.cpp         | 2 +-
+ mm-video-v4l2/vidc/vdec/src/omx_vdec_hevc.cpp    | 2 +-
+ mm-video-v4l2/vidc/vdec/src/omx_vdec_msm8974.cpp | 2 +-
+ 5 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/mm-video-v4l2/vidc/vdec/inc/omx_vdec.h b/mm-video-v4l2/vidc/vdec/inc/omx_vdec.h
+index 0826393e24d2f14b451ef74e135815d5a2afdd42..aa60ff34417b5a5c9ec135cb5460481b5224f45b 100644
+--- a/mm-video-v4l2/vidc/vdec/inc/omx_vdec.h
++++ b/mm-video-v4l2/vidc/vdec/inc/omx_vdec.h
+@@ -122,11 +122,11 @@ using namespace android;
+ class VideoHeap : public MemoryHeapBase
+ {
+     public:
+-        VideoHeap(int devicefd, size_t size, void* base,struct ion_handle *handle,int mapfd);
++        VideoHeap(int devicefd, size_t size, void* base,ion_user_handle_t handle,int mapfd);
+         virtual ~VideoHeap() {}
+     private:
+         int m_ion_device_fd;
+-        struct ion_handle *m_ion_handle;
++        ion_user_handle_t m_ion_handle;
+ };
+ #else
+ // local pmem heap object
+diff --git a/mm-video-v4l2/vidc/vdec/inc/omx_vdec_hevc.h b/mm-video-v4l2/vidc/vdec/inc/omx_vdec_hevc.h
+index 2182d5b498b4bfd4aa1cdfa6bfb53c32905fb2e7..a7a79411dfdddbc948b7fb88bd9aa5e2f35ce1ee 100755
+--- a/mm-video-v4l2/vidc/vdec/inc/omx_vdec_hevc.h
++++ b/mm-video-v4l2/vidc/vdec/inc/omx_vdec_hevc.h
+@@ -116,11 +116,11 @@ using namespace android;
+ class VideoHeap : public MemoryHeapBase
+ {
+     public:
+-        VideoHeap(int devicefd, size_t size, void* base,struct ion_handle *handle,int mapfd);
++        VideoHeap(int devicefd, size_t size, void* base,ion_user_handle_t handle,int mapfd);
+         virtual ~VideoHeap() {}
+     private:
+         int m_ion_device_fd;
+-        struct ion_handle *m_ion_handle;
++        ion_user_handle_t m_ion_handle;
+ };
+ #else
+ // local pmem heap object
+diff --git a/mm-video-v4l2/vidc/vdec/src/omx_vdec.cpp b/mm-video-v4l2/vidc/vdec/src/omx_vdec.cpp
+index 663fe6ca04239a26fbcc434d28d91feb3a4604e6..5ef6c99f96a6ee4105ba58afab30c7170e293c34 100755
+--- a/mm-video-v4l2/vidc/vdec/src/omx_vdec.cpp
++++ b/mm-video-v4l2/vidc/vdec/src/omx_vdec.cpp
+@@ -396,7 +396,7 @@ void *get_omx_component_factory_fn(void)
+ #ifdef _ANDROID_
+ #ifdef USE_ION
+ VideoHeap::VideoHeap(int devicefd, size_t size, void* base,
+-        struct ion_handle *handle, int ionMapfd)
++        ion_user_handle_t handle, int ionMapfd)
+ {
+     m_ion_device_fd = devicefd;
+     m_ion_handle = handle;
+diff --git a/mm-video-v4l2/vidc/vdec/src/omx_vdec_hevc.cpp b/mm-video-v4l2/vidc/vdec/src/omx_vdec_hevc.cpp
+index 9656d44f0f999e1a0d0b88e0b092ed77aa36abc9..703f6c0baf38c76cf0118ee831bdf89145c82dd3 100755
+--- a/mm-video-v4l2/vidc/vdec/src/omx_vdec_hevc.cpp
++++ b/mm-video-v4l2/vidc/vdec/src/omx_vdec_hevc.cpp
+@@ -453,7 +453,7 @@ void *get_omx_component_factory_fn(void)
+ #ifdef _ANDROID_
+ #ifdef USE_ION
+ VideoHeap::VideoHeap(int devicefd, size_t size, void* base,
+-        struct ion_handle *handle, int ionMapfd)
++        ion_user_handle_t handle, int ionMapfd)
+ {
+     //    ionInit(devicefd, base, size, 0 , MEM_DEVICE,handle,ionMapfd);
+ }
+diff --git a/mm-video-v4l2/vidc/vdec/src/omx_vdec_msm8974.cpp b/mm-video-v4l2/vidc/vdec/src/omx_vdec_msm8974.cpp
+index e3c28db3e77859caf33951dd03f83ad9c87f4c6d..28cb96d45dff4c9fb5b3eada154c09ed930d04e3 100644
+--- a/mm-video-v4l2/vidc/vdec/src/omx_vdec_msm8974.cpp
++++ b/mm-video-v4l2/vidc/vdec/src/omx_vdec_msm8974.cpp
+@@ -463,7 +463,7 @@ void *get_omx_component_factory_fn(void)
+ #ifdef _ANDROID_
+ #ifdef USE_ION
+ VideoHeap::VideoHeap(int devicefd, size_t size, void* base,
+-        struct ion_handle *handle, int ionMapfd)
++        ion_user_handle_t handle, int ionMapfd)
+ {
+     //    ionInit(devicefd, base, size, 0 , MEM_DEVICE,handle,ionMapfd);
+ }
