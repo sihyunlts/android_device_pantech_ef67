@@ -40,7 +40,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196608 \
-    ro.sf.lcd_density=640 \
+    ro.sf.lcd_density=560 \
     persist.hwc.mdpcomp.enable=true
 
 PRODUCT_PACKAGES += ef67-wifi-init
