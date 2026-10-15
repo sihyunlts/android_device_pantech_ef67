@@ -1,0 +1,1 @@
+allow system_app ef67_touch_wake_sysfs:file rw_file_perms;
