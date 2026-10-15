@@ -29,11 +29,17 @@ public final class ChargeLimitService extends Service
     }
 
     private void applyLimit() {
-        try {
-            ChargingControl.apply(this, ChargingControl.limit(this), mBattery);
-        } catch (IOException e) {
-            Log.e("VegaSettings", "Cannot apply charging limit", e);
-        }
+        final Intent battery = mBattery;
+        ChargingControl.WORKER.execute(new Runnable() {
+            @Override public void run() {
+                try {
+                    ChargingControl.apply(ChargeLimitService.this,
+                            ChargingControl.limit(ChargeLimitService.this), battery);
+                } catch (IOException e) {
+                    Log.e("VegaSettings", "Cannot apply charging limit", e);
+                }
+            }
+        });
     }
 
     @Override public void onSharedPreferenceChanged(SharedPreferences preferences, String key) {

@@ -96,13 +96,31 @@ public final class VegaSettings extends PreferenceActivity
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
         if (preference == mChargingLimit) {
-            try {
-                ChargingControl.applySelection(this, Integer.parseInt((String) value));
-                return true;
-            } catch (IOException e) {
-                Toast.makeText(this, R.string.charging_limit_failed, Toast.LENGTH_SHORT).show();
-                return false;
-            }
+            final String selection = (String) value;
+            mChargingLimit.setEnabled(false);
+            new AsyncTask<Void, Void, Boolean>() {
+                @Override protected Boolean doInBackground(Void... unused) {
+                    try {
+                        ChargingControl.applySelection(getApplicationContext(),
+                                Integer.parseInt(selection));
+                        return true;
+                    } catch (IOException e) {
+                        return false;
+                    }
+                }
+
+                @Override protected void onPostExecute(Boolean success) {
+                    if (isFinishing() || isDestroyed()) return;
+                    mChargingLimit.setEnabled(ChargingControl.available());
+                    if (success) {
+                        mChargingLimit.setValue(selection);
+                    } else {
+                        Toast.makeText(VegaSettings.this, R.string.charging_limit_failed,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }.executeOnExecutor(ChargingControl.WORKER);
+            return false;
         }
         if (preference == mSecretPress || preference == mSecretLongPress) {
             ListPreference key = (ListPreference) preference;

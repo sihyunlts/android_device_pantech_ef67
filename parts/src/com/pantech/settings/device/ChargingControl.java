@@ -5,16 +5,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.BatteryManager;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 final class ChargingControl {
+    static final ExecutorService WORKER = Executors.newSingleThreadExecutor();
     static final String LIMIT = "charging_limit";
     private static final String PAUSED = "charging_limit_paused";
     private static final String PATH = "/sys/class/power_supply/battery/charging_enabled";
+    // Accessed only on WORKER. Thermal control can change the reported hardware state.
+    private static Boolean sRequestedEnabled;
 
     static boolean available() { return new File(PATH).canWrite(); }
 
@@ -38,14 +41,11 @@ final class ChargingControl {
             else if (percent <= limit - 2) paused = false;
         }
         boolean enabled = !paused;
-        BufferedReader reader = new BufferedReader(new FileReader(PATH));
-        boolean current;
-        try { current = "1".equals(reader.readLine()); }
-        finally { reader.close(); }
-        if (current != enabled) {
+        if (sRequestedEnabled == null || sRequestedEnabled.booleanValue() != enabled) {
             FileWriter writer = new FileWriter(PATH);
             try { writer.write(enabled ? "1" : "0"); }
             finally { writer.close(); }
+            sRequestedEnabled = enabled;
         }
         if (preferences.getBoolean(PAUSED, false) != paused) {
             preferences.edit().putBoolean(PAUSED, paused).commit();
@@ -56,5 +56,6 @@ final class ChargingControl {
     static void applySelection(Context context, int limit) throws IOException {
         Intent battery = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         apply(context, limit, battery);
+        TouchMode.preferences(context).edit().putString(LIMIT, Integer.toString(limit)).commit();
     }
 }
