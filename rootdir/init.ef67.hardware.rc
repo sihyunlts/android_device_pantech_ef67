@@ -25,6 +25,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+on early-init
+    symlink /data/tombstones /tombstones
+
 on post-fs-data
     chown system system /sys/devices/platform/kcal_ctrl/kcal
     chmod 0660 /sys/devices/platform/kcal_ctrl/kcal
