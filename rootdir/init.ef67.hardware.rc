@@ -289,6 +289,11 @@ service mpdecision /system/bin/mpdecision --avg_comp
     user root
 
 on post-fs-data
+    mkdir /data/misc/gpsone_d 0770 system gps
+    mkdir /data/misc/location 0770 gps gps
+    mkdir /data/misc/location/mq 0770 gps gps
+    restorecon_recursive /data/misc/gpsone_d
+    restorecon_recursive /data/misc/location
     mkdir /data/nfc 0770 nfc nfc
     mkdir /data/nfc/param 0770 nfc nfc
     restorecon_recursive /data/nfc
@@ -296,6 +301,12 @@ on post-fs-data
 on init
     # The CM11 PN547 HAL uses this name for the stock NFC device.
     symlink /dev/pn547 /dev/pn544
+
+service gpsone_daemon /system/bin/gpsone_daemon
+    class late_start
+    user gps
+    group gps inet net_raw
+    disabled
 
 on boot
     chown system system /sys/bus/i2c/devices/1-004a/double_tap_to_wake

@@ -36,4 +36,8 @@
 /dev/cpu_dma_latency            u:object_r:ef67_cpu_latency_device:s0
 /dev/socket/mpctl               u:object_r:ef67_mpdecision_socket:s0
 
+/data/misc/gpsone_d(/.*)?        u:object_r:gps_data_file:s0
+/data/misc/location(/.*)?        u:object_r:gps_data_file:s0
+/system/bin/gpsone_daemon        u:object_r:gpsd_exec:s0
+
 /sys/devices/f9966000\.i2c/i2c-1/1-004a/double_tap_to_wake u:object_r:ef67_touch_wake_sysfs:s0
