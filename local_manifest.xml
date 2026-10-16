@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote name="ef67" fetch="https://github.com/" />
+  <project name="sihyunlts/android_device_pantech_ef67" path="device/pantech/ef67" remote="ef67" revision="cm-11.0" />
+  <project name="sihyunlts/android_kernel_pantech_apq8084" path="kernel/pantech/apq8084" remote="ef67" revision="cm-11.0" />
+  <project name="sihyunlts/android_vendor_pantech_ef67" path="vendor/pantech/ef67" remote="ef67" revision="cm-11.0" />
+</manifest>
