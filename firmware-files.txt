@@ -1,0 +1,4 @@
+# Kernel-embedded ES705 firmware; not extracted from /system.
+etc/firmware/audience/es705/audience-es705-fw.bin
+etc/firmware/audience/es705/audience-es705-vs.bin
+etc/firmware/audience/cvqmodels/adnc_cvq_detection_bkg_w_hdrs.bin
