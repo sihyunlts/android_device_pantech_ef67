@@ -6,4 +6,49 @@
     <bool name="config_intrusiveNotificationLed">true</bool>
     <bool name="config_intrusiveBatteryLed">true</bool>
     <bool name="config_multiColorBatteryLed">true</bool>
+
+    <string-array name="config_tether_usb_regexs" translatable="false">
+        <item>usb\\d</item>
+        <item>rndis\\d</item>
+    </string-array>
+    <string-array name="config_tether_wifi_regexs" translatable="false">
+        <item>wlan0</item>
+    </string-array>
+    <string-array name="config_tether_bluetooth_regexs" translatable="false">
+        <item>bnep\\d</item>
+        <item>bt-pan</item>
+    </string-array>
+    <bool name="config_wifi_dual_band_support">true</bool>
+    <bool name="config_hotswapCapable">true</bool>
+
+    <!-- EF67S S0226114 ambient-light thresholds and backlight values. -->
+    <bool name="config_automatic_brightness_available">true</bool>
+    <integer-array name="config_autoBrightnessLevels">
+        <item>10</item>
+        <item>150</item>
+        <item>300</item>
+        <item>500</item>
+        <item>600</item>
+        <item>700</item>
+        <item>1000</item>
+        <item>4000</item>
+        <item>8000</item>
+        <item>12000</item>
+    </integer-array>
+    <integer-array name="config_autoBrightnessLcdBacklightValues">
+        <item>25</item>
+        <item>35</item>
+        <item>43</item>
+        <item>60</item>
+        <item>75</item>
+        <item>91</item>
+        <item>105</item>
+        <item>120</item>
+        <item>140</item>
+        <item>160</item>
+        <item>178</item>
+    </integer-array>
+    <integer name="config_screenBrightnessSettingMinimum">3</integer>
+    <integer name="config_screenBrightnessDim">3</integer>
+    <integer name="config_screenBrightnessSettingDefault">102</integer>
 </resources>
