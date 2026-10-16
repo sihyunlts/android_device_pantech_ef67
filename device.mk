@@ -80,8 +80,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     qcom.bluetooth.soc=rome \
     ro.bluetooth.hfp.ver=1.6
 
-PRODUCT_PACKAGES += mhi.ko
-
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 

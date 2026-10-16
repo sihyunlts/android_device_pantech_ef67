@@ -57,5 +57,13 @@ LOCAL_MODULE_PATH := $(TARGET_OUT)/vendor/firmware
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
+EF67_INSTALLED_KERNEL_MODULES := \
+    $(TARGET_OUT)/lib/modules/mhi.ko \
+    $(TARGET_OUT)/lib/modules/qca_cld/qca_cld_wlan.ko
+
+# Keep system image creation dependent on the kernel's module installation.
+$(EF67_INSTALLED_KERNEL_MODULES): WLAN_MODULES
+ALL_DEFAULT_INSTALLED_MODULES += $(EF67_INSTALLED_KERNEL_MODULES)
+
 include $(LOCAL_PATH)/parts/Android.mk
 endif

@@ -26,6 +26,15 @@ TARGET_KERNEL_SOURCE := kernel/pantech/apq8084
 TARGET_KERNEL_CONFIG := ef67_defconfig
 BOARD_KERNEL_IMAGE_NAME := zImage
 
+.PHONY: WLAN_MODULES
+WLAN_MODULES:
+	mkdir -p $(KERNEL_MODULES_OUT)/qca_cld $(TARGET_OUT)/etc/firmware/wlan/qca_cld
+	mv $(KERNEL_MODULES_OUT)/wlan.ko $(KERNEL_MODULES_OUT)/qca_cld/qca_cld_wlan.ko
+	ln -sf /system/lib/modules/qca_cld/qca_cld_wlan.ko $(KERNEL_MODULES_OUT)/wlan.ko
+	ln -sf /data/misc/wifi/WCNSS_qcom_cfg.ini $(TARGET_OUT)/etc/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
+	ln -sf /data/misc/wifi/wlan_mac.bin $(TARGET_OUT)/etc/firmware/wlan/qca_cld/wlan_mac.bin
+TARGET_KERNEL_MODULES += WLAN_MODULES
+
 # S0226114 boot header.
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
