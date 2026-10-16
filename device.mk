@@ -90,6 +90,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so \
     ro.telephony.default_network=9
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.use_data_netmgrd=true \
+    persist.rmnet.data.enable=true \
+    persist.data.wda.enable=true \
+    persist.data.netmgrd.qos.enable=false \
+    persist.data_netmgrd_mtu=1440 \
+    persist.data.df.ul_mode=5 \
+    persist.data.df.dl_mode=5 \
+    persist.data.df.agg.dl_pkt=10 \
+    persist.data.df.agg.dl_size=4096 \
+    persist.data.df.mux_count=8 \
+    persist.data.df.iwlan_mux=9
+
 PRODUCT_PACKAGES += libef67_camera_compat
 
 PRODUCT_COPY_FILES += \
