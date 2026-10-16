@@ -100,8 +100,8 @@ on post-fs-data
 
 on boot
     write /dev/fpc_btp stop_navi
-    chown system system /sys/class/power_supply/battery/charging_enabled
-    chmod 0660 /sys/class/power_supply/battery/charging_enabled
+    chown system system /sys/class/power_supply/battery/charge_enabled
+    chmod 0660 /sys/class/power_supply/battery/charge_enabled
 
 on boot
     write /sys/kernel/boot_adsp/boot 1

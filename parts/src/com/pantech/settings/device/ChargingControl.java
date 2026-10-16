@@ -15,7 +15,7 @@ final class ChargingControl {
     static final ExecutorService WORKER = Executors.newSingleThreadExecutor();
     static final String LIMIT = "charging_limit";
     private static final String PAUSED = "charging_limit_paused";
-    private static final String PATH = "/sys/class/power_supply/battery/charging_enabled";
+    private static final String PATH = "/sys/class/power_supply/battery/charge_enabled";
     // Accessed only on WORKER. Thermal control can change the reported hardware state.
     private static Boolean sRequestedEnabled;
 
@@ -42,6 +42,8 @@ final class ChargingControl {
         }
         boolean enabled = !paused;
         if (sRequestedEnabled == null || sRequestedEnabled.booleanValue() != enabled) {
+            // A failed write can still change the kernel's saved request.
+            sRequestedEnabled = null;
             FileWriter writer = new FileWriter(PATH);
             try { writer.write(enabled ? "1" : "0"); }
             finally { writer.close(); }
