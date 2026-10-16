@@ -17,13 +17,3 @@
 | Rear Camera             | 13 MP, Sony IMX214, OIS, AF, LED flash |
 | Front Camera            | 2.1 MP, Samsung S5K6B2YX          |
 | Release Date            | Not released                     |
-
-## Patches
-
-From the Android source root, apply once to unmodified CM11 checkouts:
-
-```sh
-git -C system/core am "$PWD"/device/pantech/ef67/patches/system/core/*.patch
-git -C hardware/qcom/display-caf am "$PWD"/device/pantech/ef67/patches/hardware/qcom/display-caf/*.patch
-git -C hardware/qcom/media am "$PWD"/device/pantech/ef67/patches/hardware/qcom/media/*.patch
-```
