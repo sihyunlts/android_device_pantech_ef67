@@ -5,6 +5,8 @@ $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk
 $(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 
+PRODUCT_PACKAGES += mkfs.f2fs fsck.f2fs
+
 PRODUCT_COPY_FILES += \
     device/pantech/ef67/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     device/pantech/ef67/keylayout/atmel_mxt_641t.kl:system/usr/keylayout/atmel_mxt_641t.kl \

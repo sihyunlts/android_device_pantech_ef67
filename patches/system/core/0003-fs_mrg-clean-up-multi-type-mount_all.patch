@@ -1,0 +1,171 @@
+From c3a6d5d750d7eeb627aff514f07668bfbbcaa861 Mon Sep 17 00:00:00 2001
+From: JP Abgrall <jpa@google.com>
+Date: Wed, 2 Jul 2014 13:16:04 -0700
+Subject: [PATCH 3/4] fs_mrg: clean up multi-type mount_all
+
+Move the code that attempts to mount alternative fstab entries
+into its own function.
+Clarify return codes.
+Suggest wipe via recovery in error messages.
+
+Bug: 15747366
+Change-Id: I3634477cd4d1d73f974f3e906c53285f0d9e0eac
+Signed-off-by: JP Abgrall <jpa@google.com>
+(cherry picked from commit f22b7452940c99b830749cabdd929f9f7cfdaacc)
+
+Backport the alternative-mount helper only. Keep CM11 init, return values,
+verified-boot checks and encrypted-volume handling. Advance over the
+whole alternative group after a filesystem or crypto tmpfs mount.
+
+Change-Id: Ie6ab9a9a832f99773260c5e2926f835488d65c0b
+---
+ fs_mgr/fs_mgr.c | 112 +++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 77 insertions(+), 35 deletions(-)
+
+diff --git a/fs_mgr/fs_mgr.c b/fs_mgr/fs_mgr.c
+index e242ab7..46d1f7e 100644
+--- a/fs_mgr/fs_mgr.c
++++ b/fs_mgr/fs_mgr.c
+@@ -536,14 +536,83 @@ static int fs_match(char *in1, char *in2)
+     return ret;
+ }
+ 
++/*
++ * Tries to mount any of the consecutive fstab entries that match
++ * the mountpoint of the one given by fstab->recs[start_idx].
++ *
++ * end_idx: On return, will be the last rec that was looked at.
++ * attempted_idx: On return, will indicate which fstab rec
++ *     succeeded. In case of failure, it will be the start_idx.
++ * Returns
++ *   -1 on failure with errno set to match the 1st mount failure.
++ *   0 on success.
++ */
++static int mount_with_alternatives(struct fstab *fstab, int start_idx, int *end_idx, int *attempted_idx)
++{
++    int i;
++    int mount_errno = 0;
++    int mounted = 0;
++
++    if (!end_idx || !attempted_idx || start_idx >= fstab->num_entries) {
++      errno = EINVAL;
++      if (end_idx) *end_idx = start_idx;
++      if (attempted_idx) *end_idx = start_idx;
++      return -1;
++    }
++
++    /* Hunt down an fstab entry for the same mount point that might succeed */
++    for (i = start_idx;
++         /* We required that fstab entries for the same mountpoint be consecutive */
++         i < fstab->num_entries && !strcmp(fstab->recs[start_idx].mount_point, fstab->recs[i].mount_point);
++         i++) {
++            /*
++             * Don't try to mount/encrypt the same mount point again.
++             * Deal with alternate entries for the same point which are required to be all following
++             * each other.
++             */
++            if (mounted) {
++                ERROR("%s(): skipping fstab dup mountpoint=%s rec[%d].fs_type=%s already mounted as %s.\n", __func__,
++                     fstab->recs[i].mount_point, i, fstab->recs[i].fs_type, fstab->recs[*attempted_idx].fs_type);
++                continue;
++            }
++
++            if (fstab->recs[i].fs_mgr_flags & MF_CHECK) {
++                check_fs(fstab->recs[i].blk_device, fstab->recs[i].fs_type,
++                         fstab->recs[i].mount_point);
++            }
++            if (!__mount(fstab->recs[i].blk_device, fstab->recs[i].mount_point, &fstab->recs[i])) {
++                *attempted_idx = i;
++                mounted = 1;
++                if (i != start_idx) {
++                    ERROR("%s(): Mounted %s on %s with fs_type=%s instead of %s\n", __func__,
++                         fstab->recs[i].blk_device, fstab->recs[i].mount_point, fstab->recs[i].fs_type,
++                         fstab->recs[start_idx].fs_type);
++                }
++            } else {
++                /* back up errno for crypto decisions */
++                mount_errno = errno;
++            }
++    }
++
++    /* Adjust i for the case where it was still withing the recs[] */
++    if (i < fstab->num_entries) --i;
++
++    *end_idx = i;
++    if (!mounted) {
++        *attempted_idx = start_idx;
++        errno = mount_errno;
++        return -1;
++    }
++    return 0;
++}
++
+ int fs_mgr_mount_all(struct fstab *fstab)
+ {
+-    int i = 0, j = 0;
++    int i = 0;
+     int encrypted = 0;
+     int ret = -1;
+     int mret;
+     int mount_errno;
+-    const char *last_ok_mount_point = NULL;
+ 
+     if (!fstab) {
+         return ret;
+@@ -573,43 +642,15 @@ int fs_mgr_mount_all(struct fstab *fstab)
+             }
+         }
+ 
+-        /*
+-         * Don't try to mount/encrypt the same mount point again.
+-         * Deal with alternate entries for the same point which are required to be all following
+-         * each other.
+-         */
+-        if (last_ok_mount_point && !strcmp(last_ok_mount_point, fstab->recs[i].mount_point)) {
+-            INFO("%s(): skipping fstab dup mountpoint=%s rec[%d].fs_type=%s already mounted.\n", __func__,
+-                 last_ok_mount_point, i, fstab->recs[i].fs_type);
+-            continue;
+-        }
+-        /* Hunt down an fstab entry for the same mount point that might succeed */
+-        for (j = i;
+-             /* We required that fstab entries for the same mountpoint be consecutive */
+-             j < fstab->num_entries && !strcmp(fstab->recs[i].mount_point, fstab->recs[j].mount_point);
+-             j++) {
+-                if (fstab->recs[i].fs_mgr_flags & MF_CHECK) {
+-                    check_fs(fstab->recs[j].blk_device, fstab->recs[j].fs_type,
+-                             fstab->recs[j].mount_point);
+-                }
+-                mret = __mount(fstab->recs[j].blk_device, fstab->recs[j].mount_point, &fstab->recs[j]);
+-                if (!mret) {
+-                    last_ok_mount_point = fstab->recs[j].mount_point;
+-                    if (i != j) {
+-                        INFO("%s(): some alternate mount worked for mount_point=%s fs_type=%s instead of fs_type=%s\n", __func__,
+-                             last_ok_mount_point, fstab->recs[j].fs_type, fstab->recs[i].fs_type);
+-                        i = j;   /* We advance the recs index to the working entry */
+-                    }
+-                    break;
+-                } else {
+-                    /* back up errno for crypto decisions */
+-                    mount_errno = errno;
+-                }
+-        }
++        int last_idx_inspected;
++        int attempted_idx;
++        mret = mount_with_alternatives(fstab, i, &last_idx_inspected, &attempted_idx);
++        mount_errno = errno;
+ 
+         /* Deal with encryptability. */
+         if (!mret) {
+             /* Success!  Go get the next one */
++            i = last_idx_inspected;
+             continue;
+         }
+ 
+@@ -626,6 +667,7 @@ int fs_mgr_mount_all(struct fstab *fstab)
+                 goto out;
+             }
+             encrypted = 1;
++            i = last_idx_inspected;
+         } else {
+             ERROR("Failed to mount an un-encryptable or wiped partition on"
+                     "%s at %s options: %s error: %s\n",
