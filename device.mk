@@ -50,6 +50,7 @@ PRODUCT_PACKAGES += ef67-wifi-init
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+    device/pantech/ef67/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     device/pantech/ef67/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     device/pantech/ef67/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
