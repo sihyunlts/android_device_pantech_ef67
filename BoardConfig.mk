@@ -64,6 +64,8 @@ BOARD_SEPOLICY_UNION += \
     genfs_contexts \
     touch_wake.te \
     wifi_init.te \
+    vega_settings.te \
+    seapp_contexts \
     irsc.te \
     thermal.te \
     mpdecision.te \
