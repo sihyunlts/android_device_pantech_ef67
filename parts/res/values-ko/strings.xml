@@ -26,4 +26,5 @@
     <string name="charging_no_limit">제한 없음</string>
     <string name="charging_unavailable">충전을 제어할 수 없습니다.</string>
     <string name="charging_limit_failed">충전 제한을 변경하지 못했습니다.</string>
+    <string name="secret_key_wake">기기 켜기</string>
 </resources>

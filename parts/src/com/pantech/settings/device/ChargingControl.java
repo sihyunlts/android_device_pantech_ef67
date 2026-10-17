@@ -25,7 +25,7 @@ final class ChargingControl {
         return Integer.parseInt(TouchMode.preferences(context).getString(LIMIT, "0"));
     }
 
-    static boolean apply(Context context, int limit, Intent battery) throws IOException {
+    static void apply(Context context, int limit, Intent battery) throws IOException {
         SharedPreferences preferences = TouchMode.preferences(context);
         boolean paused = preferences.getBoolean(PAUSED, false);
         if (limit != limit(context)) paused = false;
@@ -52,7 +52,6 @@ final class ChargingControl {
         if (preferences.getBoolean(PAUSED, false) != paused) {
             preferences.edit().putBoolean(PAUSED, paused).commit();
         }
-        return enabled;
     }
 
     static void applySelection(Context context, int limit) throws IOException {

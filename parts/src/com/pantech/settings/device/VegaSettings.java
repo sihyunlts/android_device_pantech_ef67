@@ -8,6 +8,7 @@ import android.provider.Settings;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.SwitchPreference;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
@@ -19,6 +20,7 @@ public final class VegaSettings extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
     private ListPreference mTouchMode;
     private ListPreference mChargingLimit;
+    private SwitchPreference mSecretWake;
     private ListPreference mSecretPress;
     private ListPreference mSecretLongPress;
 
@@ -46,6 +48,8 @@ public final class VegaSettings extends PreferenceActivity
         }
         mTouchMode.setEntries(entries);
         mTouchMode.setOnPreferenceChangeListener(this);
+        mSecretWake = (SwitchPreference) findPreference(Settings.System.ASSIST_WAKE_SCREEN);
+        mSecretWake.setOnPreferenceChangeListener(this);
         mSecretPress = (ListPreference) findPreference(Settings.System.KEY_ASSIST_ACTION);
         mSecretLongPress = (ListPreference) findPreference(Settings.System.KEY_ASSIST_LONG_PRESS_ACTION);
         mChargingLimit = (ListPreference) findPreference(ChargingControl.LIMIT);
@@ -67,6 +71,8 @@ public final class VegaSettings extends PreferenceActivity
     public void onResume() {
         super.onResume();
         updateMode();
+        mSecretWake.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.ASSIST_WAKE_SCREEN, 1) != 0);
         updateKeyAction(mSecretPress, SecretKey.DEFAULT_PRESS);
         updateKeyAction(mSecretLongPress, SecretKey.DEFAULT_LONG_PRESS);
         boolean chargingAvailable = ChargingControl.available();
@@ -120,6 +126,14 @@ public final class VegaSettings extends PreferenceActivity
                     }
                 }
             }.executeOnExecutor(ChargingControl.WORKER);
+            return false;
+        }
+        if (preference == mSecretWake) {
+            if (Settings.System.putInt(getContentResolver(),
+                    Settings.System.ASSIST_WAKE_SCREEN, (Boolean) value ? 1 : 0)) {
+                return true;
+            }
+            Toast.makeText(this, R.string.secret_key_failed, Toast.LENGTH_SHORT).show();
             return false;
         }
         if (preference == mSecretPress || preference == mSecretLongPress) {

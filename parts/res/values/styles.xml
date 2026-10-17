@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="VegaSettingsTheme" parent="@android:style/Theme.Holo">
-        <item name="android:actionBarStyle">@android:style/Widget.Holo.ActionBar.Solid</item>
+    <style name="VegaSettingsTheme" parent="@android:style/Theme.Material.Settings">
+        <item name="@*android:preferenceFragmentStyle">@style/VegaPreferenceList</item>
+    </style>
+
+    <style name="VegaPreferenceList" parent="@*android:style/PreferenceFragment.Material">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
     </style>
 </resources>

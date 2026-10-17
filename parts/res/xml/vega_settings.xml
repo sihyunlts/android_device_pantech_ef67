@@ -4,12 +4,14 @@
         <ListPreference android:key="touch_mode" android:title="@string/touch_mode"
             android:entries="@array/touch_mode_entries" android:entryValues="@array/touch_mode_values"
             android:summary="@string/touch_mode_summary" android:persistent="false" />
-        <CheckBoxPreference android:key="pen_auto_mode" android:title="@string/pen_auto_mode"
+        <SwitchPreference android:key="pen_auto_mode" android:title="@string/pen_auto_mode"
             android:defaultValue="false" />
-        <CheckBoxPreference android:key="pen_notification" android:title="@string/pen_notification"
+        <SwitchPreference android:key="pen_notification" android:title="@string/pen_notification"
             android:summary="@string/pen_notification_summary" android:defaultValue="true" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/secret_key">
+        <SwitchPreference android:key="assist_wake_screen" android:title="@string/secret_key_wake"
+            android:persistent="false" />
         <ListPreference android:key="key_assist_action" android:title="@string/hardware_keys_short_press_title"
             android:entries="@array/secret_key_actions" android:entryValues="@array/secret_key_values"
             android:persistent="false" />

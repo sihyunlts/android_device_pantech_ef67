@@ -33,4 +33,5 @@
     <string name="charging_no_limit">No limit</string>
     <string name="charging_unavailable">Charging control is unavailable.</string>
     <string name="charging_limit_failed">Couldn\'t change the charging limit.</string>
+    <string name="secret_key_wake">Wake up device</string>
 </resources>
