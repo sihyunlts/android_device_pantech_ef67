@@ -57,19 +57,20 @@ TARGET_RECOVERY_FSTAB := device/pantech/ef67/rootdir/fstab.qcom
 BOARD_CUSTOM_BOOTIMG_MK := device/pantech/ef67/bootimage.mk
 TARGET_RELEASETOOLS_EXTENSIONS := device/pantech/ef67
 
+include device/qcom/sepolicy/sepolicy.mk
+
 BOARD_SEPOLICY_DIRS += device/pantech/ef67/sepolicy
 BOARD_SEPOLICY_UNION += \
-    display_color.te \
     file.te \
     file_contexts \
-    genfs_contexts \
     touch_wake.te \
     wifi_init.te \
-    vega_settings.te \
-    seapp_contexts \
-    irsc.te \
     thermal.te \
     mpdecision.te \
+    mm-qcamerad.te \
+    ef67_sensors.te \
+    vega_settings.te \
+    seapp_contexts \
     ueventd.te \
     vold.te
 

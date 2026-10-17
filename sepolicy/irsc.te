@@ -1,5 +1,0 @@
-type ef67_irsc, domain;
-type ef67_irsc_exec, exec_type, file_type;
-
-init_daemon_domain(ef67_irsc)
-allow ef67_irsc self:socket { create ioctl };

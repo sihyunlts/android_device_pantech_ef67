@@ -1,3 +1,4 @@
 # The stock data encryption key is stored at /persist/metadata.
-allow vold persist_file:dir rw_dir_perms;
-allow vold persist_file:file create_file_perms;
+type_transition vold persist_file:file ef67_crypto_metadata_file "metadata";
+allow vold persist_file:dir { search write add_name };
+allow vold ef67_crypto_metadata_file:file { create getattr open read write setattr };

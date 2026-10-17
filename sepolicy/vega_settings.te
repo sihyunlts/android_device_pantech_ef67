@@ -10,4 +10,4 @@ allow vega_settings self:netlink_kobject_uevent_socket { create bind read getatt
 allow vega_settings ef67_touch_device:chr_file { open read ioctl getattr };
 allow vega_settings ef67_charge_control_sysfs:file { getattr open write };
 # Preserve the thermal service's access when this file gains a specific label.
-allow ef67_thermal ef67_charge_control_sysfs:file { getattr open read write };
+allow thermal-engine ef67_charge_control_sysfs:file { getattr open read write };

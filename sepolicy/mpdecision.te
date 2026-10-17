@@ -1,17 +1,5 @@
-type ef67_mpdecision, domain;
-type ef67_mpdecision_exec, exec_type, file_type;
-type ef67_cpu_latency_device, dev_type;
-type ef67_mpdecision_socket, file_type;
-
-init_daemon_domain(ef67_mpdecision)
-allow ef67_mpdecision sysfs_devices_system_cpu:file rw_file_perms;
-allow ef67_mpdecision ef67_thermal_sysfs:dir r_dir_perms;
-allow ef67_mpdecision ef67_thermal_sysfs:file r_file_perms;
-allow ef67_mpdecision ef67_cpu_latency_device:chr_file rw_file_perms;
-allow ef67_mpdecision self:netlink_kobject_uevent_socket create_socket_perms;
-# libCutils uses SO_RCVBUFFORCE for CPU hotplug events.
-allow ef67_mpdecision self:capability net_admin;
-allow ef67_mpdecision self:unix_stream_socket { create_socket_perms listen accept };
-type_transition ef67_mpdecision socket_device:sock_file ef67_mpdecision_socket;
-allow ef67_mpdecision socket_device:dir { search write add_name remove_name };
-allow ef67_mpdecision ef67_mpdecision_socket:sock_file create_file_perms;
+allow mpdecision device_latency:chr_file rw_file_perms;
+allow mpdecision self:netlink_kobject_uevent_socket create_socket_perms;
+allow mpdecision self:unix_stream_socket { create_socket_perms listen accept };
+allow mpdecision socket_device:dir { search write add_name remove_name };
+type_transition mpdecision socket_device:sock_file mpctl_socket "mpctl";

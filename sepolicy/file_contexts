@@ -1,6 +1,5 @@
-/persist(/.*)?                    u:object_r:persist_file:s0
 /firmware(/.*)?                   u:object_r:firmware_file:s0
-/dev/kgsl(-3d0|-2d[01])?           u:object_r:graphics_device:s0
+/dev/kgsl(-3d0|-2d[01])?           u:object_r:gpu_device:s0
 /dev/genlock                      u:object_r:graphics_device:s0
 /dev/msm_rotator                  u:object_r:graphics_device:s0
 /dev/media[0-9]+                  u:object_r:camera_device:s0
@@ -8,37 +7,16 @@
 /dev/msm_camera(/.*)?             u:object_r:camera_device:s0
 /dev/block/mmcblk0p15             u:object_r:ef67_rawdata_device:s0
 /system/bin/ef67-wifi-init        u:object_r:ef67_wifi_init_exec:s0
-
 /system/bin/btnvtool             u:object_r:rild_exec:s0
-
-/dev/mhi_pipe_[0-9]+              u:object_r:radio_device:s0
 /dev/mdm                         u:object_r:radio_device:s0
-/dev/subsys_esoc.*               u:object_r:radio_device:s0
-/dev/socket/qmux_[^/]+(/.*)?      u:object_r:qmux_socket:s0
 /data/radio(/.*)?                u:object_r:radio_data_file:s0
 /data/misc/mdmhelperdata(/.*)?    u:object_r:radio_data_file:s0
-/system/bin/(mdm_helper|mdm_helper_proxy|qmuxd|netmgrd|rmt_storage|ks) u:object_r:rild_exec:s0
-/data/cam_socket[0-9]+           u:object_r:camera_data_file:s0
-/system/bin/mm-qcamera-daemon     u:object_r:mediaserver_exec:s0
-/system/bin/sensors.qcom         u:object_r:mediaserver_exec:s0
-/system/bin/irsc_util            u:object_r:ef67_irsc_exec:s0
-
-/system/bin/thermal-engine       u:object_r:ef67_thermal_exec:s0
-/dev/msm_thermal_query           u:object_r:ef67_thermal_device:s0
-/dev/socket/thermal-.*           u:object_r:ef67_thermal_socket:s0
-
+/data/cam_socket[23]             u:object_r:camera_socket:s0
 /dev/touch_fops                  u:object_r:ef67_touch_device:s0
-
 /dev/pn547                      u:object_r:nfc_device:s0
-/data/nfc(/.*)?                 u:object_r:nfc_data_file:s0
-
-/system/bin/mpdecision           u:object_r:ef67_mpdecision_exec:s0
-/dev/cpu_dma_latency            u:object_r:ef67_cpu_latency_device:s0
-/dev/socket/mpctl               u:object_r:ef67_mpdecision_socket:s0
-
+/dev/socket/mpctl               u:object_r:mpctl_socket:s0
 /data/misc/gpsone_d(/.*)?        u:object_r:gps_data_file:s0
-/data/misc/location(/.*)?        u:object_r:gps_data_file:s0
-/system/bin/gpsone_daemon        u:object_r:gpsd_exec:s0
-
 /sys/devices/f9966000\.i2c/i2c-1/1-004a/double_tap_to_wake u:object_r:ef67_touch_wake_sysfs:s0
 /sys/devices/f9925000\.i2c/i2c-3/3-001c/power_supply/battery/charge_enabled u:object_r:ef67_charge_control_sysfs:s0
+/dev/ttyHS10                     u:object_r:audio_device:s0
+/persist/metadata                u:object_r:ef67_crypto_metadata_file:s0

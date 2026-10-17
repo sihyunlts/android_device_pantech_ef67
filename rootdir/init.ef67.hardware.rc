@@ -111,7 +111,6 @@ service audiod /system/bin/audiod
     class late_start
     user system
     group system
-    seclabel u:r:mediaserver:s0
 
 on post-fs-data
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth

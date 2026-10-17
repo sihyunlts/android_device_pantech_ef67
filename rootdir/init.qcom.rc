@@ -54,6 +54,7 @@ on fs
 
 on post-fs
     restorecon /persist
+    restorecon /persist/metadata
 
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw

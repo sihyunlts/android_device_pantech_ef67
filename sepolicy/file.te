@@ -1,8 +1,4 @@
-type persist_file, file_type;
-type firmware_file, file_type, fs_type;
 type ef67_rawdata_device, dev_type;
 
-type qmux_socket, file_type;
-
 type ef67_touch_wake_sysfs, fs_type, sysfs_type;
-type ef67_display_color_sysfs, fs_type, sysfs_type;
+type ef67_crypto_metadata_file, file_type;
