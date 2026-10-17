@@ -12,6 +12,7 @@ PRODUCT_COPY_FILES += \
     device/pantech/ef67/keylayout/atmel_mxt_641t.kl:system/usr/keylayout/atmel_mxt_641t.kl \
     device/pantech/ef67/media/media_codecs.xml:system/etc/media_codecs.xml \
     device/pantech/ef67/media/media_profiles.xml:system/etc/media_profiles.xml \
+    device/pantech/ef67/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     device/pantech/ef67/rootdir/fstab.qcom:root/fstab.qcom \
     device/pantech/ef67/rootdir/init.qcom.rc:root/init.qcom.rc \
     device/pantech/ef67/rootdir/init.ef67.hardware.rc:root/init.ef67.hardware.rc \
@@ -115,7 +116,7 @@ PRODUCT_PACKAGES += VegaSettings libvega_settings
 
 PRODUCT_PACKAGES += \
     NfcNci \
-    nfc_nci.apq8084 \
+    nfc_nci.pn54x.apq8084 \
     libpn547_fw_platform \
     libpn547_fw_pku
 

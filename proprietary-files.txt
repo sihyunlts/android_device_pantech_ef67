@@ -233,7 +233,6 @@ vendor/lib/libizat_core.so
 
 # NFC
 etc/libnfc-nxp.conf
-etc/libnfc-brcm.conf
 vendor/firmware/libpn547_fw.so
 -vendor/firmware/libpn547_fw_platform.so
 -vendor/firmware/libpn547_pku.so
