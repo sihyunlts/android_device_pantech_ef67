@@ -4,6 +4,7 @@
     <integer name="config_deviceHardwareKeys">27</integer>
     <bool name="config_useDevInputEventForAudioJack">true</bool>
     <bool name="config_intrusiveNotificationLed">true</bool>
+    <bool name="config_multiColorNotificationLed">true</bool>
     <bool name="config_intrusiveBatteryLed">true</bool>
     <bool name="config_multiColorBatteryLed">true</bool>
 
