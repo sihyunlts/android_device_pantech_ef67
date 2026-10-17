@@ -90,6 +90,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=EF67RIL \
+    persist.radio.oem_socket=false \
     rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so \
     ro.telephony.default_network=9
 

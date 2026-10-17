@@ -202,10 +202,12 @@ on property:ro.mdm_helper_proxy_req=true
 
 service mdm_helper /system/bin/mdm_helper
     class core
+    group system radio
     disabled
 
 service mdm_helper_proxy /system/bin/mdm_helper_proxy
     class core
+    group system radio
     disabled
 
 service rmt_storage /system/bin/rmt_storage
