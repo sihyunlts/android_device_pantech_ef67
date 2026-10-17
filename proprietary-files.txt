@@ -54,7 +54,6 @@ vendor/lib/libqmiservices.so
 
 # Bluetooth Rome transport.
 -bin/btnvtool
--bin/wcnss_filter
 etc/firmware/nvm_tlv.bin
 etc/firmware/nvm_tlv_1.3.bin
 etc/firmware/nvm_tlv_2.1.bin
@@ -65,7 +64,6 @@ etc/firmware/rampatch_tlv_2.1.tlv
 etc/firmware/rampatch_tlv_3.0.tlv
 lib/libsky_rawdata.so
 lib/libskytestclient.so
-vendor/lib/libbt-vendor.so
 vendor/lib/libbtnv.so
 vendor/lib/libqmi_csi.so
 

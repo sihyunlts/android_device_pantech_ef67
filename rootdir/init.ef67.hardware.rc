@@ -145,10 +145,10 @@ on property:wc_transport.start_hci=true
 on property:wc_transport.start_hci=false
     stop start_hci_filter
 
-service start_hci_filter /system/bin/wcnss_filter
+service start_hci_filter /system/bin/ef67-hci-filter
     class late_start
-    group bluetooth qcom_diag
-    seclabel u:r:bluetooth:s0
+    user bluetooth
+    group bluetooth
     disabled
 
 service dhcpcd_bt-pan /system/bin/dhcpcd -BKLG
