@@ -1,6 +1,30 @@
 #include <stdlib.h>
 #include <tinyalsa/asoundlib.h>
 
+#define list_init inline_list_init
+#define list_add_tail inline_list_add_tail
+#define list_remove inline_list_remove
+#include <cutils/list.h>
+#undef list_init
+#undef list_add_tail
+#undef list_remove
+
+/* KitKat exported these helpers; Lollipop provides them only inline. */
+void list_init(struct listnode *node)
+{
+    inline_list_init(node);
+}
+
+void list_add_tail(struct listnode *head, struct listnode *item)
+{
+    inline_list_add_tail(head, item);
+}
+
+void list_remove(struct listnode *item)
+{
+    inline_list_remove(item);
+}
+
 /* S0226114 audio HAL uses this mixer helper from libhardware_legacy. */
 int set_value(const char *name, const char *value)
 {

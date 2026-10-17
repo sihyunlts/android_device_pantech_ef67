@@ -61,7 +61,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += wifi.interface=wlan0
 
 PRODUCT_PACKAGES += \
-    audio_policy.apq8084 \
     audiod \
     libtinyalsa \
     libtinycompress \
