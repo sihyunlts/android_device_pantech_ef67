@@ -25,6 +25,7 @@ PRODUCT_PACKAGES += \
     copybit.apq8084 \
     memtrack.apq8084 \
     lights.apq8084 \
+    power.apq8084 \
     liboverlay \
     libqdutils \
     libqservice
