@@ -85,7 +85,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.ril_class=QualcommSharedRIL \
+    ro.telephony.ril_class=EF67RIL \
     rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so \
     ro.telephony.default_network=9
 

@@ -14,6 +14,7 @@ BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/pantech/ef67/vibrator/vibrator
 BOARD_USES_ALSA_AUDIO := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_PROVIDES_LIBRIL := true
+BOARD_RIL_CLASS := ../../../device/pantech/ef67/ril
 USE_CAMERA_STUB := false
 TARGET_INIT_VENDOR_LIB := libinit_ef67
 BOARD_HARDWARE_CLASS := device/pantech/ef67/cmhw
