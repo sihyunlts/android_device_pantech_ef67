@@ -23,6 +23,8 @@ vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
 vendor/lib/egl/libGLESv2_adreno.so
 vendor/lib/egl/eglsubAndroid.so
+vendor/lib/egl/eglSubDriverAndroid.so
+vendor/lib/libllvm-glnext.so
 
 # Audio playback and calibration.
 etc/acdbdata/MTP/apq8084-tomtom-mtp-snd-card/MTP_WCD9330_Bluetooth_cal.acdb
