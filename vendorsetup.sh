@@ -1,1 +1,1 @@
-add_lunch_combo cm_ef67-userdebug
+add_lunch_combo lineage_ef67-userdebug

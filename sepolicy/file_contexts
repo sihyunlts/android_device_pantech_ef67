@@ -7,7 +7,6 @@
 /dev/msm_camera(/.*)?             u:object_r:camera_device:s0
 /dev/block/mmcblk0p15             u:object_r:ef67_rawdata_device:s0
 /system/bin/ef67-wifi-init        u:object_r:ef67_wifi_init_exec:s0
-/system/bin/btnvtool             u:object_r:rild_exec:s0
 /dev/mdm                         u:object_r:radio_device:s0
 /data/radio(/.*)?                u:object_r:radio_data_file:s0
 /data/misc/mdmhelperdata(/.*)?    u:object_r:radio_data_file:s0
@@ -21,3 +20,4 @@
 /dev/ttyHS10                     u:object_r:audio_device:s0
 /persist/metadata                u:object_r:ef67_crypto_metadata_file:s0
 /system/bin/ef67-hci-filter       u:object_r:wcnss_filter_exec:s0
+/system/bin/thermal-engine        u:object_r:thermal-engine_exec:s0

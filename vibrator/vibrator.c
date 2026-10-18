@@ -10,7 +10,7 @@ int vibrator_exists(void)
     return access(VIBRATOR_DEVICE, W_OK) == 0;
 }
 
-int sendit(int timeout_ms)
+static int sendit(int timeout_ms)
 {
     unsigned int value = 0;
     char text[24];
@@ -25,9 +25,19 @@ int sendit(int timeout_ms)
     }
     fd = open(VIBRATOR_DEVICE, O_WRONLY | O_CLOEXEC);
     if (fd < 0)
-        return errno;
+        return -errno;
     length = snprintf(text, sizeof(text), "%u\n", value);
     written = write(fd, text, length);
     close(fd);
     return written == length ? 0 : -1;
+}
+
+int vibrator_on(int timeout_ms)
+{
+    return sendit(timeout_ms);
+}
+
+int vibrator_off(void)
+{
+    return sendit(0);
 }

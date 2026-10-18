@@ -29,25 +29,11 @@ import /init.qcom.usb.rc
 import /init.ef67.hardware.rc
 
 on init
+    # Supply the stock packed vibrator ABI to the framework JNI library.
+    export LD_SHIM_LIBS /system/lib/libandroid_servers.so|libef67_vibrator.so
     symlink /dev/block/platform/msm_sdcc.1 /dev/block/bootdevice
     mkdir /persist 0771 system system
     mkdir /firmware 0771 system system
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage 0551 system sdcard_r
-    mkdir /storage/emulated 0555 root root
-    mkdir /storage/emulated/legacy 0555 root root
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /storage/sdcard1 0700 root root
-    mkdir /mnt/media_rw/otg_storage 0700 media_rw media_rw
-    mkdir /storage/otg_storage 0700 root root
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export SECONDARY_STORAGE /storage/sdcard1
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-    export OTG_STORAGE /storage/otg_storage
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
 
 on fs
     mount_all /fstab.qcom
@@ -55,20 +41,3 @@ on fs
 on post-fs
     restorecon /persist
     restorecon /persist/metadata
-
-on post-fs-data
-    mkdir /data/media 0770 media_rw media_rw
-    chown media_rw media_rw /data/media
-
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
-    class late_start
-
-service fuse_otg_storage /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/otg_storage /storage/otg_storage
-    class late_start
-
-on property:init.svc.sdcard=running
-    wait /mnt/shell/emulated/0
-    mount none /mnt/shell/emulated/0 /storage/emulated/legacy bind

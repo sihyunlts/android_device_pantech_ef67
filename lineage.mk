@@ -5,4 +5,4 @@ TARGET_BOOTANIMATION_HALF_RES := true
 $(call inherit-product, device/pantech/ef67/full_ef67.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-PRODUCT_NAME := cm_ef67
+PRODUCT_NAME := lineage_ef67

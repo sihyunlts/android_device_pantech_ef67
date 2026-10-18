@@ -7,7 +7,7 @@ DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 
 PRODUCT_PACKAGES += mkfs.f2fs fsck.f2fs
 
-PRODUCT_PACKAGES += ef67-hci-filter libbt-vendor
+PRODUCT_PACKAGES += ef67-hci-filter libbt-vendor libef67_vibrator
 
 PRODUCT_COPY_FILES += \
     device/pantech/ef67/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
