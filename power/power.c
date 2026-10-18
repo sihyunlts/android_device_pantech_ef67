@@ -25,6 +25,7 @@
 #include <log/log.h>
 
 #define INTERACTIVE_BOOSTPULSE "/sys/devices/system/cpu/cpufreq/interactive/boostpulse"
+#define DOUBLE_TAP_TO_WAKE "/sys/bus/i2c/devices/1-004a/double_tap_to_wake"
 #define NOTIFY_ON_MIGRATE "/dev/cpuctl/cpu.notify_on_migrate"
 
 static void write_value(const char *path, const char *value)
@@ -70,6 +71,13 @@ static void power_hint(struct power_module *module, power_hint_t hint, void *dat
     }
 }
 
+static void set_feature(struct power_module *module, feature_t feature, int state)
+{
+    (void)module;
+    if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE)
+        write_value(DOUBLE_TAP_TO_WAKE, state ? "1" : "0");
+}
+
 static struct hw_module_methods_t power_methods = {
     .open = NULL,
 };
@@ -77,7 +85,7 @@ static struct hw_module_methods_t power_methods = {
 struct power_module HAL_MODULE_INFO_SYM = {
     .common = {
         .tag = HARDWARE_MODULE_TAG,
-        .module_api_version = POWER_MODULE_API_VERSION_0_2,
+        .module_api_version = POWER_MODULE_API_VERSION_0_3,
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = POWER_HARDWARE_MODULE_ID,
         .name = "EF67 Power HAL",
@@ -86,4 +94,5 @@ struct power_module HAL_MODULE_INFO_SYM = {
     .init = power_init,
     .setInteractive = set_interactive,
     .powerHint = power_hint,
+    .setFeature = set_feature,
 };

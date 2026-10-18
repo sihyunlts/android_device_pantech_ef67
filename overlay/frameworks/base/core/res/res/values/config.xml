@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <bool name="config_supportDoubleTapWake">true</bool>
     <!-- Home (1), back (2), secret key/assist (8), and app switch (16). -->
     <integer name="config_deviceHardwareKeys">27</integer>
     <bool name="config_useDevInputEventForAudioJack">true</bool>
