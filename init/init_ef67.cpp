@@ -9,7 +9,7 @@ static void set_model_property(const char *name, const char *value)
 {
     const prop_info *property = __system_property_find(name);
 
-    /* CM11 loads build.prop before calling vendor_load_properties. */
+    /* Properties may already be loaded when the vendor hook runs. */
     if (property)
         __system_property_update((prop_info *)property, value, strlen(value));
     else
