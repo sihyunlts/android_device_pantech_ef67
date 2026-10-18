@@ -9,6 +9,7 @@ include $(BUILD_SHARED_LIBRARY)
 ef67_settings_icon_dir := $(call intermediates-dir-for,APPS,VegaSettings,,COMMON)/settings-icons
 include $(CLEAR_VARS)
 LOCAL_PACKAGE_NAME := VegaSettings
+LOCAL_STATIC_JAVA_LIBRARIES := org.cyanogenmod.platform.sdk
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res $(ef67_settings_icon_dir) \
     vendor/pantech/ef67/proprietary/vega-settings/res

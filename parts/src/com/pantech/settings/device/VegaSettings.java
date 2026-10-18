@@ -4,7 +4,7 @@ import android.app.ActionBar;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Intent;
-import android.provider.Settings;
+import cyanogenmod.providers.CMSettings;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -48,10 +48,10 @@ public final class VegaSettings extends PreferenceActivity
         }
         mTouchMode.setEntries(entries);
         mTouchMode.setOnPreferenceChangeListener(this);
-        mSecretWake = (SwitchPreference) findPreference(Settings.System.ASSIST_WAKE_SCREEN);
+        mSecretWake = (SwitchPreference) findPreference(CMSettings.System.ASSIST_WAKE_SCREEN);
         mSecretWake.setOnPreferenceChangeListener(this);
-        mSecretPress = (ListPreference) findPreference(Settings.System.KEY_ASSIST_ACTION);
-        mSecretLongPress = (ListPreference) findPreference(Settings.System.KEY_ASSIST_LONG_PRESS_ACTION);
+        mSecretPress = (ListPreference) findPreference(CMSettings.System.KEY_ASSIST_ACTION);
+        mSecretLongPress = (ListPreference) findPreference(CMSettings.System.KEY_ASSIST_LONG_PRESS_ACTION);
         mChargingLimit = (ListPreference) findPreference(ChargingControl.LIMIT);
         mChargingLimit.setOnPreferenceChangeListener(this);
         mSecretPress.setOnPreferenceChangeListener(this);
@@ -71,8 +71,8 @@ public final class VegaSettings extends PreferenceActivity
     public void onResume() {
         super.onResume();
         updateMode();
-        mSecretWake.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.ASSIST_WAKE_SCREEN, 1) != 0);
+        mSecretWake.setChecked(CMSettings.System.getInt(getContentResolver(),
+                CMSettings.System.ASSIST_WAKE_SCREEN, 1) != 0);
         updateKeyAction(mSecretPress, SecretKey.DEFAULT_PRESS);
         updateKeyAction(mSecretLongPress, SecretKey.DEFAULT_LONG_PRESS);
         boolean chargingAvailable = ChargingControl.available();
@@ -82,7 +82,7 @@ public final class VegaSettings extends PreferenceActivity
     }
 
     private void updateKeyAction(ListPreference preference, int defaultAction) {
-        int action = Settings.System.getInt(getContentResolver(), preference.getKey(), defaultAction);
+        int action = CMSettings.System.getInt(getContentResolver(), preference.getKey(), defaultAction);
         preference.setValue(Integer.toString(action));
         preference.setSummary(preference.getEntry());
     }
@@ -129,8 +129,8 @@ public final class VegaSettings extends PreferenceActivity
             return false;
         }
         if (preference == mSecretWake) {
-            if (Settings.System.putInt(getContentResolver(),
-                    Settings.System.ASSIST_WAKE_SCREEN, (Boolean) value ? 1 : 0)) {
+            if (CMSettings.System.putInt(getContentResolver(),
+                    CMSettings.System.ASSIST_WAKE_SCREEN, (Boolean) value ? 1 : 0)) {
                 return true;
             }
             Toast.makeText(this, R.string.secret_key_failed, Toast.LENGTH_SHORT).show();
@@ -139,7 +139,7 @@ public final class VegaSettings extends PreferenceActivity
         if (preference == mSecretPress || preference == mSecretLongPress) {
             ListPreference key = (ListPreference) preference;
             int action = Integer.parseInt((String) value);
-            if (Settings.System.putInt(getContentResolver(), key.getKey(), action)) {
+            if (CMSettings.System.putInt(getContentResolver(), key.getKey(), action)) {
                 key.setValue((String) value);
                 key.setSummary(key.getEntry());
             } else {

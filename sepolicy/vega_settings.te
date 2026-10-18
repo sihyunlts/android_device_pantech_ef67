@@ -1,6 +1,10 @@
 type vega_settings, domain;
 app_domain(vega_settings)
 
+# Framework service discovery required by a platform-signed settings app.
+allow vega_settings { app_api_service system_api_service }:service_manager find;
+allow vega_settings surfaceflinger_service:service_manager find;
+
 type ef67_touch_device, dev_type;
 type ef67_charge_control_sysfs, fs_type, sysfs_type;
 

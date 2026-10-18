@@ -16,12 +16,12 @@
 
 <dashboard-categories
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
-        >
+        xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
     <!-- WIRELESS and NETWORKS -->
     <dashboard-category
             android:id="@+id/wireless_section"
+            android:key="@string/category_key_wireless"
             android:title="@string/header_category_wireless_networks" >
 
         <!-- Wifi -->
@@ -38,19 +38,10 @@
                 android:id="@+id/bluetooth_settings"
                 android:title="@string/bluetooth_settings_title"
                 android:fragment="com.android.settings.bluetooth.BluetoothSettings"
-                android:icon="@drawable/ic_settings_bluetooth2"
+                android:icon="@drawable/ic_settings_bluetooth"
                 settings:switchClass="com.android.settings.bluetooth.BluetoothEnabler"
                 />
 
-        <!-- SIM Cards -->
-        <dashboard-tile
-                android:id="@+id/sim_settings"
-                android:title="@string/sim_settings_title"
-                android:fragment="com.android.settings.sim.SimSettings"
-                android:icon="@drawable/ic_sim_sd"
-                />
-
-        <!-- Mobile networks -->
         <dashboard-tile
                 android:id="@+id/mobile_networks"
                 android:title="@string/network_settings_title"
@@ -62,6 +53,14 @@
                     android:targetPackage="com.android.phone"
                     android:targetClass="com.android.phone.MobileNetworkSettings" />
         </dashboard-tile>
+
+        <!-- SIM Cards -->
+        <dashboard-tile
+                android:id="@+id/sim_settings"
+                android:title="@string/sim_settings_title"
+                android:fragment="com.android.settings.sim.SimSettings"
+                android:icon="@drawable/ic_settings_sim"
+                />
 
         <!-- Data Usage -->
         <dashboard-tile
@@ -92,19 +91,19 @@
                 android:icon="@drawable/ic_settings_vega">
             <intent android:action="com.android.settings.MANUFACTURER_APPLICATION_SETTING" />
         </dashboard-tile>
-
     </dashboard-category>
 
     <!-- DEVICE -->
     <dashboard-category
             android:id="@+id/device_section"
+            android:key="@string/category_key_device"
             android:title="@string/header_category_device" >
 
         <!-- Sound -->
         <dashboard-tile
                 android:id="@+id/sound_settings"
                 android:title="@string/category_sounds"
-                android:fragment="com.android.settings.SoundSettings"
+                android:fragment="com.android.settings.notification.SoundSettings"
                 android:icon="@drawable/ic_settings_sounds"
                 />
 
@@ -140,9 +139,10 @@
         <dashboard-tile
                 android:id="@+id/lockscreen_settings"
                 android:title="@string/lockscreen_settings"
-                android:fragment="com.android.settings.lockscreen.LockScreenSettings"
-                android:icon="@drawable/ic_settings_lockscreen"
-                />
+                android:fragment="com.android.settings.SecuritySettings"
+                android:icon="@drawable/ic_settings_lockscreen">
+                <extra android:name="filter_type" android:value="0" />
+        </dashboard-tile>
 
         <!-- Buttons -->
         <dashboard-tile
@@ -152,26 +152,7 @@
                 android:icon="@drawable/ic_settings_buttons"
                 />
 
-        <!-- O-Click -->
-        <dashboard-tile
-                android:id="@+id/oclick"
-                android:icon="@drawable/ic_settings_oclick">
-            <intent
-                    android:action="com.cyanogenmod.action.LAUNCH_BLUETOOTH_INPUT_SETTINGS"
-                    android:targetPackage="com.cyanogenmod.settings.device"
-                    android:targetClass="com.cyanogenmod.settings.device.BluetoothInputSettings" />
-        </dashboard-tile>
-
-        <!-- Gestures -->
-        <dashboard-tile
-                android:id="@+id/device_specific_gesture_settings"
-                android:title="@string/gesture_settings_title"
-                android:icon="@drawable/ic_settings_gestures">
-            <intent
-                    android:action="com.cyanogenmod.action.LAUNCH_TOUCHSCREEN_GESTURE_SETTINGS"
-                    android:targetPackage="com.cyanogenmod.settings.device"
-                    android:targetClass="com.cyanogenmod.settings.device.TouchscreenGestureSettings" />
-        </dashboard-tile>
+        <external-tiles />
 
         <!-- Battery -->
         <dashboard-tile
@@ -189,6 +170,14 @@
                 android:icon="@drawable/ic_settings_security"
                 />
 
+        <!-- Memory -->
+        <dashboard-tile
+                android:id="@+id/manage_memory"
+                android:title="@string/memory_settings_title"
+                android:fragment="com.android.settings.applications.ProcessStatsSummary"
+                android:icon="@drawable/ic_settings_memory"
+                />
+
         <!-- Manage users -->
         <dashboard-tile
                 android:id="@+id/user_settings"
@@ -202,6 +191,7 @@
     <!-- Personalization -->
     <dashboard-category
             android:id="@+id/personal_section"
+            android:key="@string/category_key_personal"
             android:title="@string/header_category_personal" >
 
         <!-- Home -->
@@ -225,17 +215,7 @@
                 android:id="@+id/status_bar_settings"
                 android:title="@string/status_bar_title"
                 android:fragment="com.android.settings.cyanogenmod.StatusBarSettings"
-                android:icon="@drawable/ic_settings_extdesk_hidenavbar"
-                settings:advanced="true"
-                />
-
-        <!-- Notification drawer -->
-        <dashboard-tile
-                android:id="@+id/notification_drawer_settings"
-                android:title="@string/notification_drawer_title"
-                android:fragment="com.android.settings.cyanogenmod.NotificationDrawerSettings"
-                android:icon="@drawable/ic_settings_notification_drawer"
-                settings:advanced="true"
+                android:icon="@drawable/ic_settings_statusbar"
                 />
 
         <!-- Application Settings -->
@@ -253,6 +233,9 @@
                 android:fragment="com.android.settings.accounts.AccountSettings"
                 android:icon="@drawable/ic_settings_accounts"
                 />
+
+        <!-- Marker for where to place external tiles in this category -->
+        <external-tiles />
 
         <!-- CyanogenMod Privacy Settings -->
         <!-- This is the 'real' Privacy items and includes Privacy Guard, Blacklist & WhisperPush -->
@@ -276,6 +259,7 @@
     <!-- SYSTEM -->
     <dashboard-category
         android:id="@+id/system_section"
+        android:key="@string/category_key_system"
         android:title="@string/header_category_system" >
 
         <!-- Date & Time -->
@@ -284,6 +268,14 @@
                 android:title="@string/date_and_time_settings_title"
                 android:fragment="com.android.settings.DateTimeSettings"
                 android:icon="@drawable/ic_settings_date_time"
+                />
+
+        <!-- Weather -->
+        <dashboard-tile
+                android:id="@+id/weather_settings"
+                android:title="@string/weather_settings_title"
+                android:fragment="com.android.settings.cyanogenmod.WeatherServiceSettings"
+                android:icon="@drawable/ic_settings_weather"
                 />
 
         <!-- Accessibility feedback -->
@@ -297,8 +289,8 @@
         <!-- Storage -->
         <dashboard-tile
                 android:id="@+id/storage_settings"
-                android:title="@string/storage_settings"
-                android:fragment="com.android.settings.deviceinfo.Memory"
+                android:title="@string/storage_usb_settings"
+                android:fragment="com.android.settings.deviceinfo.StorageSettings"
                 android:icon="@drawable/ic_settings_storage"
                 />
 
