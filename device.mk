@@ -45,7 +45,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196608 \
+    ro.opengles.version=196609 \
     ro.sf.lcd_density=560 \
     persist.hwc.mdpcomp.enable=true
 
