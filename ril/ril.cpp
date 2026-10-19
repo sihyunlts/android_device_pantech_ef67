@@ -72,8 +72,9 @@ static void on_request_complete(RIL_Token token, RIL_Errno error,
 
 static void on_request(int request, void *data, size_t length, RIL_Token token)
 {
-    // These CM13 request numbers are different vendor commands in S0226114.
-    if (request == RIL_REQUEST_GET_RADIO_CAPABILITY || request == RIL_REQUEST_START_LCE) {
+    // These newer Android requests collide with vendor commands in S0226114.
+    if (request == RIL_REQUEST_GET_RADIO_CAPABILITY || request == RIL_REQUEST_START_LCE ||
+            request == RIL_REQUEST_GET_ACTIVITY_INFO) {
         framework_env->OnRequestComplete(token, RIL_E_REQUEST_NOT_SUPPORTED, nullptr, 0);
         return;
     }

@@ -231,6 +231,7 @@ service qmuxd /system/bin/qmuxd
 
 service netmgrd /system/bin/netmgrd
     class main
+    group radio
     disabled
 
 on post-fs-data
