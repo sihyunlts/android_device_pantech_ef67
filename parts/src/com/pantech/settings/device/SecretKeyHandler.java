@@ -15,19 +15,19 @@ public final class SecretKeyHandler implements DeviceKeyHandler {
     }
 
     @Override
-    public boolean handleKeyEvent(KeyEvent event) {
+    public KeyEvent handleKeyEvent(KeyEvent event) {
         if (event.getKeyCode() != KeyEvent.KEYCODE_ASSIST) {
-            return false;
+            return event;
         }
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             if (event.getRepeatCount() == 0) {
                 mWakePress = !mPowerManager.isInteractive();
-                return false;
+                return event;
             }
-            return mWakePress;
+            return mWakePress ? null : event;
         }
         boolean consume = mWakePress;
         mWakePress = false;
-        return consume;
+        return consume ? null : event;
     }
 }

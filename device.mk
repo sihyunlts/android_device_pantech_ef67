@@ -10,6 +10,7 @@ PRODUCT_PACKAGES += mkfs.f2fs fsck.f2fs
 PRODUCT_PACKAGES += ef67-hci-filter libbt-vendor vibrator.apq8084
 
 PRODUCT_COPY_FILES += \
+    device/pantech/ef67/keylayout/fpcSystemNavigation.kl:system/usr/keylayout/fpcSystemNavigation.kl \
     device/pantech/ef67/audio/audio_policy.conf:system/etc/audio_policy.conf \
     device/pantech/ef67/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     device/pantech/ef67/keylayout/atmel_mxt_641t.kl:system/usr/keylayout/atmel_mxt_641t.kl \

@@ -8,6 +8,9 @@ public final class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
+            if (android.os.UserHandle.myUserId() == android.os.UserHandle.USER_SYSTEM) {
+                context.startService(new Intent(context, FingerprintGestureService.class));
+            }
             SecretKey.initializeDefaults(context);
             context.startService(new Intent(context, PenService.class));
             context.startService(new Intent(context, ChargeLimitService.class));

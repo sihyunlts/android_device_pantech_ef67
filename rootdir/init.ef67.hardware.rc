@@ -100,6 +100,9 @@ on post-fs-data
 
 on boot
     write /dev/fpc_btp stop_navi
+    chown system system /sys/bus/spi/devices/spi7.0/nav_settings/system_navigation
+    chmod 0660 /sys/bus/spi/devices/spi7.0/nav_settings/system_navigation
+    restorecon /sys/devices/f9963000.spi/spi_master/spi7/spi7.0/nav_settings/system_navigation
     chown system system /sys/class/power_supply/battery/charge_enabled
     chmod 0660 /sys/class/power_supply/battery/charge_enabled
     restorecon /sys/devices/f9925000.i2c/i2c-3/3-001c/power_supply/battery/charge_enabled
