@@ -39,4 +39,6 @@ while IFS= read -r file || [[ -n "$file" ]]; do
 done < "$DEVICE_PATH/proprietary-files.txt"
 
 "$VENDOR_PATH/fixup-blobs.sh"
+patchelf --rename-dynamic-symbols "$DEVICE_PATH/camera/symbols.map" \
+    "$VENDOR_PATH/proprietary/lib/hw/camera.apq8084.so"
 "$DEVICE_PATH/setup-makefiles.sh"

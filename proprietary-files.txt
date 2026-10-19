@@ -11,6 +11,8 @@ etc/firmware/wlan/qca_cld/WCNSS_qcom_cfg_trptis.ini
 etc/firmware/wlan/qca_cld/WCNSS_qcom_wlan_nv.bin
 
 
+lib/libstlport.so
+
 # Adreno 420 GPU libraries and firmware.
 etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw

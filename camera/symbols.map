@@ -1,0 +1,2 @@
+native_handle_create ef67_camera_native_handle_create
+_ZN7android16CameraParameters9unflattenERKNS_7String8E ef67_camera_parameters_unflatten
