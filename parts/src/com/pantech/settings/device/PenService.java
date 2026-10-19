@@ -77,9 +77,8 @@ public final class PenService extends Service
             return;
         }
         if (detached.equals(mDetached)) return;
-        boolean changed = mDetached != null;
         mDetached = detached;
-        if (vibrate && changed) {
+        if (vibrate) {
             ((Vibrator) getSystemService(VIBRATOR_SERVICE)).vibrate(30);
         }
         applyMode(true);
