@@ -76,7 +76,6 @@ vendor/lib/libqmi_csi.so
 -bin/rmt_storage
 etc/data/dsi_config.xml
 etc/data/netmgr_config.xml
--lib/libril.so
 lib/librmnetctl.so
 vendor/lib/libconfigdb.so
 vendor/lib/libdsi_netctrl.so

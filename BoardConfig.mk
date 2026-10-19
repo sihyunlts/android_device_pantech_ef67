@@ -15,7 +15,6 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_HAS_QCA_BT_ROME := true
 QCOM_BT_USE_BTNV := true
-BOARD_PROVIDES_LIBRIL := true
 BOARD_RIL_CLASS := ../../../device/pantech/ef67/ril
 USE_CAMERA_STUB := false
 TARGET_INIT_VENDOR_LIB := libinit_ef67

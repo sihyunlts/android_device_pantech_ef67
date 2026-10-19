@@ -24,6 +24,17 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := libef67_ril
+LOCAL_SRC_FILES := ril/ril.cpp
+LOCAL_C_INCLUDES := hardware/ril/include
+LOCAL_CFLAGS := -DRIL_SHLIB
+LOCAL_CPPFLAGS := -std=c++11
+LOCAL_CXX_STL := libc++
+LOCAL_SHARED_LIBRARIES := libdl liblog
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := libef67_camera_compat
 LOCAL_SRC_FILES := camera/camera_parameters_compat.c
 LOCAL_MODULE_TAGS := optional

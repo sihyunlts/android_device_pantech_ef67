@@ -90,7 +90,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=EF67RIL \
     persist.radio.oem_socket=false \
-    rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so \
+    rild.libpath=/system/lib/libef67_ril.so \
     ro.telephony.default_network=9
 
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -106,7 +106,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.df.mux_count=8 \
     persist.data.df.iwlan_mux=9
 
-PRODUCT_PACKAGES += libef67_camera_compat
+PRODUCT_PACKAGES += libef67_camera_compat libef67_ril
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
