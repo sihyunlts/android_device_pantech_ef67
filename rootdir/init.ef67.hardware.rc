@@ -95,6 +95,12 @@ on boot
     chown system system /sys/class/leds/lp5523:channel8/brightness
 
 on post-fs-data
+    mkdir /data/misc/camera 0770 camera camera
+    restorecon_recursive /data/misc/camera
+    # Finish stock sensor probing before mediaserver builds its flash list.
+    start qcamerasvr
+
+on post-fs-data
     mkdir /data/misc/audio 0770 audio audio
     restorecon_recursive /data/misc/audio
     write /sys/kernel/boot_adsp/boot 1
@@ -233,10 +239,6 @@ service netmgrd /system/bin/netmgrd
     class main
     group radio
     disabled
-
-on post-fs-data
-    mkdir /data/misc/camera 0770 camera camera
-    restorecon_recursive /data/misc/camera
 
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start

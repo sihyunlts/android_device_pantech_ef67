@@ -116,3 +116,6 @@ const char ef67_KEY_VTS[] __asm__("_ZN7android16CameraParameters7KEY_VTSE") =
 
 const char ef67_FLASH_MODE_TORCH_FLASH[] __asm__("_ZN7android16CameraParameters22FLASH_MODE_TORCH_FLASHE") =
     "torch_flash";
+
+const char ef67_FOCUS_MODE_MANUAL_POSITION[] __asm__("_ZN7android16CameraParameters26FOCUS_MODE_MANUAL_POSITIONE") =
+    "manual";

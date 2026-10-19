@@ -49,6 +49,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
+# Camera1 metadata contains process-local handles. Keep the hardware encoder
+# with the legacy camera service; this also moves secure decoders to mediaserver
+# and reduces process isolation. Ordinary decoders stay in media.codec.
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true
+
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.opengles.version=196609 \
     ro.sf.lcd_density=560 \

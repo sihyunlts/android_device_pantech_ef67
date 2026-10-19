@@ -19,6 +19,10 @@ BOARD_HAS_QCA_BT_ROME := true
 QCOM_BT_USE_BTNV := true
 BOARD_RIL_CLASS := ../../../device/pantech/ef67/ril
 USE_CAMERA_STUB := false
+# The stock KitKat camera uses the legacy Camera1 service and metadata ABI.
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
+# The stock JPEG library contains text relocations.
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 TARGET_INIT_VENDOR_LIB := libinit_ef67
 BOARD_HARDWARE_CLASS := device/pantech/ef67/cmhw
 
