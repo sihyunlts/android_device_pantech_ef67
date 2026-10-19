@@ -316,8 +316,8 @@ on post-fs-data
     restorecon_recursive /data/nfc
 
 on init
-    # The CM11 PN547 HAL uses this name for the stock NFC device.
-    symlink /dev/pn547 /dev/pn544
+    # The PN54x HAL opens this name for the stock PN547 device.
+    symlink /dev/pn547 /dev/pn54x
 
 service gpsone_daemon /system/bin/gpsone_daemon
     class late_start
