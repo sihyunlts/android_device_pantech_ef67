@@ -97,6 +97,9 @@ on boot
 on post-fs-data
     mkdir /data/misc/audio 0770 audio audio
     restorecon_recursive /data/misc/audio
+    write /sys/kernel/boot_adsp/boot 1
+    # Codec registration continues after the DSP boot request returns.
+    wait /sys/class/sound/controlC0 20
 
 on boot
     write /dev/fpc_btp stop_navi
@@ -106,9 +109,6 @@ on boot
     chown system system /sys/class/power_supply/battery/charge_enabled
     chmod 0660 /sys/class/power_supply/battery/charge_enabled
     restorecon /sys/devices/f9925000.i2c/i2c-3/3-001c/power_supply/battery/charge_enabled
-
-on boot
-    write /sys/kernel/boot_adsp/boot 1
 
 service audiod /system/bin/audiod
     class late_start

@@ -15,6 +15,9 @@ PRODUCT_COPY_FILES += \
     device/pantech/ef67/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     device/pantech/ef67/keylayout/atmel_mxt_641t.kl:system/usr/keylayout/atmel_mxt_641t.kl \
     device/pantech/ef67/media/media_codecs.xml:system/etc/media_codecs.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     device/pantech/ef67/media/media_profiles.xml:system/etc/media_profiles.xml \
     device/pantech/ef67/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     device/pantech/ef67/rootdir/fstab.qcom:root/fstab.qcom \
