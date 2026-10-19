@@ -16,6 +16,7 @@ LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res $(ef67_settings_icon_dir) \
 LOCAL_AAPT_FLAGS := --auto-add-overlay
 LOCAL_CERTIFICATE := platform
 LOCAL_PRIVILEGED_MODULE := true
+LOCAL_PROGUARD_FLAGS += -keep 'class com.pantech.settings.device.SecretKeyHandler { *; }'
 LOCAL_REQUIRED_MODULES := libvega_settings
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_PACKAGE)
