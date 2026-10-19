@@ -1,4 +1,4 @@
-# IM-A930S S0226114 files relative to /system.
+# EF67 files relative to /system (S0226114 unless noted).
 # A leading - marks files installed through vendor Android.mk.
 # Kernel-embedded firmware is listed separately in firmware-files.txt.
 
@@ -13,13 +13,12 @@ etc/firmware/wlan/qca_cld/WCNSS_qcom_wlan_nv.bin
 
 lib/libstlport.so
 
-# Adreno 420 GPU libraries and firmware.
+# Adreno 420 V145 libraries and firmware.
 etc/firmware/a420_pfp.fw
 etc/firmware/a420_pm4.fw
 vendor/lib/libgsl.so
 vendor/lib/libC2D2.so
 vendor/lib/libadreno_utils.so
-vendor/lib/libsc-a3xx.so
 vendor/lib/libc2d30-a4xx.so
 vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
@@ -27,6 +26,7 @@ vendor/lib/egl/libGLESv2_adreno.so
 vendor/lib/egl/eglsubAndroid.so
 vendor/lib/egl/eglSubDriverAndroid.so
 vendor/lib/libllvm-glnext.so
+vendor/lib/libllvm-qcom.so
 
 # Audio playback and calibration.
 etc/acdbdata/MTP/apq8084-tomtom-mtp-snd-card/MTP_WCD9330_Bluetooth_cal.acdb
