@@ -42,8 +42,9 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := libef67_vibrator
+LOCAL_MODULE := vibrator.apq8084
 LOCAL_SRC_FILES := vibrator/vibrator.c
+LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 

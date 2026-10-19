@@ -2,7 +2,7 @@ package org.cyanogenmod.hardware;
 
 import java.io.File;
 
-import org.cyanogenmod.hardware.util.FileUtils;
+import org.cyanogenmod.internal.util.FileUtils;
 
 public class DisplayColorCalibration {
     private static final String CONTROL = "/sys/devices/platform/kcal_ctrl/kcal";

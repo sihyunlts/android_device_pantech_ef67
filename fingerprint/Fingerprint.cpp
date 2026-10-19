@@ -333,14 +333,23 @@ int authenticate(fingerprint_device_t* device, uint64_t operation, uint32_t gid)
             !templateId(state.templates())) return -EINVAL;
     return state.start(false, 0, 0);
 }
-int enumerate(fingerprint_device_t* device, fingerprint_finger_id_t* results, uint32_t* maximum) {
-    if (!maximum || (*maximum && !results)) return -EINVAL;
+int enumerate(fingerprint_device_t* device) {
     auto& state = controller(device); std::lock_guard<std::mutex> lock(state.calls);
     state.stop(); if (state.directory.empty()) return -EINVAL;
     std::vector<int> fingers; int status = state.list(fingers); if (status < 0) return status;
-    uint32_t copied = std::min<uint32_t>(*maximum, fingers.size());
-    for (uint32_t i = 0; i < copied; ++i) results[i] = {state.group, static_cast<uint32_t>(fingers[i] + 1)};
-    *maximum = copied; return fingers.size();
+    fingerprint_msg_t message = {};
+    message.type = FINGERPRINT_TEMPLATE_ENUMERATING;
+    message.data.enumerated.finger.gid = state.group;
+    if (fingers.empty()) {
+        state.notify(message);
+        return 0;
+    }
+    for (size_t i = 0; i < fingers.size(); ++i) {
+        message.data.enumerated.finger.fid = static_cast<uint32_t>(fingers[i] + 1);
+        message.data.enumerated.remaining_templates = fingers.size() - i - 1;
+        state.notify(message);
+    }
+    return 0;
 }
 int remove(fingerprint_device_t* device, uint32_t gid, uint32_t fid) {
     auto& state = controller(device); std::lock_guard<std::mutex> lock(state.calls);
@@ -382,7 +391,7 @@ int openDevice(const hw_module_t* module, const char*, hw_device_t** output) {
     int status = hal->controller->engine.open();
     if (status < 0) { delete hal->controller; delete hal; return status; }
     auto& dev = hal->device;
-    dev.common.tag = HARDWARE_DEVICE_TAG; dev.common.version = FINGERPRINT_MODULE_API_VERSION_2_0;
+    dev.common.tag = HARDWARE_DEVICE_TAG; dev.common.version = FINGERPRINT_MODULE_API_VERSION_2_1;
     dev.common.module = const_cast<hw_module_t*>(module); dev.common.close = closeDevice;
     dev.set_notify = setNotify; dev.pre_enroll = preEnroll; dev.enroll = enroll; dev.post_enroll = postEnroll;
     dev.get_authenticator_id = getAuthId; dev.cancel = cancel; dev.enumerate = enumerate;
@@ -393,7 +402,7 @@ hw_module_methods_t methods = {openDevice};
 }
 extern "C" {
 fingerprint_module_t HAL_MODULE_INFO_SYM = {{
-    HARDWARE_MODULE_TAG, FINGERPRINT_MODULE_API_VERSION_2_0, HARDWARE_HAL_API_VERSION,
+    HARDWARE_MODULE_TAG, FINGERPRINT_MODULE_API_VERSION_2_1, HARDWARE_HAL_API_VERSION,
     FINGERPRINT_HARDWARE_MODULE_ID, "EF67 legacy fingerprint HAL", "Pantech / LineageOS",
     &methods, nullptr, {0}
 }};

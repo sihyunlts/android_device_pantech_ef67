@@ -7,6 +7,8 @@ Description
 # Qualcomm Technologies Proprietary and Confidential.
 
 ===========================================================================*/
+#define LOG_TAG "WCNSS_FILTER"
+
 #include <pthread.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -27,7 +29,6 @@ Description
 #define UART_VOTEOFF_DELAY      100
 #define CLOCK_OFF               0
 #define CLOCK_ON                1
-#define LOG_TAG "WCNSS_FILTER"
 #define NUM_WACK_RETRANSMIT     128
 #define USERIAL_OP_CLK_ON 0x5441
 #define USERIAL_OP_CLK_OFF 0x5442
@@ -104,7 +105,8 @@ typedef struct
 }bt_lpm;
 static bt_lpm wcnss_bt_lpm;
 /********************Low power mode state ************************************/
-static void ibs_wake_retrans_timeout(void);
+static void ibs_msm_serial_clock_vote(uint8_t vote, IBS_STATE_MACHINE *ibs_state);
+static void ibs_wake_retrans_timeout(union sigval value);
 static void ibs_wack_timer_start(void);
 static void ibs_wack_timer_stop(void);
 static void ibs_voteOff_timer_start(void);
@@ -123,8 +125,9 @@ static void do_write(uint8_t ibs_data)
     pthread_mutex_unlock(&signal_mutex);
 }
 
-static void ibs_wake_retrans_timeout(void)
+static void ibs_wake_retrans_timeout(union sigval value)
 {
+    (void)value;
     uint8_t ibs_data;
     ALOGV("%s: Retransmit wake ind and restart timer",__FUNCTION__);
     if(num_try == NUM_WACK_RETRANSMIT)
@@ -168,7 +171,7 @@ static void ibs_wack_timer_stop()
      }
 }
 
-void ibs_msm_serial_clock_vote(uint8_t vote, IBS_STATE_MACHINE * ibs_state)
+static void ibs_msm_serial_clock_vote(uint8_t vote, IBS_STATE_MACHINE * ibs_state)
 {
     uint8_t new_vote;
     uint8_t old_vote = (ibs_state->tx_vote | ibs_state->rx_vote);
@@ -253,8 +256,9 @@ static void ibs_wack_timer_start()
             ALOGE("%s:Failed to set wack timer",__FUNCTION__);
     }
 }
-static void ibs_serial_clk_voteoff_timeout()
+static void ibs_serial_clk_voteoff_timeout(union sigval value)
 {
+    (void)value;
     ALOGI("%s: uart serival vote off",__FUNCTION__);
     ibs_state_machine.CLK_STATE = CLOCK_OFF;
     ioctl(tty_fd,USERIAL_OP_CLK_OFF);
@@ -533,8 +537,9 @@ static void wcnss_wake_deassert(void)
     ibs_wcnss_bt_device_sleep();
 }
 
-static void wcnss_idle_timeout(void)
+static void wcnss_idle_timeout(union sigval value)
 {
+    (void)value;
     ALOGV("%s: Deassert SOC",__FUNCTION__);
     wcnss_wake_deassert();
 }

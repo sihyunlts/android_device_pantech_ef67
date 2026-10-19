@@ -27,8 +27,11 @@ TARGET_KERNEL_CONFIG := ef67_defconfig
 BOARD_KERNEL_IMAGE_NAME := zImage
 BOARD_KERNEL_SEPARATED_DT := true
 
+# The custom module target replaces the common installer dependency.
+INSTALLED_KERNEL_MODULES: TARGET_KERNEL_BINARIES
+
 .PHONY: WLAN_MODULES
-WLAN_MODULES:
+WLAN_MODULES: INSTALLED_KERNEL_MODULES
 	mkdir -p $(KERNEL_MODULES_OUT)/qca_cld $(TARGET_OUT)/etc/firmware/wlan/qca_cld
 	mv $(KERNEL_MODULES_OUT)/wlan.ko $(KERNEL_MODULES_OUT)/qca_cld/qca_cld_wlan.ko
 	ln -sf /system/lib/modules/qca_cld/qca_cld_wlan.ko $(KERNEL_MODULES_OUT)/wlan.ko
@@ -63,19 +66,6 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/pantech/ef67
 include device/qcom/sepolicy/sepolicy.mk
 
 BOARD_SEPOLICY_DIRS += device/pantech/ef67/sepolicy
-BOARD_SEPOLICY_UNION += \
-    file.te \
-    file_contexts \
-    touch_wake.te \
-    wifi_init.te \
-    thermal.te \
-    mpdecision.te \
-    mm-qcamerad.te \
-    ef67_sensors.te \
-    vega_settings.te \
-    seapp_contexts \
-    ueventd.te \
-    vold.te
 
 TARGET_PROVIDES_LIBLIGHT := true
 BOARD_NFC_CHIPSET := pn547

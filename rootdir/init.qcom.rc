@@ -29,8 +29,6 @@ import /init.qcom.usb.rc
 import /init.ef67.hardware.rc
 
 on init
-    # Supply the stock packed vibrator ABI to the framework JNI library.
-    export LD_SHIM_LIBS /system/lib/libandroid_servers.so|libef67_vibrator.so
     symlink /dev/block/platform/msm_sdcc.1 /dev/block/bootdevice
     mkdir /persist 0771 system system
     mkdir /firmware 0771 system system
