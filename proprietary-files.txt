@@ -34,7 +34,6 @@ etc/acdbdata/MTP/apq8084-tomtom-mtp-snd-card/MTP_WCD9330_Handset_cal.acdb
 etc/acdbdata/MTP/apq8084-tomtom-mtp-snd-card/MTP_WCD9330_Hdmi_cal.acdb
 etc/acdbdata/MTP/apq8084-tomtom-mtp-snd-card/MTP_WCD9330_Headset_cal.acdb
 etc/acdbdata/MTP/apq8084-tomtom-mtp-snd-card/MTP_WCD9330_Speaker_cal.acdb
-etc/audio_policy.conf
 etc/mixer_paths.xml
 lib/hw/audio.primary.apq8084.so
 lib/libmdmdetect.so

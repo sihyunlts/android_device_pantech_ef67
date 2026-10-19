@@ -11,6 +11,8 @@ BOARD_USES_QCOM_HARDWARE := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
 BOARD_USES_ALSA_AUDIO := true
+# The stock audio HAL uses the 36-byte KitKat pcm_config layout.
+TARGET_TINY_ALSA_IGNORE_SILENCE_SIZE := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BOARD_HAS_QCA_BT_ROME := true
