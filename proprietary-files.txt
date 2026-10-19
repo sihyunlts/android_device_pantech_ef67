@@ -75,6 +75,7 @@ vendor/lib/libqmi_csi.so
 -bin/netmgrd
 -bin/qmuxd
 -bin/rmt_storage
+-bin/time_daemon
 etc/data/dsi_config.xml
 etc/data/netmgr_config.xml
 lib/librmnetctl.so
@@ -87,7 +88,7 @@ vendor/lib/libqdp.so
 vendor/lib/libqmi.so
 vendor/lib/libril-qc-qmi-1.so
 vendor/lib/libril-qcril-hook-oem.so
-vendor/lib/libtime_genoff.so
+-vendor/lib/libtime_genoff.so
 vendor/lib/libxml.so
 
 # Sensor HAL and IPC Router security initialization.

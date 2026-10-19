@@ -95,6 +95,8 @@ on boot
     chown system system /sys/class/leds/lp5523:channel8/brightness
 
 on post-fs-data
+    mkdir /data/time 0700 system system
+    restorecon_recursive /data/time
     mkdir /data/misc/camera 0770 camera camera
     restorecon_recursive /data/misc/camera
     # Finish stock sensor probing before mediaserver builds its flash list.
@@ -244,6 +246,11 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
     class late_start
     user camera
     group camera system inet input graphics
+
+service time_daemon /system/bin/time_daemon
+    class late_start
+    user root
+    group root
 
 service sensors /system/bin/sensors.qcom
     class main
