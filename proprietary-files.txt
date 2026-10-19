@@ -242,3 +242,7 @@ etc/firmware/venus.b01
 etc/firmware/venus.b02
 etc/firmware/venus.b03
 etc/firmware/venus.b04
+
+# Fingerprint engine.
+etc/btp.license
+vendor/lib/libcsfp_core.so

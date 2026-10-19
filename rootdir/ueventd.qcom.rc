@@ -54,3 +54,5 @@
 /dev/ttyHS10              0660   system     audio
 
 /dev/touch_fops           0660   system     radio
+
+/dev/fpc_btp 0660 system system

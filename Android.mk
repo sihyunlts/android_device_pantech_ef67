@@ -80,6 +80,7 @@ EF67_INSTALLED_KERNEL_MODULES := \
 $(EF67_INSTALLED_KERNEL_MODULES): WLAN_MODULES
 ALL_DEFAULT_INSTALLED_MODULES += $(EF67_INSTALLED_KERNEL_MODULES)
 
-include $(LOCAL_PATH)/parts/Android.mk
+include $(LOCAL_PATH)/fingerprint/Android.mk
+include device/pantech/ef67/parts/Android.mk
 include device/pantech/ef67/bluetooth/Android.mk
 endif
