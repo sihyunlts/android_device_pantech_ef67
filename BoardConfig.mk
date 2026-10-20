@@ -27,7 +27,7 @@ TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 # The stock JPEG library contains text relocations.
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 TARGET_INIT_VENDOR_LIB := libinit_ef67
-BOARD_HARDWARE_CLASS := device/pantech/ef67/cmhw
+BOARD_HARDWARE_CLASS := device/pantech/ef67/lineagehw
 
 TARGET_KERNEL_SOURCE := kernel/pantech/apq8084
 TARGET_KERNEL_CONFIG := ef67_defconfig

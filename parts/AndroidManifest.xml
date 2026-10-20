@@ -3,9 +3,9 @@
     package="com.pantech.settings.device" android:sharedUserId="android.uid.system">
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="cyanogenmod.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="lineageos.permission.WRITE_SETTINGS" />
     <application android:label="@string/vega_features" android:allowBackup="false"
-        android:theme="@style/VegaSettingsTheme" android:icon="@mipmap/ic_launcher_settings">
+        android:theme="@style/VegaSettingsTheme" android:icon="@mipmap/ic_launcher">
         <activity android:name=".VegaSettings" android:exported="true"
             android:permission="android.permission.WRITE_SECURE_SETTINGS">
             <meta-data android:name="com.android.settings.category"
