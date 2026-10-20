@@ -1,5 +1,5 @@
 allow mpdecision device_latency:chr_file rw_file_perms;
-allow mpdecision self:netlink_kobject_uevent_socket create_socket_perms;
+allow mpdecision self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow mpdecision self:unix_stream_socket { create_socket_perms listen accept };
 allow mpdecision socket_device:dir { search write add_name remove_name };
 type_transition mpdecision socket_device:sock_file mpctl_socket "mpctl";

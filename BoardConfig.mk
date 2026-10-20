@@ -68,7 +68,7 @@ BOARD_NAND_PAGE_SIZE := 4096
 BOARD_NAND_SPARE_SIZE := 0
 TARGET_RECOVERY_FSTAB := device/pantech/ef67/rootdir/fstab.qcom
 BOARD_CUSTOM_BOOTIMG_MK := device/pantech/ef67/bootimage.mk
-TARGET_RELEASETOOLS_EXTENSIONS := device/pantech/ef67
+TARGET_FS_CONFIG_GEN := device/pantech/ef67/config.fs
 
 include device/qcom/sepolicy/sepolicy.mk
 

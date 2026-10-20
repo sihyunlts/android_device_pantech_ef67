@@ -5,7 +5,7 @@ allow thermal-engine sysfs:file r_file_perms;
 allow thermal-engine sysfs:lnk_file read;
 allow thermal-engine sysfs_devices_system_cpu:dir r_dir_perms;
 allow thermal-engine sysfs_devices_system_cpu:file rw_file_perms;
-allow thermal-engine self:netlink_kobject_uevent_socket create_socket_perms;
+allow thermal-engine self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow thermal-engine self:unix_stream_socket { create_socket_perms listen accept };
 allow thermal-engine socket_device:dir { search write add_name remove_name };
 allow thermal-engine thermal_socket:sock_file create_file_perms;
