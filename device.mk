@@ -4,6 +4,20 @@ PRODUCT_AAPT_PREF_CONFIG := xxxhdpi
 $(call inherit-product, frameworks/native/build/phone-xxxhdpi-3072-dalvik-heap.mk)
 DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 
+# Oreo adapters for services reached during initial boot.
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.composer@2.1-service \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.memtrack@1.0-service \
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service
+
 PRODUCT_PACKAGES += mkfs.f2fs fsck.f2fs
 
 PRODUCT_PACKAGES += ef67-hci-filter libbt-vendor vibrator.apq8084
