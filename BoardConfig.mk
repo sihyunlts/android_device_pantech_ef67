@@ -36,6 +36,7 @@ TARGET_KERNEL_SOURCE := kernel/pantech/apq8084
 TARGET_KERNEL_CONFIG := ef67_defconfig
 BOARD_KERNEL_IMAGE_NAME := zImage
 BOARD_KERNEL_SEPARATED_DT := true
+NEED_KERNEL_MODULE_SYSTEM := true
 
 # The custom module target replaces the common installer dependency.
 INSTALLED_KERNEL_MODULES: TARGET_KERNEL_BINARIES
