@@ -1,1 +1,7 @@
 allow sensors self:capability sys_nice;
+
+# The stock HAL probes the kernel sensor device while loading.
+allow hal_sensors_default sensors_device:chr_file getattr;
+
+# The legacy sensor HAL still talks to the stock sensor daemon.
+unix_socket_connect(hal_sensors_default, sensors, sensors)

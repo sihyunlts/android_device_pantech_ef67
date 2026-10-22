@@ -56,6 +56,15 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := sensors.ef67
+LOCAL_SRC_FILES := sensors/sensors.cpp
+LOCAL_MODULE_RELATIVE_PATH := hw
+LOCAL_SHARED_LIBRARIES := libdl libsensor libutils
+LOCAL_CPPFLAGS := -std=c++11 -Wall -Wextra -Werror
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := power.apq8084
 LOCAL_SRC_FILES := power/power.c
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw

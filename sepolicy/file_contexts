@@ -22,3 +22,7 @@
 /dev/fpc_btp                    u:object_r:ef67_fingerprint_device:s0
 
 /sys/devices/f9963000\.spi/spi_master/spi7/spi7\.0/nav_settings/system_navigation u:object_r:ef67_fingerprint_navigation_sysfs:s0
+
+# Stock sensor and IPC initializer paths.
+/system/bin/sensors\.qcom u:object_r:sensors_exec:s0
+/system/bin/irsc_util u:object_r:irsc_util_exec:s0

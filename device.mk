@@ -6,6 +6,8 @@ DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 
 # Oreo adapters for services reached during initial boot.
 PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-service \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service \
     android.hardware.graphics.allocator@2.0-impl \
@@ -173,3 +175,7 @@ PRODUCT_PACKAGES += fingerprint.apq8084 fingerprintd
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml
+
+# Normalize KitKat sensor metadata using the existing Android legacy conversion.
+PRODUCT_PACKAGES += sensors.ef67
+PRODUCT_PROPERTY_OVERRIDES += ro.hardware.sensors=ef67

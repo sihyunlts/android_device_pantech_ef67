@@ -255,7 +255,8 @@ service time_daemon /system/bin/time_daemon
 service sensors /system/bin/sensors.qcom
     class main
     user root
-    group root
+    # S0226114 IPC rules require supplementary sensor group 3011.
+    group root 3011
 
 service irsc_util /system/bin/irsc_util /system/etc/sec_config
     class main
