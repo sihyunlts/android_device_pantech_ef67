@@ -26,3 +26,11 @@
 # Stock sensor and IPC initializer paths.
 /system/bin/sensors\.qcom u:object_r:sensors_exec:s0
 /system/bin/irsc_util u:object_r:irsc_util_exec:s0
+
+# This is a regular vendor directory, not a context-mounted firmware partition.
+/vendor/firmware u:object_r:vendor_file:s0
+/system/vendor/firmware u:object_r:vendor_file:s0
+
+# These two Bluetooth firmware blobs are regular files shipped in the vendor image.
+/vendor/firmware/(rampatch_tlv_2\.1\.tlv|nvm_tlv_2\.1\.bin) u:object_r:vendor_file:s0
+/system/vendor/firmware/(rampatch_tlv_2\.1\.tlv|nvm_tlv_2\.1\.bin) u:object_r:vendor_file:s0

@@ -35,6 +35,8 @@ Description
  * clients would be synchronized as required.
 **/
 
+#define LOG_TAG "WCNSS_FILTER"
+
 #include <cutils/log.h>
 #include <sys/socket.h>
 #include <cutils/sockets.h>
@@ -54,10 +56,10 @@ Description
 #endif
 #include "private/android_filesystem_config.h"
 
-#define LOG_TAG "WCNSS_FILTER"
-
 #define BT_SOCK "bt_sock"
 #define ANT_SOCK "ant_sock"
+#define CTRL_SOCK "wcnssfilter_ctrl"
+#define STOP_WCNSS_FILTER 0xDD
 #define BT_HS_UART_DEVICE "/dev/ttyHS0"
 
 #define BT_SSR_TRIGGERED 0xee
@@ -104,72 +106,55 @@ static void handle_cleanup();
 extern int bt_ssr_level ();
 
 
-static int establish_remote_socket(char *name)
+static int accept_remote_socket(int listener)
 {
-    int fd = -1;
-    struct sockaddr_un client_address;
-    socklen_t clen;
-    int sock_id, ret;
+    int fd = TEMP_FAILURE_RETRY(accept(listener, NULL, NULL));
+    if (fd < 0)
+        return -1;
+
     struct ucred creds;
-    int c_uid;
-    ALOGV("%s(%s) Entry  ", __func__, name);
-
-    sock_id = socket(AF_LOCAL, SOCK_STREAM, 0);
-    if (sock_id < 0) {
-        ALOGE("%s: server Socket creation failure", __func__);
-        return fd;
+    socklen_t size = sizeof(creds);
+    if (getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &creds, &size) < 0) {
+        close(fd);
+        return -1;
     }
-
-    ALOGV("convert name to android abstract name:%s %d", name, sock_id);
-    if (socket_local_server_bind(sock_id,
-        name, ANDROID_SOCKET_NAMESPACE_ABSTRACT) >= 0) {
-        if (listen(sock_id, 5) == 0) {
-            ALOGV("listen to local socket:%s, fd:%d", name, sock_id);
-        } else {
-            ALOGE("listen to local socket:failed");
-            close(sock_id);
-            return fd;
-        }
-    } else {
-        close(sock_id);
-        ALOGE("%s: server bind failed for socket : %s", __func__, name);
-        return fd;
+    int uid = multiuser_get_app_id(creds.uid);
+    if (uid != AID_BLUETOOTH && uid != AID_SYSTEM && uid != AID_ROOT) {
+        ALOGE("Rejecting HCI socket client uid %d", creds.uid);
+        close(fd);
+        return -1;
     }
-
-    clen = sizeof(client_address);
-    ALOGV("%s: before accept_server_socket", name);
-    fd = accept(sock_id, (struct sockaddr *)&client_address, &clen);
-    if (fd > 0) {
-        ALOGV("%s accepted fd:%d for server fd:%d", name, fd, sock_id);
-        close(sock_id);
-
-        memset(&creds, 0, sizeof(creds));
-        socklen_t szCreds = sizeof(creds);
-        ret = getsockopt(fd, SOL_SOCKET, SO_PEERCRED, &creds, &szCreds);
-        if (ret < 0) {
-            ALOGE("%s: error getting remote socket creds: %d\n", __func__, ret);
-            close(fd);
-            return -1;
-        }
-        c_uid = multiuser_get_app_id(creds.uid);
-        if (c_uid != AID_BLUETOOTH && c_uid != AID_SYSTEM
-                && c_uid != AID_ROOT) {
-            ALOGE("%s: client doesn't have required credentials", __func__);
-            ALOGE("<%s req> client uid: %d", name, creds.uid);
-            close(fd);
-            return -1;
-        }
-
-        ALOGV("%s: Remote socket credentials: %d\n", __func__, creds.uid);
-        return fd;
-    } else {
-        ALOGE("BTC accept failed fd:%d sock d:%d error %s", fd, sock_id, strerror(errno));
-        close(sock_id);
-        return fd;
-    }
-
-    close(sock_id);
     return fd;
+}
+
+static int establish_remote_socket(const char *name)
+{
+    int listener = socket_local_server(name, ANDROID_SOCKET_NAMESPACE_ABSTRACT,
+            SOCK_STREAM);
+    if (listener < 0)
+        return -1;
+    int fd = accept_remote_socket(listener);
+    close(listener);
+    return fd;
+}
+
+static void *control_thread(void *argument)
+{
+    int listener = *(int *)argument;
+    for (;;) {
+        int fd = accept_remote_socket(listener);
+        if (fd < 0)
+            continue;
+        unsigned char command = 0;
+        ssize_t count = TEMP_FAILURE_RETRY(read(fd, &command, 1));
+        close(fd);
+        // Oreo libbt-vendor sends this command before powering the UART off.
+        if (count == 1 && command == STOP_WCNSS_FILTER) {
+            property_set("wc_transport.hci_filter_status", "0");
+            property_set("wc_transport.start_hci", "false");
+            exit(EXIT_SUCCESS);
+        }
+    }
 }
 
 void dump_buf(unsigned char* buf, int len) {
@@ -184,7 +169,6 @@ int handle_command_writes(int fd) {
     ALOGV("%s: ", __func__);
     unsigned char first_byte;
     int retval;
-    int ssrlevel;
 
     retval = read (fd, &first_byte, 1);
     if (retval < 0) {
@@ -861,6 +845,21 @@ int main() {
         pthread_mutex_destroy(&signal_mutex);
         return -1;
     }
+
+    // Bind before publishing hci_filter_status=1, so stop requests cannot race startup.
+    int control_listener = socket_local_server(CTRL_SOCK,
+            ANDROID_SOCKET_NAMESPACE_ABSTRACT, SOCK_STREAM);
+    pthread_t control_monitor;
+    if (control_listener < 0 ||
+            pthread_create(&control_monitor, NULL, control_thread, &control_listener) != 0) {
+        if (control_listener >= 0)
+            close(control_listener);
+        cleanup_thread(ant_mon_thread);
+        cleanup_thread(bt_mon_thread);
+        pthread_mutex_destroy(&signal_mutex);
+        return -1;
+    }
+    pthread_detach(control_monitor);
 
 #ifdef LOG_BT_ENABLE
     diag_init();

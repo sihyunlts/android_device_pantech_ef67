@@ -57,11 +57,11 @@ vendor/lib/libqmiservices.so
 -bin/btnvtool
 etc/firmware/nvm_tlv.bin
 etc/firmware/nvm_tlv_1.3.bin
-etc/firmware/nvm_tlv_2.1.bin
+etc/firmware/nvm_tlv_2.1.bin:vendor/firmware/nvm_tlv_2.1.bin
 etc/firmware/nvm_tlv_3.0.bin
 etc/firmware/rampatch_tlv.img
 etc/firmware/rampatch_tlv_1.3.tlv
-etc/firmware/rampatch_tlv_2.1.tlv
+etc/firmware/rampatch_tlv_2.1.tlv:vendor/firmware/rampatch_tlv_2.1.tlv
 etc/firmware/rampatch_tlv_3.0.tlv
 lib/libsky_rawdata.so
 lib/libskytestclient.so

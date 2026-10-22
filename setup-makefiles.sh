@@ -18,7 +18,9 @@ BEGIN {
 }
 /^(#|$|-)/ { next }
 {
-    printf " \\\n    vendor/pantech/ef67/proprietary/%s:system/%s", $0, $0
+    split($0, paths, ":")
+    destination = paths[2] == "" ? paths[1] : paths[2]
+    printf " \\\n    vendor/pantech/ef67/proprietary/%s:system/%s", paths[1], destination
 }
 END { print "" }
 ' "$DEVICE_PATH/proprietary-files.txt" "$DEVICE_PATH/firmware-files.txt" > "$VENDOR_PATH/ef67-vendor-blobs.mk"

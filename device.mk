@@ -6,6 +6,7 @@ DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 
 # Oreo adapters for services reached during initial boot.
 PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-impl \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
     android.hardware.keymaster@3.0-impl \

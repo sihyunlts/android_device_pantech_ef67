@@ -23,6 +23,7 @@ extern pthread_mutex_t signal_mutex;
 int wcnss_wake_assert(void);
 void wcnss_ibs_cleanup();
 void wcnss_ibs_init(int fd);
+void ibs_recv_ibs_cmd(uint8_t *data);
 void wcnss_tx_done(uint8_t tx_done);
 void wcnss_device_can_sleep(void);
 void report_soc_failure(void);

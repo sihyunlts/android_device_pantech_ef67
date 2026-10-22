@@ -1,0 +1,2 @@
+# The EF67 Bluetooth stack uses the existing UART HCI filter.
+allow bluetooth wcnss_filter:unix_stream_socket connectto;

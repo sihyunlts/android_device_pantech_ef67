@@ -28,6 +28,7 @@ while IFS= read -r file || [[ -n "$file" ]]; do
         ''|\#*) continue ;;
     esac
     file="${file#-}"
+    file="${file%%:*}"
     destination="$VENDOR_PATH/proprietary/$file"
     mkdir -p "$(dirname "$destination")"
     echo "Extracting /system/$file"
