@@ -1,0 +1,2 @@
+# The stock PN547 firmware library contains a text relocation.
+allow hal_nfc_default vendor_file:file execmod;

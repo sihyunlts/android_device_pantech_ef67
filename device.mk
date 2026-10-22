@@ -7,6 +7,8 @@ DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 # Oreo adapters for services reached during initial boot.
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
+    android.hardware.nfc@1.0-impl \
+    android.hardware.nfc@1.0-service \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
     android.hardware.keymaster@3.0-impl \
@@ -152,7 +154,7 @@ PRODUCT_PACKAGES += VegaSettings libvega_settings
 
 PRODUCT_PACKAGES += \
     NfcNci \
-    nfc_nci.pn54x.apq8084 \
+    nfc_nci.apq8084 \
     libpn547_fw_platform \
     libpn547_fw_pku
 

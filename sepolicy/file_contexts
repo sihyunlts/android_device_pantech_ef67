@@ -34,3 +34,7 @@
 # These two Bluetooth firmware blobs are regular files shipped in the vendor image.
 /vendor/firmware/(rampatch_tlv_2\.1\.tlv|nvm_tlv_2\.1\.bin) u:object_r:vendor_file:s0
 /system/vendor/firmware/(rampatch_tlv_2\.1\.tlv|nvm_tlv_2\.1\.bin) u:object_r:vendor_file:s0
+
+# PN547 firmware is loaded with dlopen, including the stock recovery wrappers.
+/vendor/firmware/libpn547_fw(_platform|_pku)?\.so u:object_r:vendor_file:s0
+/system/vendor/firmware/libpn547_fw(_platform|_pku)?\.so u:object_r:vendor_file:s0
