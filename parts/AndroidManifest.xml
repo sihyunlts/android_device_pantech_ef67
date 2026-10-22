@@ -8,14 +8,6 @@
         android:theme="@style/VegaSettingsTheme" android:icon="@mipmap/ic_launcher">
         <activity android:name=".VegaSettings" android:exported="true"
             android:permission="android.permission.WRITE_SECURE_SETTINGS">
-            <meta-data android:name="com.android.settings.category"
-                android:value="com.android.settings.category.device" />
-            <meta-data android:name="com.android.settings.icon"
-                android:resource="@drawable/ic_settings_vega" />
-            <intent-filter>
-                <action android:name="com.android.settings.action.EXTRA_SETTINGS" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
         <service android:name=".FingerprintGestureService" android:exported="false" />
         <service android:name=".ChargeLimitService" android:exported="false" />

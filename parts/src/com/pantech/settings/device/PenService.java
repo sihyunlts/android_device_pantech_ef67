@@ -1,6 +1,7 @@
 package com.pantech.settings.device;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -20,6 +21,7 @@ public final class PenService extends Service
     static final String SHOW_NOTIFICATION = "pen_notification";
     static final String AUTO_MODE = "pen_auto_mode";
     private static final int NOTIFICATION_ID = 1;
+    private static final String NOTIFICATION_CHANNEL_ID = "pen_status";
     private final Handler mHandler = new Handler();
     private Boolean mDetached;
     private SharedPreferences mPreferences;
@@ -62,6 +64,9 @@ public final class PenService extends Service
         super.onCreate();
         mPreferences = TouchMode.preferences(this);
         mNotifications = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotifications.createNotificationChannel(new NotificationChannel(
+                NOTIFICATION_CHANNEL_ID, getString(R.string.v_pen),
+                NotificationManager.IMPORTANCE_LOW));
         mPreferences.registerOnSharedPreferenceChangeListener(this);
         mObserver.startObserving("DEVPATH=/devices/virtual/switch/touch_pen_detection");
         updateState(readDetached(), false);
@@ -101,12 +106,12 @@ public final class PenService extends Service
         }
         PendingIntent settings = PendingIntent.getActivity(this, 0,
                 new Intent(this, VegaSettings.class), PendingIntent.FLAG_UPDATE_CURRENT);
-        Notification notification = new Notification.Builder(this)
+        Notification notification = new Notification.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.stat_sys_accessories_pen)
                 .setContentTitle(getString(R.string.pen_detached))
                 .setContentText(getString(R.string.pen_notification_text))
                 .setContentIntent(settings).setOngoing(true).setOnlyAlertOnce(true)
-                .setPriority(Notification.PRIORITY_LOW).setShowWhen(false).build();
+                .setShowWhen(false).build();
         mNotifications.notify(NOTIFICATION_ID, notification);
     }
 

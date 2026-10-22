@@ -3,7 +3,8 @@
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="312"
-    android:viewportHeight="312">
+    android:viewportHeight="312"
+    android:tint="?android:attr/colorControlNormal">
     <group android:translateY="39">
         <path android:fillColor="#009688"
             android:pathData="M 10 10 L 112 201 C 120.6 217.1 138 224 156 224 C 176 224 192.2 217.4 203 197 L 302 10 C 271 10 253 18.85 245 34 L 166 183.6 C 161.4 192.3 154.5 195 146 195 C 137.5 195 131.6 192.6 127 184 L 42.76 26.73 L 70 26.73 C 81.8 26.73 89 30.8 95 42 L 146 137.5 L 166 100.7 L 137 47.3 C 126.8 28.2 108.5 10 84 10 Z" />

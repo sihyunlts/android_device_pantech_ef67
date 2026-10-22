@@ -1,3 +1,6 @@
+# Actual target of /sys/class/switch/touch_pen_detection/state.
+genfscon sysfs /devices/virtual/switch/touch_pen_detection/state u:object_r:ef67_pen_state_sysfs:s0
+
 # EF67 registers the Qualcomm Bluetooth device with an instance suffix.
 genfscon sysfs /devices/bt_qca6174.0/extldo u:object_r:sysfs_bluetooth_writable:s0
 genfscon sysfs /devices/bt_qca6174.0/rfkill/rfkill0/state u:object_r:sysfs_bluetooth_writable:s0

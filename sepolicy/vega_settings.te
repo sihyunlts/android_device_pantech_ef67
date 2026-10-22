@@ -16,6 +16,10 @@ allow vega_settings ef67_charge_control_sysfs:file { getattr open write };
 # Preserve the thermal service's access when this file gains a specific label.
 allow thermal-engine ef67_charge_control_sysfs:file { getattr open read write };
 
-# Only the navigation switch; sensor captures remain exclusive to fingerprintd.
+# Only the navigation switch; sensor captures remain exclusive to the fingerprint HAL.
 type ef67_fingerprint_navigation_sysfs, fs_type, sysfs_type;
 allow vega_settings ef67_fingerprint_navigation_sysfs:file { getattr open write };
+
+# Read only the physical pen insertion state at service startup.
+type ef67_pen_state_sysfs, fs_type, sysfs_type;
+allow vega_settings ef67_pen_state_sysfs:file { getattr open read };

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="VegaSettingsTheme" parent="@android:style/Theme.Material.Settings">
-        <item name="@*android:preferenceFragmentStyle">@style/VegaPreferenceList</item>
+    <style name="VegaSettingsTheme" parent="@android:style/Theme.DeviceDefault.Settings">
+        <item name="android:actionBarStyle">@style/VegaSettingsActionBar</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.SettingsBase</item>
     </style>
-
-    <style name="VegaPreferenceList" parent="@*android:style/PreferenceFragment.Material">
-        <item name="android:paddingStart">0dp</item>
-        <item name="android:paddingEnd">0dp</item>
+    <style name="VegaSettingsActionBar" parent="@android:style/Widget.Material.ActionBar.Solid">
+        <item name="android:contentInsetStart">@dimen/preference_no_icon_padding_start</item>
     </style>
 </resources>
