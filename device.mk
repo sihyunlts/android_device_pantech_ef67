@@ -7,6 +7,8 @@ DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 # Oreo adapters for services reached during initial boot.
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
+    android.hardware.camera.provider@2.4-impl \
+    camera.device@1.0-impl \
     android.hardware.gnss@1.0-impl \
     android.hardware.wifi@1.0-service \
     android.hardware.nfc@1.0-impl \
@@ -190,3 +192,7 @@ PRODUCT_COPY_FILES += \
 # Normalize KitKat sensor metadata using the existing Android legacy conversion.
 PRODUCT_PACKAGES += sensors.ef67
 PRODUCT_PROPERTY_OVERRIDES += ro.hardware.sensors=ef67
+
+# Preserve the framework memory callback cookie for the KitKat camera HAL.
+PRODUCT_PACKAGES += camera.ef67
+PRODUCT_PROPERTY_OVERRIDES += ro.hardware.camera=ef67

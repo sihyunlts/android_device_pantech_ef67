@@ -42,8 +42,18 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := camera.ef67
+LOCAL_SRC_FILES := camera/camera.cpp
+LOCAL_C_INCLUDES := system/media/camera/include
+LOCAL_MODULE_RELATIVE_PATH := hw
+LOCAL_SHARED_LIBRARIES := libdl liblog
+LOCAL_CPPFLAGS := -std=c++11 -Wall -Wextra -Werror
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := libef67_camera_compat
-LOCAL_SRC_FILES := camera/camera_parameters_compat.c camera/fence_compat.cpp camera/recording_compat.cpp
+LOCAL_SRC_FILES := camera/camera_parameters_compat.c camera/fence_compat.cpp camera/recording_compat.cpp camera/atomic_compat.c
 LOCAL_SHARED_LIBRARIES := libui libcamera_client libcutils
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)

@@ -1,2 +1,5 @@
 # The stock libmmjpeg.so contains text relocations.
 allow mediaserver system_file:file execmod;
+
+# The stock Camera1 HAL subscribes to the thermal-engine camera limits.
+unix_socket_connect(mediaserver, thermal, thermal-engine)
