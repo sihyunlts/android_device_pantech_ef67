@@ -5,6 +5,7 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 
 TARGET_USES_64_BIT_BINDER := true
+TARGET_LD_SHIM_LIBS += /system/bin/mpdecision|libef67_mpdecision_compat.so
 DEVICE_MANIFEST_FILE := device/pantech/ef67/manifest.xml
 
 TARGET_BOARD_PLATFORM := apq8084

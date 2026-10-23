@@ -1,1 +1,4 @@
 allow system_server ef67_touch_wake_sysfs:file rw_file_perms;
+
+# Oreo runs the existing double-tap control from the Power HAL service.
+allow hal_power_default ef67_touch_wake_sysfs:file rw_file_perms;

@@ -1,2 +1,5 @@
 # Stock thermal-engine creates its own client sockets under /dev/socket.
 type_transition thermal-engine socket_device:sock_file thermal_socket;
+
+# Read the PMIC sensor paths used by the stock thermal configuration.
+r_dir_file(thermal-engine, sysfs_spmi_dev)

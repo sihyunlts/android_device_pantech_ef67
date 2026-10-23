@@ -29,6 +29,8 @@ PRODUCT_PACKAGES += \
     android.hardware.memtrack@1.0-service \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service \
+    android.hardware.power@1.0-impl \
+    android.hardware.power@1.0-service \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service
 
@@ -198,3 +200,5 @@ PRODUCT_PROPERTY_OVERRIDES += ro.hardware.sensors=ef67
 # Preserve the framework memory callback cookie for the KitKat camera HAL.
 PRODUCT_PACKAGES += camera.ef67
 PRODUCT_PROPERTY_OVERRIDES += ro.hardware.camera=ef67
+
+PRODUCT_PACKAGES += libef67_mpdecision_compat

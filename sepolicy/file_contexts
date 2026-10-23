@@ -52,3 +52,5 @@
 /system/bin/qmuxd u:object_r:qmuxd_exec:s0
 /system/bin/netmgrd u:object_r:netmgrd_exec:s0
 /system/bin/rmt_storage u:object_r:rmt_storage_exec:s0
+
+/system/bin/mpdecision u:object_r:mpdecision_exec:s0
