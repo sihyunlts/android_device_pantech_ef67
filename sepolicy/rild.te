@@ -1,0 +1,5 @@
+# The stock Qualcomm RIL still queries the framework service manager.
+binder_use(rild)
+
+# The stock RIL queries AudioFlinger while processing voice calls.
+allow rild audioserver_service:service_manager find;

@@ -42,4 +42,8 @@ done < "$DEVICE_PATH/proprietary-files.txt"
 "$VENDOR_PATH/fixup-blobs.sh"
 patchelf --rename-dynamic-symbols "$DEVICE_PATH/camera/symbols.map" \
     "$VENDOR_PATH/proprietary/lib/hw/camera.apq8084.so"
+patchelf --rename-dynamic-symbols "$DEVICE_PATH/audio/symbols.map" \
+    "$VENDOR_PATH/proprietary/lib/hw/audio.primary.apq8084.so"
+patchelf --rename-dynamic-symbols "$DEVICE_PATH/ril/qmi_symbols.map" \
+    "$VENDOR_PATH/proprietary/vendor/lib/libqmi_cci.so"
 "$DEVICE_PATH/setup-makefiles.sh"

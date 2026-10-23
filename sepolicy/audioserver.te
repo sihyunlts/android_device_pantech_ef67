@@ -1,3 +1,0 @@
-# The stock CSD client still uses the pre-Nougat modem voice transports.
-allow audioserver self:socket create_socket_perms_no_ioctl;
-qmux_socket(audioserver)

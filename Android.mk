@@ -24,6 +24,13 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := libef67_qmi_time
+LOCAL_SRC_FILES := ril/qmi_time.c
+LOCAL_CFLAGS := -Wall -Wextra -Werror
+LOCAL_MODULE_TAGS := optional
+include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := libef67_ril
 LOCAL_SRC_FILES := ril/ril.cpp
 LOCAL_C_INCLUDES := hardware/ril/include

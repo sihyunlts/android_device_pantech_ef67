@@ -47,3 +47,43 @@ int set_value(const char *name, const char *value)
     mixer_close(mixer);
     return result ? -1 : 0;
 }
+
+/* S0226114 pcm_config predates tinyalsa's silence_size field. */
+struct stock_pcm_config {
+    unsigned int channels;
+    unsigned int rate;
+    unsigned int period_size;
+    unsigned int period_count;
+    enum pcm_format format;
+    unsigned int start_threshold;
+    unsigned int stop_threshold;
+    unsigned int silence_threshold;
+    int avail_min;
+};
+
+struct pcm *pcm_open_legacy(unsigned int card, unsigned int device,
+                            unsigned int flags, struct stock_pcm_config *stock)
+{
+    struct pcm *pcm;
+    struct pcm_config config;
+
+    if (!stock)
+        return pcm_open(card, device, flags, NULL);
+
+    config = (struct pcm_config) {
+        .channels = stock->channels,
+        .rate = stock->rate,
+        .period_size = stock->period_size,
+        .period_count = stock->period_count,
+        .format = stock->format,
+        .start_threshold = stock->start_threshold,
+        .stop_threshold = stock->stop_threshold,
+        .silence_threshold = stock->silence_threshold,
+        .silence_size = 0,
+        .avail_min = stock->avail_min,
+    };
+    pcm = pcm_open(card, device, flags, &config);
+    stock->period_size = config.period_size;
+    stock->period_count = config.period_count;
+    return pcm;
+}

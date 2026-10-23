@@ -1,0 +1,3 @@
+# The stock CSD client runs in the Oreo audio HAL service.
+allow hal_audio_default self:socket create_socket_perms_no_ioctl;
+qmux_socket(hal_audio_default)

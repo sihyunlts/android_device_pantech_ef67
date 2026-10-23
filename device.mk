@@ -13,6 +13,9 @@ PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0-service \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio@2.0-service \
+    android.hardware.audio.effect@2.0-impl \
     android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service \
     android.hardware.graphics.allocator@2.0-impl \
@@ -100,7 +103,8 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
-    libef67_audio_compat
+    libef67_audio_compat \
+    libef67_qmi_time
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.fluencetype=fluence \

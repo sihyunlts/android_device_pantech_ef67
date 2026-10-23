@@ -1,0 +1,2 @@
+gettimeofday ef67_qmi_get_monotonic_time
+pthread_cond_timedwait pthread_cond_timedwait_monotonic_np
