@@ -337,8 +337,3 @@ on boot
     chown system system /sys/bus/i2c/devices/1-004a/double_tap_to_wake
     chmod 0660 /sys/bus/i2c/devices/1-004a/double_tap_to_wake
     restorecon /sys/devices/f9966000.i2c/i2c-1/1-004a/double_tap_to_wake
-
-service fingerprintd /system/bin/fingerprintd
-    class late_start
-    user system
-    group system input

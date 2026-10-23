@@ -37,9 +37,19 @@ public final class FingerprintGestureService extends Service {
     };
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_USER_SWITCHED.equals(intent.getAction())) {
+                notifyNavigationSettingChanged();
+            }
             mHandler.post(mUpdate);
         }
     };
+
+    private void notifyNavigationSettingChanged() {
+        // Oreo reads Secure but observes Global for this setting. Notify that
+        // observer without creating a duplicate Global setting or syncing data.
+        getContentResolver().notifyChange(Settings.Global.getUriFor(
+                Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED), null, 0);
+    }
 
     private void setNavigation(boolean enabled) {
         try (FileOutputStream output = new FileOutputStream(CONTROL)) {
@@ -57,7 +67,10 @@ public final class FingerprintGestureService extends Service {
         mThread.start();
         mHandler = new Handler(mThread.getLooper());
         mObserver = new ContentObserver(mHandler) {
-            @Override public void onChange(boolean selfChange) { mUpdate.run(); }
+            @Override public void onChange(boolean selfChange) {
+                notifyNavigationSettingChanged();
+                mUpdate.run();
+            }
         };
         getContentResolver().registerContentObserver(Settings.Secure.getUriFor(
                 Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED), false, mObserver,
@@ -67,6 +80,7 @@ public final class FingerprintGestureService extends Service {
         filter.addAction(Intent.ACTION_USER_PRESENT);
         filter.addAction(Intent.ACTION_USER_SWITCHED);
         registerReceiver(mReceiver, filter);
+        notifyNavigationSettingChanged();
         mHandler.post(mUpdate);
     }
 

@@ -1,5 +1,5 @@
-# Legacy matching runs in fingerprintd; access is limited to its sensor node.
+# Legacy matching runs in the standard Oreo fingerprint HAL service.
 type ef67_fingerprint_device, dev_type;
-allow fingerprintd ef67_fingerprint_device:chr_file { getattr open read ioctl };
+allow hal_fingerprint_default ef67_fingerprint_device:chr_file { getattr open read ioctl };
 # Preserve the existing boot-time navigation stop after labeling the sensor.
 allow init ef67_fingerprint_device:chr_file { open write };

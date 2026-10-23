@@ -356,6 +356,7 @@ int remove(fingerprint_device_t* device, uint32_t gid, uint32_t fid) {
     state.stop(); if (gid != state.group || fid > kFingerCount || state.directory.empty()) return -EINVAL;
     std::vector<int> fingers; int status = state.list(fingers); if (status < 0) return status;
     if (fid && std::find(fingers.begin(), fingers.end(), static_cast<int>(fid - 1)) == fingers.end()) return -ENOENT;
+    size_t remaining = fid ? 1 : fingers.size();
     for (int index : fingers) {
         if (fid && index + 1 != static_cast<int>(fid)) continue;
         status = state.engine.remove(state.templates().c_str(), index);
@@ -363,7 +364,9 @@ int remove(fingerprint_device_t* device, uint32_t gid, uint32_t fid) {
         fingerprint_msg_t message;
         memset(&message, 0, sizeof(message));
         message.type = FINGERPRINT_TEMPLATE_REMOVED;
-        message.data.removed.finger = {gid, static_cast<uint32_t>(index + 1)}; state.notify(message);
+        message.data.removed.finger = {gid, static_cast<uint32_t>(index + 1)};
+        message.data.removed.remaining_templates = --remaining;
+        state.notify(message);
     }
     if (!fid || fingers.size() == 1) {
         unlink(state.templates().c_str()); unlink((state.directory + "/user_id").c_str());
