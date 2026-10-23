@@ -148,7 +148,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.data.df.mux_count=8 \
     persist.data.df.iwlan_mux=9
 
-PRODUCT_PACKAGES += libef67_camera_compat libef67_ril
+PRODUCT_PACKAGES += libef67_camera_compat libef67_ril libtime_genoff
 
 PRODUCT_PACKAGES += Snap libboringssl-compat
 

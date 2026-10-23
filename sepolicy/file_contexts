@@ -54,3 +54,5 @@
 /system/bin/rmt_storage u:object_r:rmt_storage_exec:s0
 
 /system/bin/mpdecision u:object_r:mpdecision_exec:s0
+
+/system/bin/time_daemon u:object_r:time_daemon_exec:s0
