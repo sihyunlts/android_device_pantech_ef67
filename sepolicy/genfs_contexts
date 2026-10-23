@@ -8,3 +8,15 @@ genfscon sysfs /devices/bt_qca6174.0/rfkill/rfkill0/state u:object_r:sysfs_bluet
 # Actual paths read by the stock modem detection library.
 genfscon sysfs /devices/qcom,mdm1.69/esoc0 u:object_r:sysfs_esoc:s0
 genfscon sysfs /devices/soc0 u:object_r:sysfs_socinfo:s0
+
+# The class entries are symlinks; label the actual LED controls.
+genfscon sysfs /devices/fd900000.qcom,mdss_mdp/qcom,mdss_fb_primary.154/leds/lcd-backlight/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel0/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel1/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel2/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel3/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel4/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel5/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel6/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel7/brightness u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel8/brightness u:object_r:sysfs_leds:s0
