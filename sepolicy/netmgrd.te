@@ -1,0 +1,2 @@
+# S0226114 netmgrd invokes system() and ifconfig to bring up rmnet_mhi0.
+allow netmgrd { shell_exec toolbox_exec }:file rx_file_perms;

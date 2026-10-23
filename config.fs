@@ -11,3 +11,10 @@ mode: 0755
 user: AID_WIFI
 group: AID_WIFI
 caps: NET_ADMIN NET_RAW SYS_MODULE
+
+# Match rild.rc on the kernel without ambient capabilities.
+[vendor/bin/hw/rild]
+mode: 0755
+user: AID_ROOT
+group: AID_SHELL
+caps: BLOCK_SUSPEND NET_ADMIN NET_RAW

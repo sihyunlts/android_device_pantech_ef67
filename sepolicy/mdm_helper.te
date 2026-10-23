@@ -1,0 +1,2 @@
+# S0226114 invokes the kickstart loader through /system/bin/sh.
+allow mdm_helper shell_exec:file rx_file_perms;

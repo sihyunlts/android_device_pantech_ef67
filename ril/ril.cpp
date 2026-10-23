@@ -6,7 +6,7 @@
 #include <telephony/ril.h>
 
 #include <mutex>
-#include <set>
+#include <map>
 
 // S0226114 app status includes four PIN/PUK retry counters after RIL_AppStatus.
 struct StockAppStatus {
@@ -34,18 +34,32 @@ static const RIL_Env *framework_env;
 static RIL_Env stock_env;
 static const RIL_RadioFunctions *stock_functions;
 static RIL_RadioFunctions radio_functions;
-static std::mutex sim_requests_mutex;
-static std::set<RIL_Token> sim_requests;
+static std::mutex pending_requests_mutex;
+static std::map<RIL_Token, int> pending_requests;
 
 static void on_request_complete(RIL_Token token, RIL_Errno error,
         void *response, size_t length)
 {
-    bool sim_status;
+    int request = 0;
     {
-        std::lock_guard<std::mutex> lock(sim_requests_mutex);
-        sim_status = sim_requests.erase(token) != 0;
+        std::lock_guard<std::mutex> lock(pending_requests_mutex);
+        auto pending = pending_requests.find(token);
+        if (pending != pending_requests.end()) {
+            request = pending->second;
+            pending_requests.erase(pending);
+        }
     }
-    if (!sim_status || error != RIL_E_SUCCESS) {
+    if (error != RIL_E_SUCCESS) {
+        framework_env->OnRequestComplete(token, error, response, length);
+        return;
+    }
+    if (request == RIL_REQUEST_VOICE_REGISTRATION_STATE && response &&
+            length == 16 * sizeof(char *)) {
+        // S0226114 appends a vendor field to the 15 standard registration strings.
+        framework_env->OnRequestComplete(token, error, response, 15 * sizeof(char *));
+        return;
+    }
+    if (request != RIL_REQUEST_GET_SIM_STATUS) {
         framework_env->OnRequestComplete(token, error, response, length);
         return;
     }
@@ -73,14 +87,17 @@ static void on_request_complete(RIL_Token token, RIL_Errno error,
 static void on_request(int request, void *data, size_t length, RIL_Token token)
 {
     // These newer Android requests collide with vendor commands in S0226114.
-    if (request == RIL_REQUEST_GET_RADIO_CAPABILITY || request == RIL_REQUEST_START_LCE ||
+    if (request == RIL_REQUEST_SIM_OPEN_CHANNEL ||
+            request == RIL_REQUEST_SIM_CLOSE_CHANNEL ||
+            request == RIL_REQUEST_GET_RADIO_CAPABILITY || request == RIL_REQUEST_START_LCE ||
             request == RIL_REQUEST_GET_ACTIVITY_INFO) {
         framework_env->OnRequestComplete(token, RIL_E_REQUEST_NOT_SUPPORTED, nullptr, 0);
         return;
     }
-    if (request == RIL_REQUEST_GET_SIM_STATUS) {
-        std::lock_guard<std::mutex> lock(sim_requests_mutex);
-        sim_requests.insert(token);
+    if (request == RIL_REQUEST_GET_SIM_STATUS ||
+            request == RIL_REQUEST_VOICE_REGISTRATION_STATE) {
+        std::lock_guard<std::mutex> lock(pending_requests_mutex);
+        pending_requests.emplace(token, request);
     }
     stock_functions->onRequest(request, data, length, token);
 }

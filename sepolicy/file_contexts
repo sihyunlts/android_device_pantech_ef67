@@ -44,3 +44,11 @@
 
 # Match the existing text relocation exception for the stock JPEG encoder.
 /(vendor|system/vendor)/lib/libmmjpeg\.so u:object_r:system_file:s0
+
+# Stock modem services remain in /system/bin on this non-Treble device.
+/system/bin/mdm_helper u:object_r:mdm_helper_exec:s0
+/system/bin/mdm_helper_proxy u:object_r:mdm_helper_exec:s0
+/system/bin/ks u:object_r:mdm_helper_exec:s0
+/system/bin/qmuxd u:object_r:qmuxd_exec:s0
+/system/bin/netmgrd u:object_r:netmgrd_exec:s0
+/system/bin/rmt_storage u:object_r:rmt_storage_exec:s0
