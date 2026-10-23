@@ -8,6 +8,7 @@ DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.gnss@1.0-impl \
+    android.hardware.wifi@1.0-service \
     android.hardware.nfc@1.0-impl \
     android.hardware.nfc@1.0-service \
     android.hardware.sensors@1.0-impl \

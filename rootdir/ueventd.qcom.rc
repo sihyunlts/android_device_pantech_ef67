@@ -56,3 +56,6 @@
 /dev/touch_fops           0660   system     radio
 
 /dev/fpc_btp 0660 system system
+
+# This control appears when the wlan module is loaded.
+/sys/module/wlan parameters/fwpath 0660 wifi wifi
