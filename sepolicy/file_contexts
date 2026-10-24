@@ -56,3 +56,6 @@
 /system/bin/mpdecision u:object_r:mpdecision_exec:s0
 
 /system/bin/time_daemon u:object_r:time_daemon_exec:s0
+
+# Stock EF67 modem calibration partitions use the legacy MDM names.
+/dev/block/platform/msm_sdcc\.1/by-name/mdm1m9kefs[123c] u:object_r:efs_boot_dev:s0

@@ -1,2 +1,5 @@
 # S0226114 invokes the kickstart loader through /system/bin/sh.
 allow mdm_helper shell_exec:file rx_file_perms;
+
+# Signal completion of the HSIC host setup to the external modem.
+allow mdm_helper sysfs_hsic_host_rdy:file rw_file_perms;
