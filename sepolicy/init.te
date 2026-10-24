@@ -1,2 +1,5 @@
+# Apply only the existing governor and its six tuning controls.
+allow init ef67_cpu_frequency_sysfs:file { open write };
+
 # The common policy grants write, but init must first open the ADSP boot control.
 allow init sysfs_boot_adsp:file open;

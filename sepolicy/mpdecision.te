@@ -1,5 +1,13 @@
+# Legacy Qualcomm service removed from the Pie common policy.
+type mpdecision, domain;
+type mpdecision_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(mpdecision)
+
 allow mpdecision device_latency:chr_file rw_file_perms;
 allow mpdecision self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow mpdecision self:unix_stream_socket { create_socket_perms listen accept };
 allow mpdecision socket_device:dir { search write add_name remove_name };
 type_transition mpdecision socket_device:sock_file mpctl_socket "mpctl";
+
+# The stock hotplug daemon controls the secondary CPU nodes and their polling timers.
+allow mpdecision ef67_cpu_hotplug_sysfs:file rw_file_perms;

@@ -3,5 +3,9 @@ type ef67_rawdata_device, dev_type;
 type ef67_touch_wake_sysfs, fs_type, sysfs_type;
 type ef67_crypto_metadata_file, file_type;
 
+# Stock CPU frequency setup and secondary-core hotplug controls.
+type ef67_cpu_frequency_sysfs, fs_type, sysfs_type;
+type ef67_cpu_hotplug_sysfs, fs_type, sysfs_type;
+
 # The stock GNSS service keeps its data outside /data/vendor.
 typeattribute location_data_file core_data_file_type;
