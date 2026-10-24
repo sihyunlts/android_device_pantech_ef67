@@ -23,4 +23,5 @@ allow vega_settings ef67_fingerprint_navigation_sysfs:file { getattr open write 
 
 # Read only the physical pen insertion state at service startup.
 type ef67_pen_state_sysfs, fs_type, sysfs_type;
+allow vega_settings sysfs_switch:dir search;
 allow vega_settings ef67_pen_state_sysfs:file { getattr open read };
