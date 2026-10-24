@@ -1,7 +1,14 @@
 PRODUCT_CHARACTERISTICS := phone
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxxhdpi
-$(call inherit-product, frameworks/native/build/phone-xxxhdpi-3072-dalvik-heap.mk)
+# Preserve the existing 3GB/QHD heap profile removed from Pie's presets.
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.heapstartsize=8m \
+    dalvik.vm.heapgrowthlimit=288m \
+    dalvik.vm.heapsize=768m \
+    dalvik.vm.heaptargetutilization=0.75 \
+    dalvik.vm.heapminfree=2m \
+    dalvik.vm.heapmaxfree=8m
 DEVICE_PACKAGE_OVERLAYS += device/pantech/ef67/overlay
 
 # Oreo adapters for services reached during initial boot.

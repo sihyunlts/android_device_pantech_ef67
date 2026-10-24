@@ -177,7 +177,6 @@
 
     </PreferenceCategory>
 
-
     <PreferenceCategory
         android:key="app_switch_key"
         android:title="@string/hardware_keys_appswitch_key_title" >
@@ -249,13 +248,6 @@
             android:summary="@string/volbtn_music_controls_summary"
             android:defaultValue="true" />
 
-        <lineageos.preference.LineageSystemSettingSwitchPreference
-            android:key="volume_keys_control_ring_stream"
-            android:title="@string/volume_keys_control_ring_stream_title"
-            android:summaryOn="@string/volume_keys_control_ring_stream_summary_on"
-            android:summaryOff="@string/volume_keys_control_ring_stream_summary_off"
-            android:defaultValue="true" />
-
         <ListPreference
             android:key="volume_key_cursor_control"
             android:dialogTitle="@string/volbtn_cursor_control_title"
@@ -268,6 +260,11 @@
             android:key="swap_volume_buttons"
             android:title="@string/swap_volume_buttons_title"
             android:summary="@string/swap_volume_buttons_summary" />
+
+        <SwitchPreference
+            android:key="volume_panel_on_left"
+            android:title="@string/volume_panel_on_left_title"
+            android:summary="@string/volume_panel_on_left_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory

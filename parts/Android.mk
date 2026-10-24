@@ -13,6 +13,7 @@ ef67_settings_icon_files := $(foreach icon,$(ef67_settings_icon_sources), \
     $(call aapt2-compiled-resource-out-file,$(icon),$(ef67_settings_icon_dir)))
 include $(CLEAR_VARS)
 LOCAL_PACKAGE_NAME := VegaSettings
+LOCAL_PRIVATE_PLATFORM_APIS := true
 LOCAL_STATIC_JAVA_LIBRARIES := org.lineageos.platform.sdk
 LOCAL_USE_AAPT2 := true
 LOCAL_STATIC_ANDROID_LIBRARIES := \

@@ -62,7 +62,6 @@ static void power_hint(struct power_module *module, power_hint_t hint, void *dat
     (void)data;
     switch (hint) {
     case POWER_HINT_INTERACTION:
-    case POWER_HINT_CPU_BOOST:
         /* Keep the governor's existing boost frequency and duration. */
         write_value(INTERACTIVE_BOOSTPULSE, "1");
         break;

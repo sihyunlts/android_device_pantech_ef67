@@ -67,8 +67,6 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 419430400
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 # eMMC erase size; raw images do not contain NAND spare bytes.
 BOARD_FLASH_BLOCK_SIZE := 524288
-BOARD_NAND_PAGE_SIZE := 4096
-BOARD_NAND_SPARE_SIZE := 0
 TARGET_RECOVERY_FSTAB := device/pantech/ef67/rootdir/fstab.qcom
 BOARD_CUSTOM_BOOTIMG_MK := device/pantech/ef67/bootimage.mk
 TARGET_FS_CONFIG_GEN := device/pantech/ef67/config.fs

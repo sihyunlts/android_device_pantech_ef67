@@ -1,0 +1,2 @@
+# The common policy grants write, but init must first open the ADSP boot control.
+allow init sysfs_boot_adsp:file open;

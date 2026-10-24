@@ -1,3 +1,5 @@
+type camera_socket, file_type, data_file_type, core_data_file_type;
+
 # EF67 stock sensors use cam_socket2 and cam_socket3.
 type_transition mm-qcamerad system_data_file:sock_file camera_socket "cam_socket2";
 type_transition mm-qcamerad system_data_file:sock_file camera_socket "cam_socket3";

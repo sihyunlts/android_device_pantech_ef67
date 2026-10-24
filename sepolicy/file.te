@@ -2,3 +2,6 @@ type ef67_rawdata_device, dev_type;
 
 type ef67_touch_wake_sysfs, fs_type, sysfs_type;
 type ef67_crypto_metadata_file, file_type;
+
+# The stock GNSS service keeps its data outside /data/vendor.
+typeattribute location_data_file core_data_file_type;
