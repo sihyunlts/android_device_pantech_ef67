@@ -57,4 +57,7 @@
 # Stock EF67 modem calibration partitions use the legacy MDM names.
 /dev/block/platform/msm_sdcc\.1/by-name/mdm1m9kefs[123c] u:object_r:efs_boot_dev:s0
 
+/system/bin/ef67-bluetooth-init u:object_r:ef67_bluetooth_init_exec:s0
+/persist/\.bt_nv\.bin u:object_r:persist_bluetooth_file:s0
+
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service\.ef67 u:object_r:hal_lineage_livedisplay_sysfs_exec:s0

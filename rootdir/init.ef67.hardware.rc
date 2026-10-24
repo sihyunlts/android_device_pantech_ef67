@@ -97,6 +97,8 @@ on post-fs-data
     mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
     mkdir /data/misc/bluedroid 0770 bluetooth bluetooth
     restorecon_recursive /data/misc/bluetooth
+    restorecon /persist/.bt_nv.bin
+    exec_start config_bluetooth
     restorecon_recursive /data/misc/bluedroid
 
 on boot
@@ -115,21 +117,17 @@ on boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/device/extldo
     chmod 0660 /sys/class/rfkill/rfkill0/device/extldo
 
-service config_bluetooth /system/bin/btnvtool -O
-    class late_start
-    group bluetooth radio
+service config_bluetooth /system/bin/ef67-bluetooth-init
+    class core
+    user bluetooth
+    group bluetooth
+    disabled
     oneshot
 
-on property:wc_transport.start_hci=true
+on property:vendor.wc_transport.start_hci=true
     start start_hci_filter
 
-on property:wc_transport.start_hci=false
-    stop start_hci_filter
-
-on property:wc_transport.start_root=true
-    start start_hci_filter
-
-on property:wc_transport.start_root=false
+on property:vendor.wc_transport.start_hci=false
     stop start_hci_filter
 
 service start_hci_filter /system/bin/ef67-hci-filter

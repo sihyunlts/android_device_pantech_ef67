@@ -54,7 +54,6 @@ vendor/lib/libqmi_encdec.so
 vendor/lib/libqmiservices.so
 
 # Bluetooth Rome transport.
--bin/btnvtool
 etc/firmware/nvm_tlv.bin
 etc/firmware/nvm_tlv_1.3.bin
 etc/firmware/nvm_tlv_2.1.bin:vendor/firmware/nvm_tlv_2.1.bin

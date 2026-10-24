@@ -148,10 +148,10 @@ static void *control_thread(void *argument)
         unsigned char command = 0;
         ssize_t count = TEMP_FAILURE_RETRY(read(fd, &command, 1));
         close(fd);
-        // Oreo libbt-vendor sends this command before powering the UART off.
+        // libbt-vendor sends this command before powering the UART off.
         if (count == 1 && command == STOP_WCNSS_FILTER) {
-            property_set("wc_transport.hci_filter_status", "0");
-            property_set("wc_transport.start_hci", "false");
+            property_set("vendor.wc_transport.hci_filter_status", "0");
+            property_set("vendor.wc_transport.start_hci", "false");
             exit(EXIT_SUCCESS);
         }
     }
@@ -775,7 +775,7 @@ static int start_reader_thread() {
     }
 
     /*Indicate that, server is ready to accept*/
-    property_set("wc_transport.hci_filter_status", "1");
+    property_set("vendor.wc_transport.hci_filter_status", "1");
 
     FD_ZERO(&input);
     FD_SET(fd_transport, &input);
@@ -889,17 +889,17 @@ static void handle_cleanup()
     int ref_val,clean;
 
     ALOGE("wcnss_filter client is terminated");
-    property_get("wc_transport.clean_up", cleanup, "0");
+    property_get("vendor.wc_transport.clean_up", cleanup, "0");
     clean = atoi(cleanup);
     ALOGE("clean Value =  %d",clean);
-    property_get("wc_transport.ref_count", ref_count, "0");
+    property_get("vendor.wc_transport.ref_count", ref_count, "0");
     ref_val = atoi(ref_count);
     if(clean == 0) {
       if(ref_val > 0)
       {
          ref_val--;
          snprintf(ref_count, 3, "%d", ref_val);
-         property_set("wc_transport.ref_count", ref_count);
+         property_set("vendor.wc_transport.ref_count", ref_count);
       }
     }
     else {
@@ -915,9 +915,9 @@ static void handle_cleanup()
 static void cleanup_and_suicide()
 {
     //Set REF count 1, so that next trial to reset the BT succeeds
-    property_set("wc_transport.ref_count", "1");
-    property_set("wc_transport.hci_filter_status", "0");
-    property_set("wc_transport.soc_initialized", "0");
+    property_set("vendor.wc_transport.ref_count", "1");
+    property_set("vendor.wc_transport.hci_filter_status", "0");
+    property_set("vendor.wc_transport.soc_initialized", "0");
     ALOGE("Done with this Life!!!");
     exit(0);
 }

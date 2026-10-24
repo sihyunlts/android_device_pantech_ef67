@@ -1,0 +1,7 @@
+# Export the stock NV address without creating or rewriting an address.
+type ef67_bluetooth_init, domain;
+type ef67_bluetooth_init_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(ef67_bluetooth_init)
+allow ef67_bluetooth_init mnt_vendor_file:dir search;
+allow ef67_bluetooth_init persist_bluetooth_file:file r_file_perms;
+set_prop(ef67_bluetooth_init, bluetooth_prop)

@@ -47,7 +47,7 @@ PRODUCT_PACKAGES += mkfs.f2fs fsck.f2fs
 
 PRODUCT_PACKAGES += vendor.lineage.livedisplay@2.0-service.ef67
 
-PRODUCT_PACKAGES += ef67-hci-filter libbt-vendor vibrator.apq8084
+PRODUCT_PACKAGES += ef67-bluetooth-init ef67-hci-filter libbt-vendor vibrator.apq8084
 
 PRODUCT_COPY_FILES += \
     device/pantech/ef67/keylayout/fpcSystemNavigation.kl:system/usr/keylayout/fpcSystemNavigation.kl \
@@ -133,7 +133,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    qcom.bluetooth.soc=rome \
+    vendor.qcom.bluetooth.soc=rome \
     ro.bluetooth.hfp.ver=1.6
 
 PRODUCT_COPY_FILES += \
