@@ -1,0 +1,2 @@
+# The legacy gralloc HAL reads panel type, split geometry and MDP capabilities.
+allow hal_graphics_allocator_default sysfs_graphics:file r_file_perms;
