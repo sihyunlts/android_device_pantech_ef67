@@ -1,0 +1,11 @@
+#!/sbin/sh
+
+# Cache needs a fresh filesystem, not the eMMC's slow secure discard.
+cache_device=$(readlink -f /dev/block/platform/msm_sdcc.1/by-name/cache)
+for argument in "$@"; do
+    if [ -b "$argument" ] && [ "$(readlink -f "$argument")" = "$cache_device" ]; then
+        exec /sbin/mkfs.f2fs.real -t 0 "$@"
+    fi
+done
+
+exec /sbin/mkfs.f2fs.real "$@"

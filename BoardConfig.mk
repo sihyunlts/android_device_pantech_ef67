@@ -45,3 +45,6 @@ TW_NO_USB_STORAGE := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+
+# Preserve the formatter before the device wrapper is packaged.
+BOARD_RECOVERY_IMAGE_PREPARE = cp -f $(call intermediates-dir-for,EXECUTABLES,mkfs.f2fs)/mkfs.f2fs $(TARGET_RECOVERY_ROOT_OUT)/sbin/mkfs.f2fs.real
