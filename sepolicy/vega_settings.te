@@ -12,6 +12,7 @@ allow vega_settings system_app_data_file:dir create_dir_perms;
 allow vega_settings system_app_data_file:file create_file_perms;
 allow vega_settings self:netlink_kobject_uevent_socket { create bind read getattr setopt };
 allow vega_settings ef67_touch_device:chr_file { open read ioctl getattr };
+allow vega_settings sysfs_battery_supply:dir search;
 allow vega_settings ef67_charge_control_sysfs:file { getattr open write };
 # Preserve the thermal service's access when this file gains a specific label.
 allow thermal-engine ef67_charge_control_sysfs:file { getattr open read write };
