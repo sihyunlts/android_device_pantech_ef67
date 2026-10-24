@@ -3,3 +3,7 @@ type ef67_fingerprint_device, dev_type;
 allow hal_fingerprint_default ef67_fingerprint_device:chr_file { getattr open read ioctl };
 # Preserve the existing boot-time navigation stop after labeling the sensor.
 allow init ef67_fingerprint_device:chr_file { open write };
+
+# Devices launched before Pie retain the framework-owned fingerprint directory.
+allow hal_fingerprint_default fingerprintd_data_file:dir rw_dir_perms;
+allow hal_fingerprint_default fingerprintd_data_file:file create_file_perms;

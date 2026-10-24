@@ -1,4 +1,6 @@
 PRODUCT_CHARACTERISTICS := phone
+# EF67 shipped with Android 4.4; preserve the pre-Pie hardware contracts.
+PRODUCT_SHIPPING_API_LEVEL := 19
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxxhdpi
 # Preserve the existing 3GB/QHD heap profile removed from Pie's presets.
