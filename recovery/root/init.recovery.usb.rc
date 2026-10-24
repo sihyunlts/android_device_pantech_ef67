@@ -1,0 +1,35 @@
+on fs
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 10a9
+    write /sys/class/android_usb/android0/bDeviceClass 0
+    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+    write /sys/class/android_usb/android0/f_ffs/aliases adb
+    setprop sys.usb.config adb
+
+on property:sys.usb.config=none
+    write /sys/class/android_usb/android0/enable 0
+    stop adbd
+    setprop sys.usb.ffs.ready 0
+    setprop sys.usb.state none
+
+on property:sys.usb.config=adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idProduct 1104
+    write /sys/class/android_usb/android0/functions adb
+    start adbd
+
+on property:sys.usb.config=mtp,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idProduct 1105
+    write /sys/class/android_usb/android0/functions mtp,adb
+    start adbd
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state adb
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state mtp,adb

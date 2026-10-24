@@ -1,0 +1,2 @@
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/omni_ef67.mk
+COMMON_LUNCH_CHOICES := omni_ef67-eng
