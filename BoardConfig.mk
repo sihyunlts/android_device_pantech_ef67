@@ -42,9 +42,9 @@ INSTALLED_KERNEL_MODULES: TARGET_KERNEL_BINARIES
 
 .PHONY: WLAN_MODULES
 WLAN_MODULES: INSTALLED_KERNEL_MODULES
-	mkdir -p $(KERNEL_MODULES_OUT)/qca_cld $(TARGET_OUT)/etc/firmware/wlan/qca_cld
-	mv $(KERNEL_MODULES_OUT)/wlan.ko $(KERNEL_MODULES_OUT)/qca_cld/qca_cld_wlan.ko
-	ln -sf /system/lib/modules/qca_cld/qca_cld_wlan.ko $(KERNEL_MODULES_OUT)/wlan.ko
+	mkdir -p $(TARGET_OUT)/lib/modules/qca_cld $(TARGET_OUT)/etc/firmware/wlan/qca_cld
+	mv $(TARGET_OUT)/lib/modules/wlan.ko $(TARGET_OUT)/lib/modules/qca_cld/qca_cld_wlan.ko
+	ln -sf /system/lib/modules/qca_cld/qca_cld_wlan.ko $(TARGET_OUT)/lib/modules/wlan.ko
 	ln -sf /data/misc/wifi/WCNSS_qcom_cfg.ini $(TARGET_OUT)/etc/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
 	ln -sf /data/misc/wifi/wlan_mac.bin $(TARGET_OUT)/etc/firmware/wlan/qca_cld/wlan_mac.bin
 TARGET_KERNEL_MODULES += WLAN_MODULES

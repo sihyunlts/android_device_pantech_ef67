@@ -97,14 +97,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=560 \
     persist.hwc.mdpcomp.enable=true
 
-PRODUCT_PACKAGES += ef67-wifi-init
+PRODUCT_PACKAGES += ef67-wifi-init wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-    device/pantech/ef67/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    device/pantech/ef67/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
-    device/pantech/ef67/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+    device/pantech/ef67/wifi/wpa_supplicant_overlay.conf:system/vendor/etc/wifi/wpa_supplicant_overlay.conf \
+    device/pantech/ef67/wifi/p2p_supplicant_overlay.conf:system/vendor/etc/wifi/p2p_supplicant_overlay.conf
 
 PRODUCT_PROPERTY_OVERRIDES += wifi.interface=wlan0
 
