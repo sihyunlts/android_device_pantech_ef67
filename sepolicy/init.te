@@ -1,6 +1,9 @@
 # Pie ownership changes open the control read-only; common policy covers chmod.
 allow init sysfs_livedisplay_tuneable:file read;
 
+# Apply the existing touch-wake owner and mode at boot.
+allow init ef67_touch_wake_sysfs:file { open read setattr };
+
 # Apply the existing charge and navigation control ownership at boot.
 allow init { ef67_charge_control_sysfs ef67_fingerprint_navigation_sysfs }:file { open read setattr };
 
