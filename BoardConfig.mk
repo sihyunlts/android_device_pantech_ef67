@@ -17,6 +17,8 @@ TARGET_USES_QCOM_BSP := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
+# The CAF video decoder requests GRALLOC_USAGE_PRIVATE_UNCACHED.
+TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS := 0x02000000U
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
 BOARD_USES_ALSA_AUDIO := true
@@ -29,7 +31,7 @@ BOARD_RIL_CLASS := ../../../device/pantech/ef67/ril
 USE_CAMERA_STUB := false
 # The stock KitKat camera uses the legacy Camera1 service and metadata ABI.
 TARGET_HAS_LEGACY_CAMERA_HAL1 := true
-# The stock JPEG library contains text relocations.
+# The stock PN547 firmware libraries contain text relocations.
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 TARGET_INIT_VENDOR_LIB := libinit_ef67
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- The legacy Camera1 service runs inside mediaserver. -->
+    <bool name="config_allowMediaUidForCameraServiceProxy">true</bool>
     <bool name="config_supportDoubleTapWake">true</bool>
     <bool name="config_supportSystemNavigationKeys">true</bool>
     <bool name="config_useDevInputEventForAudioJack">true</bool>

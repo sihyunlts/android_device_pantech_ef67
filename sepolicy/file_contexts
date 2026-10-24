@@ -42,9 +42,6 @@
 # Stock Camera1 daemon remains in /system/bin.
 /system/bin/mm-qcamera-daemon u:object_r:mm-qcamerad_exec:s0
 
-# Match the existing text relocation exception for the stock JPEG encoder.
-/(vendor|system/vendor)/lib/libmmjpeg\.so u:object_r:system_file:s0
-
 # Stock modem services remain in /system/bin on this non-Treble device.
 /system/bin/mdm_helper u:object_r:mdm_helper_exec:s0
 /system/bin/mdm_helper_proxy u:object_r:mdm_helper_exec:s0
