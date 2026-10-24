@@ -1,0 +1,2 @@
+on boot
+    write /dev/fpc_btp stop_navi

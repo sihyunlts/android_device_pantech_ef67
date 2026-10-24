@@ -1,0 +1,4 @@
+# Stop rear navigation before TWRP starts.
+recovery_only(`
+    allow init ef67_fingerprint_device:chr_file { open write };
+')

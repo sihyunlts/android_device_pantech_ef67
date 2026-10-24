@@ -39,6 +39,9 @@ TW_THEME := portrait_hdpi
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_MAX_BRIGHTNESS := 255
 TW_DEFAULT_BRIGHTNESS := 128
-TW_INPUT_BLACKLIST := "fpcTouchpad\x0afpcMouse\x0afpcTrackpad"
+# The sensor exposes mouse capabilities even when navigation is stopped.
+TW_INPUT_BLACKLIST := fpcMouse
 TW_NO_USB_STORAGE := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
+
+BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
