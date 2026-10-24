@@ -252,6 +252,14 @@ service time_daemon /system/bin/time_daemon
     user root
     group root
 
+# The stock daemon changes this directory to nobody before resolving error_log.
+# Preserve path traversal for its initial root stage without granting file reads.
+on post-fs-data
+    mkdir /persist/sensors 0775 root root
+    mkdir /persist/sensors/debug 0711 nobody nobody
+    chmod 0711 /persist/sensors/debug
+    restorecon_recursive /persist/sensors
+
 service sensors /system/bin/sensors.qcom
     class main
     user root
