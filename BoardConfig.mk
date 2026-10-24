@@ -43,6 +43,9 @@ TW_DEFAULT_BRIGHTNESS := 128
 TW_INPUT_BLACKLIST := fpcMouse
 TW_NO_USB_STORAGE := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
+# The FFS server pre-opens an unused fd; MtpDevHandle opens the real driver.
+# Avoid opening the exclusive /dev/mtp_usb twice on this legacy kernel.
+TW_MTP_DEVICE := /dev/null
 
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
