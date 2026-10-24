@@ -20,6 +20,7 @@ PRODUCT_PACKAGES += \
     camera.device@1.0-impl \
     android.hardware.gnss@1.0-impl \
     android.hardware.wifi@1.0-service \
+    android.hardware.usb@1.0-service.basic \
     android.hardware.nfc@1.1-service \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
