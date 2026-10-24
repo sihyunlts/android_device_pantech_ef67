@@ -43,6 +43,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += mkfs.f2fs fsck.f2fs
 
+PRODUCT_PACKAGES += vendor.lineage.livedisplay@2.0-service.ef67
+
 PRODUCT_PACKAGES += ef67-hci-filter libbt-vendor vibrator.apq8084
 
 PRODUCT_COPY_FILES += \

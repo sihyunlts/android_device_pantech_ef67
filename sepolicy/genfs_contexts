@@ -24,6 +24,9 @@ genfscon sysfs /devices/f9967000.i2c/i2c-5/5-0032/leds/lp5523:channel8/brightnes
 # The stock modem loader signals HSIC readiness through this control.
 genfscon sysfs /devices/msm_hsic_host/host_ready u:object_r:sysfs_hsic_host_rdy:s0
 
+# KCAL uses the standard LiveDisplay color-control permissions.
+genfscon sysfs /devices/platform/kcal_ctrl/kcal u:object_r:sysfs_livedisplay_tuneable:s0
+
 # The SMB1357 battery lives outside the common Qualcomm charger paths.
 genfscon sysfs /devices/f9925000.i2c/i2c-3/3-001c/power_supply/battery u:object_r:sysfs_battery_supply:s0
 genfscon sysfs /devices/f9925000.i2c/i2c-3/3-001c/power_supply/battery/charge_enabled u:object_r:ef67_charge_control_sysfs:s0

@@ -125,6 +125,16 @@ EF67_INSTALLED_KERNEL_MODULES := \
 $(EF67_INSTALLED_KERNEL_MODULES): WLAN_MODULES
 ALL_DEFAULT_INSTALLED_MODULES += $(EF67_INSTALLED_KERNEL_MODULES)
 
+include $(CLEAR_VARS)
+LOCAL_MODULE := vendor.lineage.livedisplay@2.0-service.ef67
+LOCAL_SRC_FILES := livedisplay/DisplayColorCalibration.cpp livedisplay/service.cpp
+LOCAL_INIT_RC := livedisplay/service.rc
+LOCAL_MODULE_RELATIVE_PATH := hw
+LOCAL_VENDOR_MODULE := true
+LOCAL_SHARED_LIBRARIES := libbase libhidlbase libhidltransport libutils vendor.lineage.livedisplay@2.0
+LOCAL_CPPFLAGS := -std=c++14 -Wall -Wextra -Werror
+include $(BUILD_EXECUTABLE)
+
 include $(LOCAL_PATH)/fingerprint/Android.mk
 include device/pantech/ef67/parts/Android.mk
 include device/pantech/ef67/bluetooth/Android.mk
