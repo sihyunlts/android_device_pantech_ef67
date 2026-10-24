@@ -20,8 +20,7 @@ PRODUCT_PACKAGES += \
     camera.device@1.0-impl \
     android.hardware.gnss@1.0-impl \
     android.hardware.wifi@1.0-service \
-    android.hardware.nfc@1.0-impl \
-    android.hardware.nfc@1.0-service \
+    android.hardware.nfc@1.1-service \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
     android.hardware.audio@2.0-impl \
@@ -59,7 +58,7 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     device/pantech/ef67/media/media_profiles.xml:system/etc/media_profiles.xml \
-    device/pantech/ef67/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
+    device/pantech/ef67/nfc/libnfc-nci.conf:system/vendor/etc/libnfc-nci.conf \
     device/pantech/ef67/rootdir/fstab.qcom:root/fstab.qcom \
     device/pantech/ef67/rootdir/init.qcom.rc:root/init.qcom.rc \
     device/pantech/ef67/rootdir/init.ef67.hardware.rc:root/init.ef67.hardware.rc \
@@ -176,7 +175,6 @@ PRODUCT_PACKAGES += VegaSettings libvega_settings
 
 PRODUCT_PACKAGES += \
     NfcNci \
-    nfc_nci.apq8084 \
     libpn547_fw_platform \
     libpn547_fw_pku
 
